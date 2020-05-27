@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "OrderPizza"
+    }
+  },
+  "defaultProject": "OrderPizza",
+  "cli": {
+    "analytics": false
+  }
 }
