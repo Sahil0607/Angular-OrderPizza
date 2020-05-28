@@ -1,0 +1,66 @@
+<br><br>
+<form  [formGroup]="form">
+  <div class="container">
+
+    <div class="form-group">
+      <label for="location">Shoap Location: </label>
+      <select class="form-control" name="location" id="location" [(ngModel)]="selectedCity"
+        [ngModelOptions]="{standalone: true}" (change)="selectLocation()">
+        <option *ngFor="let item of shoapLocation" [value]="item.name">
+          {{item.name}}
+        </option>
+      </select>
+    </div>
+
+  <!-- <div class="form-group" *ngIf="selectedCity">
+      <label for="location">Shoap Location: </label>
+      <select class="form-control" name="list" id="list" (click)="listSelected()" [(ngModel)]="selectedList"
+        [ngModelOptions]="{standalone: true}" (change)="selectList()">
+        <option *ngFor="let plist of filteredPizzas" [value]="plist.pizzaType">
+          {{plist.name}}
+        </option>
+      </select>
+    </div>  -->
+
+  <div class="pizzaInfo" *ngIf="selectedCity">
+    <ul>
+      <li *ngFor="let item of filteredPizzas" (click)="listSelected(item)">
+        <img [src]="item.Url" alt="">
+        <p>{{item.name}}</p>
+        <p>Price: <b>{{item.price | currency}}</b></p>
+      </li>
+    </ul>
+  </div> 
+
+    <div class="form-group checkbox-group" *ngIf="selectedList">
+      <div formArrayName="toppings" class="form-check" *ngFor="let topping of filteredItems; let i =index">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" [formControlName]="i" [value]="topping.name"
+          [(ngModel)]="topping.selected" (change)="selectedLists(topping)" name="topping">
+          {{topping.name}} {{topping.price | currency}}
+        </label>
+      </div>
+    </div>
+    <div class="clear"></div> 
+    
+    <br><br>
+    <button (click)="showForm = !showForm" [disabled]="!selectedList" class="btn btn-primary" (click)="printData()">
+      Submit
+    </button>
+    
+  </div>
+</form>
+<br><br>
+
+<div class="container" *ngIf="showForm">
+  <h2>Here is Selected Pizza Detail.</h2>
+    <p>Selected Location is {{selectedCity}}.</p>
+    <p> Selected PizzaType is {{selectedList}}.</p>
+    <p>Selected PizzaOption is {{selectedOption}}.</p>
+    <p>Selected Pizza Toppings are 
+    <span *ngFor="let topping of filteredItems">
+      <span *ngIf="topping.selected">{{topping.name}}, </span>
+    </span>.</p>
+    <p>Selected Topping Price {{TotalPizzaPrice}}.</p>
+  </div><br/>
+
