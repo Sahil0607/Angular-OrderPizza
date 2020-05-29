@@ -10,19 +10,28 @@
     </div>
     <hr>
 
-    <div class="pizzaInfo" *ngIf="form.controls.shopLocation.value">
-      <ul>
-        <li *ngFor="let item of selectLocation()" (click)="listSelected(item)">  
+    <div class="pizzaInfo row" *ngIf="form.controls.shopLocation.value">
+      <div class="col-sm-9">
+      <ul class="row">
+        <li class="col-sm-6" *ngFor="let item of selectLocation()" (click)="listSelected(item)">  
           <h3>{{item.name}}</h3>
           <img [src]="item.Url">
           <p>{{item.city}}</p>
           <p>Price: <b>{{item.price | currency}}</b></p>
+          <hr *ngIf="form.controls.shopLocation.value">
         </li>
       </ul>
-      <div class="clear"></div>
+    </div>
+      <div class="col-sm-3 selectedPizza" *ngIf="form.controls.pizzaTypeId.value">
+        <h3>Pizza Detail</h3>
+        <p>PizzaType:  {{form.value.pizzaType}}</p>
+        <p>PizzaType: {{form.value.pizzaName}}</p>
+        <p>Price: {{form.value.price | currency}}</p>
+      </div> 
+      <hr *ngIf="form.controls.shopLocation.value">
     </div> 
 
-    <div class="row">
+    <div class="row" *ngIf="form.controls.shopLocation.value">
       <div class="col-sm-6">
         <div class="form-group">
           <button type="button" class="btn btn-success" (click)="addVegToppings()">
@@ -68,31 +77,8 @@
         </div>
       </div>
     </div>
-    <!-- <div class="form-group checkbox-group" *ngIf="selectedList">
-      <div formArrayName="toppings" class="form-check" *ngFor="let topping of filteredItems; let i =index">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" [formControlName]="i" [value]="topping.name"
-          [(ngModel)]="topping.selected" (change)="selectedLists(topping)" name="topping">
-          {{topping.name}} {{topping.price | currency}}
-        </label>
-      </div>
-    </div> -->
-     
-    <!-- <button (click)="showForm = !showForm"  (click)="printData()" type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button> -->
     <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
   </div>
 </form>
 <br><br>
-
-<!-- <div class="container" *ngIf="showForm">
-  <h2>Here is Selected Pizza Detail.</h2>
-    <p>Selected Location is {{selectedCity}}.</p>
-    <p> Selected PizzaType is {{selectedList}}.</p>
-    <p>Selected PizzaOption is {{selectedOption}}.</p>
-    <p>Selected Pizza Toppings are 
-    <span *ngFor="let topping of filteredItems">
-      <span *ngIf="topping.selected">{{topping.name}}, </span>
-    </span>.</p>
-    <p>Selected Topping Price {{TotalPizzaPrice}}.</p>
-  </div><br/> -->
 

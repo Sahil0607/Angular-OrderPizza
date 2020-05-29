@@ -1,0 +1,9 @@
+<div *ngIf="messages.length">
+    <ul class="row" *ngFor="let msg of messages">
+        <li class="col-sm-10">
+            <h3>Pizza Order</h3>
+            <p>{{msg.message.pizzaName}}</p>
+        </li>
+    </ul>
+</div>
+

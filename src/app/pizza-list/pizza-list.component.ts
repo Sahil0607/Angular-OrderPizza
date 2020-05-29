@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { PizzaListService } from '../pizza-list.service';
 import { PizzaTopingsService } from '../pizza-topings.service';
+import { Router } from '@angular/router';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-pizza-list',
@@ -18,21 +20,43 @@ export class PizzaListComponent implements OnInit {
     { id: 3, name: 'Chicago' }
   ];
 
+  @Output() formData = new EventEmitter();
+
   constructor(private fb: FormBuilder, private pizzaListService: PizzaListService, 
-    private pizzaTopingsService: PizzaTopingsService) {}
+    private pizzaTopingsService: PizzaTopingsService, private router: Router,
+     private messageService: MessageService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      shopLocation: [''],
-      vegToppings: this.fb.array([]),
-      nonVegToppings: this.fb.array([]),
+      shopLocation: ['', Validators.required],
+      vegToppings: this.fb.array([], Validators.required),
+      nonVegToppings: this.fb.array([], Validators.required),
+      pizzaTypeId: ['', Validators.required],
+      pizzaType: ['', Validators.required],
+      pizzaName: ['', Validators.required],
+      pizzaURL: ['', Validators.required],
+      price: [null, Validators.required],
+      totalPrice: [null],
     });
+
+    this.addVegToppings();
+    this.addNonVegToppings();
      this.pizzaOption = this.pizzaListService.getPizzaOption();
      this.toppings = this.pizzaTopingsService.getPizzaToppings();
   }
 
   selectLocation() {
     return this.pizzaOption.filter(pizza => pizza.city === this.form.controls.shopLocation.value);
+  }
+
+  listSelected(item?) {
+    if (item) {
+      this.form.controls.pizzaTypeId.setValue(item.id);
+      this.form.controls.pizzaType.setValue(item.pizzaType);
+      this.form.controls.pizzaName.setValue(item.name);
+      this.form.controls.pizzaURL.setValue(item.Url);
+      this.form.controls.price.setValue(item.price);
+    }
   }
 
   // newVegToppings(): FormGroup {
@@ -69,57 +93,19 @@ export class PizzaListComponent implements OnInit {
     (<FormArray>this.form.get('nonVegToppings')).removeAt(index);
   }
 
-  listSelected(item?) {
-    console.log(item);
-    // if (item) {
-    //   this.selectedList = item.pizzaType;
-    //   this.selectedOption = item.name;
-    //   this.selectedPizzaPrice = item.price;
-    // }
-    // if (this.selectedList === 'Veg') {
-    //   this.filteredItems = this.toppings.filter((tpng) => {
-    //     if (tpng.pizzaType === this.selectedList) {
-    //       if (tpng.name === 'Mushroom') {
-    //         tpng.selected = true;
-    //         this.selectedTopping.push(tpng);
-    //         this.selectedToppingPrice.push(tpng.price);
-    //         this.selectedTP.push(tpng.selected);
-    //       }
-    //       return tpng;
-    //     }
-    //   });
-    // } else if (this.selectedList === 'Non-Veg') {
-    //   this.filteredItems = this.toppings.filter((tpng) => {
-    //     if (tpng.name === 'Pepperoni') {
-    //       tpng.selected = true;
-    //       this.selectedTopping.push(tpng);
-    //       this.selectedToppingPrice.push(tpng.price);
-    //       this.selectedTP.push(tpng.selected);
-    //     }
-    //     return tpng;
-    //   });
-    // }
-  }
-  // selectedLists(data) {
-  //  this.selectedToppingPrice.push(data.price);
-  //  this.selectedTP.push(data.selected);
-  //  console.log(this.selectedToppingPrice);
-  // }
-  // printData() {
-  //   this.submitedData.city = this.selectedCity;
-  //   this.submitedData.pizzaTypes = this.selectedList;
-  //   this.submitedData.opt = this.selectedOption;
-  //   this.submitedData.toppingType = this.savedTopping;
-  //   this.arr.price = this.selectedToppingPrice;
-  //   this.arr.selected = this.selectedTP;
-  //   let sum = 0;
-  //   for (let i = 0; i < this.arr.price.length; i++) {
-  //     sum += this.arr.price[i];
-  //     this.totalTpPrice = sum;
-  //   }
-  //  this.TotalPizzaPrice = this.selectedPizzaPrice + this.totalTpPrice;
-  // }
   onSubmit() {
-    console.log(this.form);
+    if (this.form.value.price) {
+      const vegTopping = this.toppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(a => a.price);
+      const vegToppingPrice = vegTopping.reduce((a,b) => a + b);
+      const nonVegTopping = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(a => a.price);
+      const nonVegToppingPrice = nonVegTopping.reduce((a,b) => a.price + b.price);
+      const totalPrice = this.form.value.price + vegToppingPrice + nonVegToppingPrice;
+      console.log(totalPrice);
+      this.form.controls.totalPrice.setValue(totalPrice);
+
+      this.messageService.sendMessage(this.form.value)
+      // this.formData.emit(this.form.value);
+      this.router.navigateByUrl('/order');
+    }
   }
 }

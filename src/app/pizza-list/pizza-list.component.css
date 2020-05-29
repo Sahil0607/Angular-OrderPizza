@@ -6,19 +6,28 @@
 }
 .pizzaInfo img{
     width: 100%;
-    height: 250px;
+    height: 225px;
     
 }
 .pizzaInfo ul li{
-    width: 30%;
+    text-align: center;
     display:block; 
     float: left;
     cursor: pointer;
-    margin: 2% 5%;
 }
 hr {
     border: 1px solid silver;
 }
 .removebtn{
     margin-top: 10px;
+}
+.selectedPizza {
+    margin-top: 4%;
+    text-align: center;
+    padding-bottom: 4%;
+}
+
+.selectedPizza h3 {
+    padding-bottom: 5px;
+    border-bottom: 3px solid coral;
 }
