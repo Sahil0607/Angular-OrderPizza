@@ -31,7 +31,7 @@
         <div [formGroupName]="i">
           <div class="form-group">
             <label for="{{i}}">Shoap Location: </label>
-            <select class="form-control" [formControlName]="i" [ngClass]="{'has-error': vegTopping.get('controls').name.invalid}" >
+            <select class="form-control" formControlName="name"  >
               <option value="">Select Location</option>
               <option *ngFor="let item of shoapLocation" [value]="item.name">{{item.name}}</option>
             </select>

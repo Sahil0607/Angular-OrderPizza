@@ -37,10 +37,10 @@ export class PizzaListComponent implements OnInit {
 
   newVegToppings(): FormGroup {
     return this.fb.group({
-      id: ['', Validators.required],
+      // id: ['', Validators.required],
       name: ['', Validators.required],
-      pizzaType: ['', Validators.required],
-      price: ['', Validators.required]
+      // pizzaType: ['', Validators.required],
+      // price: ['', Validators.required]
     });
   }
 
