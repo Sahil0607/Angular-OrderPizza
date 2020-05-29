@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="container">
 
-    <div class="form-group">
+    <div class="form-group location">
       <label for="location">Shoap Location: </label>
       <select class="form-control" formControlName="shopLocation" >
         <option value="">Select Location</option>
@@ -19,23 +19,51 @@
           <p>Price: <b>{{item.price | currency}}</b></p>
         </li>
       </ul>
+      <div class="clear"></div>
     </div> 
-   
-    <div>
-      <div class="form-group">
-        <button type="button" class="btn btn-success" (click)="addVegToppings()">
-          Add Veg Ingredient
-        </button>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <button type="button" class="btn btn-success" (click)="addVegToppings()">
+            Add Veg Ingredient
+          </button>
+        </div>
+        <div formArrayName="vegToppings" *ngFor="let vegTopping of form.get('vegToppings').controls; let i = index;">
+          <hr *ngIf="i>0">
+          <div class="row">
+            <div class="form-group col-sm-8">
+              <label for="{{i}}">Add Ingredient: </label>
+              <select class="form-control" [formControlName]="i">
+                <option value="">Add Veg Topping</option>
+                <option *ngFor="let item of loadVegTopping()" [value]="item.name">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-danger removebtn" (click)="removeVegTopping(i)">Remove</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div formArrayName="vegToppings" *ngFor="let vegTopping of form.get('vegToppings').controls; let i = index;">
-        <div>
-          <div class="form-group">
-            <label for="{{i}}">Shoap Location: </label>
-            <select class="form-control" [formControlName]="i">
-              <option value="">Add Veg Topping</option>
-              <option *ngFor="let item of loadVegTopping()" [value]="item.name">{{item.name}}</option>
-            </select>
-            <button type="button" class="btn btn-danger" (click)="removeVegTopping(i)">Remove</button>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <button type="button" class="btn btn-success" (click)="addNonVegToppings()">
+            Add Non-Veg Ingredient
+          </button>
+        </div>
+        <div formArrayName="nonVegToppings" *ngFor="let nonVegTopping of form.get('nonVegToppings').controls; let i = index;">
+          <hr *ngIf="i>0">
+          <div class="row">
+            <div class="form-group col-sm-8">
+              <label for="{{i}}">Add Ingredient: </label>
+              <select class="form-control" [formControlName]="i">
+                <option value="">Add Non-Veg Topping</option>
+                <option *ngFor="let item of loadNonVegTopping()" [value]="item.name">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-danger removebtn" (click)="removeNonVegTopping(i)">Remove</button>
+            </div>
           </div>
         </div>
       </div>
@@ -49,8 +77,7 @@
         </label>
       </div>
     </div> -->
-    <div class="clear"></div> 
-    <hr>
+     
     <!-- <button (click)="showForm = !showForm"  (click)="printData()" type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button> -->
     <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
   </div>

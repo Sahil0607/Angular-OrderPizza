@@ -1,5 +1,8 @@
-select{
+.location{
     width: 50%;
+}
+.clear{
+    clear: both;
 }
 .pizzaInfo img{
     width: 100%;
@@ -13,6 +16,9 @@ select{
     cursor: pointer;
     margin: 2% 5%;
 }
-.clear{
-    clear: both;
+hr {
+    border: 1px solid silver;
+}
+.removebtn{
+    margin-top: 10px;
 }

@@ -44,20 +44,29 @@ export class PizzaListComponent implements OnInit {
   //   });
   // }
 
+  loadVegTopping() {
+    // this.toppings.filter(topping => topping.pizzaType === 'Veg' && !this.form.controls.vegToppings.value.includes(topping.name));
+    return this.toppings.filter(topping => topping.pizzaType === 'Veg');
+  }
+
   addVegToppings(): void{
     (<FormArray>this.form.get('vegToppings')).push(new FormControl(''))
   } 
 
-  loadVegTopping() {
-    const filteredTopping = this.toppings.filter(topping => topping.pizzaType === 'Veg' && !this.form.controls.vegToppings.value.includes(topping.name));
-    console.log(filteredTopping);
-    
-    // console.log(newArray);
-    return filteredTopping ;
+  removeVegTopping(index) {
+    (<FormArray>this.form.get('vegToppings')).removeAt(index);
   }
 
-  removeVegTopping(index) {
+  loadNonVegTopping() {
+    return this.toppings.filter(topping => topping.pizzaType === 'Non-Veg');
+  }
 
+  addNonVegToppings(): void{
+    (<FormArray>this.form.get('nonVegToppings')).push(new FormControl(''))
+  }
+
+  removeNonVegTopping(index) {
+    (<FormArray>this.form.get('nonVegToppings')).removeAt(index);
   }
 
   listSelected(item?) {
