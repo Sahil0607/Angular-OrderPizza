@@ -48,6 +48,11 @@ export class PizzaListComponent implements OnInit {
     (<FormArray>this.form.get('vegToppings')).push(this.newVegToppings())
   } 
 
+  loadVegTopping() {
+    console.log(this.toppings.filter(topping => topping.pizzaType === 'Veg' && !this.form.value.vegToppings.find(el => el.name === topping) ));
+    return this.toppings.filter(topping => topping.pizzaType === 'Veg' && !this.form.value.vegToppings.includes(topping));
+  }
+
   listSelected(item?) {
     console.log(item);
     // if (item) {
@@ -99,6 +104,6 @@ export class PizzaListComponent implements OnInit {
   //  this.TotalPizzaPrice = this.selectedPizzaPrice + this.totalTpPrice;
   // }
   onSubmit() {
-    console.log(this.form);
+    console.log(this.form.value);
   }
 }
