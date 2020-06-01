@@ -5,7 +5,7 @@ import { Observable,BehaviorSubject} from 'rxjs';
   providedIn: 'root'
 })
 export class MessageService {
-  private subject = new BehaviorSubject<any>('');
+  private subject = new BehaviorSubject<any>({});
 
   sendMessage(message: any) {
       this.subject.next({ message });

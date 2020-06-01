@@ -1,8 +1,34 @@
 <div *ngIf="messages.length">
-    <ul class="row" *ngFor="let msg of messages">
-        <li class="col-sm-10">
-            <h3>Pizza Order</h3>
-            <p>{{msg.message.pizzaName}}</p>
+    <ul class="row pizzaOrder" *ngFor="let msg of messages; let i = index;">
+        <li class="col-sm-11">
+            <h3>Pizza Order: {{i}}</h3>
+            <hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p><b>Location:</b> {{msg.shopLocation}}</p>
+                    <p><b>PizzaName:</b> {{msg.pizzaName}}</p>
+                    <p><b>Total:</b> {{msg.totalPrice | currency}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p><b>PizzaType:</b> {{msg.pizzaType}}</p>
+                    <p><b>PizzaPrice:</b> {{msg.price | currency}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="list-header"><b>Veg Topping: </b></p>
+                    <ul id="horizontal-list" *ngFor="let vegTpng of msg.vegToppings">
+                        <li>
+                            {{vegTpng}}
+                        </li>
+                    </ul>
+                    <p class="list-header"><b>Non-Veg Topping: </b></p>
+                    <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
+                        <li>
+                            {{nonVegTpng}}
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
         </li>
     </ul>
 </div>

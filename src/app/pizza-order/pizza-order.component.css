@@ -1,0 +1,20 @@
+.pizzaOrder li {
+    display: block;
+    background-image: linear-gradient(to bottom right, coral, chocolate);;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    margin-top: 2%;
+}
+
+ul#horizontal-list {
+	/* min-width: 696px; */
+	list-style: none;
+}
+ul#horizontal-list li {
+    display: inline;
+}
+
+hr {
+    border: 1px solid silver;
+}
