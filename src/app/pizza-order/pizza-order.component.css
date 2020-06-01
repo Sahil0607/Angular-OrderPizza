@@ -7,15 +7,15 @@
     margin-top: 2%;
 }
 
-.list-header p{
+/* .list-header p{
     float: left;
+} */
+.horizontal-ul {
+    list-style-type: none;
+    /* float: left; */
 }
-.horizontal-list {
-	/* min-width: 696px; */
-	list-style-type: none;
-}
-.horizontal-list li{
-    display: inline;
+.horizontal-ul > li{
+    display: inline-block;
 }
 
 hr {

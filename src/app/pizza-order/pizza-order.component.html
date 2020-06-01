@@ -16,19 +16,20 @@
                 <div class="col-sm-4">
                     <div class="list-header">
                         <p><b>Veg Topping: </b></p>
-                        <ul class="horizontal-list" *ngFor="let vegTpng of msg.vegToppings">
+                        <ul class="horizontal-ul" *ngFor="let vegTpng of msg.vegToppings">
                             <li>
                                 {{vegTpng}}
                             </li>
                         </ul>
                     </div>
-                    <p class="list-header"><b>Non-Veg Topping: </b></p>
-                    <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
-                        <li>
-                            {{nonVegTpng}}
-                        </li>
-                    </ul>
-                    
+                    <div class="list-header">
+                        <p><b>Non-Veg Topping: </b></p>
+                        <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
+                            <li>
+                                {{nonVegTpng}}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </li>
