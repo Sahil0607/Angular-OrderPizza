@@ -1,9 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { PizzaListService } from '../pizza-list.service';
-import { PizzaTopingsService } from '../pizza-topings.service';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
+import { PizzaListService } from '../service/pizza-list.service';
+import { PizzaTopingsService } from '../service/pizza-topings.service';
 import { Router } from '@angular/router';
-import { MessageService } from '../message.service';
+import { MessageService } from '../service/message.service';
+import { PizzaOrderFirebaseService } from '../service/pizza-order-firebase.service';
+import { PizzaOrder } from '../pizza-order';
 
 @Component({
   selector: 'app-pizza-list',
@@ -20,11 +22,12 @@ export class PizzaListComponent implements OnInit {
     { id: 3, name: 'Chicago' }
   ];
 
-  @Output() formData = new EventEmitter();
+  // @Input() pizzaOrder: PizzaOrder;
+  // @Output() formData = new EventEmitter();
 
   constructor(private fb: FormBuilder, private pizzaListService: PizzaListService, 
     private pizzaTopingsService: PizzaTopingsService, private router: Router,
-     private messageService: MessageService) {}
+     private messageService: MessageService, private pizzaOrderFirebaseService: PizzaOrderFirebaseService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -94,15 +97,15 @@ export class PizzaListComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.value.price) {
+    if (this.form.value) {
       const vegTopping = this.toppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(a => a.price);
       const vegToppingPrice = vegTopping.reduce((a,b) => a + b);
       const nonVegTopping = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(a => a.price);
-      const nonVegToppingPrice = nonVegTopping.reduce((a,b) => a.price + b.price);
+      const nonVegToppingPrice = nonVegTopping.reduce((a,b) => a + b);
       const totalPrice = this.form.value.price + vegToppingPrice + nonVegToppingPrice;
-      console.log(totalPrice);
       this.form.controls.totalPrice.setValue(totalPrice);
 
+      this.pizzaOrderFirebaseService.createPizzaOrder(this.form.value).then(val => console.log(val));
       this.messageService.sendMessage(this.form.value)
       // this.formData.emit(this.form.value);
       this.router.navigateByUrl('/order');

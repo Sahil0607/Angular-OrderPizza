@@ -1,23 +1,50 @@
+.heading {
+    width: 90%;
+    padding-left: 20px;
+    display: block;
+}
+.heading button {
+    position: absolute;
+    top: 8%;
+    right: 10%;
+}
+.manageHeader {
+    margin-top: 10px;
+    clear: both;
+}
+.manageHeader h3{
+    float: left;
+}
+.manageHeader button{
+    float: right;
+    margin-left: 10px;
+}
 .pizzaOrder li {
     display: block;
     background-image: linear-gradient(to bottom right, coral, lightcoral);;
     color: black;
     border: none;
     border-radius: 10px;
-    margin-top: 2%;
+    margin-top: 10px;
 }
 
-/* .list-header p{
-    float: left;
-} */
-.horizontal-ul {
-    list-style-type: none;
-    /* float: left; */
+.list-header {
+    clear: both;
 }
-.horizontal-ul > li{
-    display: inline-block;
+.list-header p{
+    float: left;
+}
+.list-header ul {
+    list-style-type: none;
+    
+}
+.list-header ul li {
+    float: left;
+    margin-top: 1px;
+    margin-left: 10px;
 }
 
 hr {
     border: 1px solid silver;
+    clear: both;
 }

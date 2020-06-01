@@ -3,14 +3,33 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  firebase: {
+    apiKey: "AIzaSyCoYZIaRV-0fDR3L8E74Ahpj_ziRkhs-Bs",
+    authDomain: "order-pizza-b438c.firebaseapp.com",
+    databaseURL: "https://order-pizza-b438c.firebaseio.com",
+    projectId: "order-pizza-b438c",
+    storageBucket: "order-pizza-b438c.appspot.com",
+    messagingSenderId: "589503178973",
+    appId: "1:589503178973:web:591b53ffd046d6a7a95334",
+    measurementId: "G-EYPQN7MYQT"
+  }
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// <script>
+//   // Your web app's Firebase configuration
+//   var firebaseConfig = {
+//     apiKey: "AIzaSyCoYZIaRV-0fDR3L8E74Ahpj_ziRkhs-Bs",
+//     authDomain: "order-pizza-b438c.firebaseapp.com",
+//     databaseURL: "https://order-pizza-b438c.firebaseio.com",
+//     projectId: "order-pizza-b438c",
+//     storageBucket: "order-pizza-b438c.appspot.com",
+//     messagingSenderId: "589503178973",
+//     appId: "1:589503178973:web:591b53ffd046d6a7a95334",
+//     measurementId: "G-EYPQN7MYQT"
+//   };
+//   // Initialize Firebase
+//   firebase.initializeApp(firebaseConfig);
+//   firebase.analytics();
+// </script>

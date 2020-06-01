@@ -1,35 +1,41 @@
+<div class="heading">
+    <h3>Pizza Order List</h3>
+    <button *ngIf="messages.length" type="button" class="btn btn-danger" (click)="removeAllOrders()">Remove All Orders</button>
+</div>
 <div *ngIf="messages.length">
     <ul class="row pizzaOrder" *ngFor="let msg of messages; let i = index;">
         <li class="col-sm-11">
-            <h3>Pizza Order: {{i}}</h3>
+            <div class="manageHeader">
+                <h3>Order: {{i}}</h3>
+                <button type="button" class="btn btn-warning btn-sm" (click)="removeOrder(msg.key)">Remove</button>
+                <button type="button" class="btn btn-dark btn-sm" (click)="updateOrder()">Update</button>
+            </div>
             <hr>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <p><b>Location:</b> {{msg.shopLocation}}</p>
                     <p><b>PizzaName:</b> {{msg.pizzaName}}</p>
-                    <p><b>Total:</b> {{msg.totalPrice | currency}}</p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <p><b>PizzaType:</b> {{msg.pizzaType}}</p>
                     <p><b>PizzaPrice:</b> {{msg.price | currency}}</p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="list-header">
                         <p><b>Veg Topping: </b></p>
-                        <ul class="horizontal-ul" *ngFor="let vegTpng of msg.vegToppings">
-                            <li>
-                                {{vegTpng}}
-                            </li>
+                        <ul *ngFor="let vegTpng of msg.vegToppings">
+                            <li>{{vegTpng}}</li>
                         </ul>
                     </div>
                     <div class="list-header">
                         <p><b>Non-Veg Topping: </b></p>
                         <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
-                            <li>
-                                {{nonVegTpng}}
-                            </li>
+                            <li>{{nonVegTpng}}</li>
                         </ul>
                     </div>
+                </div>
+                <div class="col-sm-3">
+                    <p><b>Total:</b> {{msg.totalPrice | currency}}</p>
                 </div>
             </div>
         </li>
