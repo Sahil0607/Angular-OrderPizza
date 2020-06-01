@@ -6,7 +6,7 @@ import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
 const appRoute : Routes = [
   {path: 'create', component: PizzaListComponent},
   {path: 'order', component: PizzaOrderComponent},
-  {path: '*', redirectTo: '/create', pathMatch: 'full'},
+  {path: '**', redirectTo: '/create', pathMatch: 'full'},
 ];
 
 @NgModule({

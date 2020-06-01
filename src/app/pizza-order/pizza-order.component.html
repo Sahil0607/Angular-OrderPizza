@@ -14,12 +14,14 @@
                     <p><b>PizzaPrice:</b> {{msg.price | currency}}</p>
                 </div>
                 <div class="col-sm-4">
-                    <p class="list-header"><b>Veg Topping: </b></p>
-                    <ul id="horizontal-list" *ngFor="let vegTpng of msg.vegToppings">
-                        <li>
-                            {{vegTpng}}
-                        </li>
-                    </ul>
+                    <div class="list-header">
+                        <p><b>Veg Topping: </b></p>
+                        <ul class="horizontal-list" *ngFor="let vegTpng of msg.vegToppings">
+                            <li>
+                                {{vegTpng}}
+                            </li>
+                        </ul>
+                    </div>
                     <p class="list-header"><b>Non-Veg Topping: </b></p>
                     <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
                         <li>

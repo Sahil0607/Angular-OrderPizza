@@ -1,17 +1,20 @@
 .pizzaOrder li {
     display: block;
-    background-image: linear-gradient(to bottom right, coral, chocolate);;
+    background-image: linear-gradient(to bottom right, coral, lightcoral);;
     color: black;
     border: none;
     border-radius: 10px;
     margin-top: 2%;
 }
 
-ul#horizontal-list {
-	/* min-width: 696px; */
-	list-style: none;
+.list-header p{
+    float: left;
 }
-ul#horizontal-list li {
+.horizontal-list {
+	/* min-width: 696px; */
+	list-style-type: none;
+}
+.horizontal-list li{
     display: inline;
 }
 
