@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
 import { PizzaListService } from '../service/pizza-list.service';
 import { PizzaTopingsService } from '../service/pizza-topings.service';
@@ -21,9 +21,6 @@ export class PizzaListComponent implements OnInit {
     { id: 2, name: 'New York' },
     { id: 3, name: 'Chicago' }
   ];
-
-  // @Input() pizzaOrder: PizzaOrder;
-  // @Output() formData = new EventEmitter();
 
   constructor(private fb: FormBuilder, private pizzaListService: PizzaListService, 
     private pizzaTopingsService: PizzaTopingsService, private router: Router,
@@ -106,8 +103,7 @@ export class PizzaListComponent implements OnInit {
       this.form.controls.totalPrice.setValue(totalPrice);
 
       this.pizzaOrderFirebaseService.createPizzaOrder(this.form.value).then(val => console.log(val));
-      this.messageService.sendMessage(this.form.value)
-      // this.formData.emit(this.form.value);
+      // this.messageService.sendMessage(this.form.value)
       this.router.navigateByUrl('/order');
     }
   }
