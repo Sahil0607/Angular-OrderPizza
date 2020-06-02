@@ -3,6 +3,7 @@ import { MessageService } from '../service/message.service';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PizzaOrderFirebaseService } from '../service/pizza-order-firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pizza-order',
@@ -13,9 +14,8 @@ export class PizzaOrderComponent implements OnInit {
   subscription: Subscription;
   messages = [];
 
-  constructor(private messageService: MessageService, private pizzaOrderFirebaseService: PizzaOrderFirebaseService) {
-    
-   }
+  constructor(private messageService: MessageService, private pizzaOrderFirebaseService: PizzaOrderFirebaseService,
+    private router: Router,) {}
 
   ngOnInit(): void {
     // Observable Used
@@ -43,8 +43,8 @@ export class PizzaOrderComponent implements OnInit {
     this.pizzaOrderFirebaseService.deletePizzaOrder(key);
   }
 
-  updateOrder() {
-
+  updateOrder(id: string) {
+    this.router.navigate(['/create', id]);
   }
 
 }

@@ -21,6 +21,11 @@ export class PizzaOrderFirebaseService {
     return this.pizzaOrderRef.update(key, value);
   }
 
+  getPizzaOrder(key){
+    
+    // return this.pizzaOrderRef = this.db.list(this.dbPath, ref => ref.orderByChild('key').equalTo(key));
+  }
+
   getPizzaOrderList(): AngularFireList<PizzaOrder>{
     return this.pizzaOrderRef;
   }

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
 import { PizzaListService } from '../service/pizza-list.service';
 import { PizzaTopingsService } from '../service/pizza-topings.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from '../service/message.service';
 import { PizzaOrderFirebaseService } from '../service/pizza-order-firebase.service';
 import { PizzaOrder } from '../pizza-order';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pizza-list',
@@ -14,6 +15,7 @@ import { PizzaOrder } from '../pizza-order';
 })
 export class PizzaListComponent implements OnInit {
   form;
+  id: string;
   pizzaOption = [];
   toppings = [];
   shoapLocation = [
@@ -24,9 +26,11 @@ export class PizzaListComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private pizzaListService: PizzaListService, 
     private pizzaTopingsService: PizzaTopingsService, private router: Router,
-     private messageService: MessageService, private pizzaOrderFirebaseService: PizzaOrderFirebaseService) {}
+     private messageService: MessageService, private pizzaOrderFirebaseService: PizzaOrderFirebaseService,
+     private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.route.params.subscribe( params => this.id = params.id );
     this.form = this.fb.group({
       shopLocation: ['', Validators.required],
       vegToppings: this.fb.array([], Validators.required),
@@ -43,6 +47,16 @@ export class PizzaListComponent implements OnInit {
     this.addNonVegToppings();
      this.pizzaOption = this.pizzaListService.getPizzaOption();
      this.toppings = this.pizzaTopingsService.getPizzaToppings();
+
+     if (this.id) {
+      this.pizzaOrderFirebaseService.getPizzaOrder(this.id).snapshotChanges().pipe(
+        map(changes => 
+          changes.map(c => 
+            ({key: c.payload.key, ...c.payload.val()})
+            )
+          )
+      ).subscribe(order => console.log(order));
+     }
   }
 
   selectLocation() {
@@ -102,7 +116,7 @@ export class PizzaListComponent implements OnInit {
       const totalPrice = this.form.value.price + vegToppingPrice + nonVegToppingPrice;
       this.form.controls.totalPrice.setValue(totalPrice);
 
-      this.pizzaOrderFirebaseService.createPizzaOrder(this.form.value).then(val => console.log(val));
+      this.pizzaOrderFirebaseService.createPizzaOrder(this.form.value);
       // this.messageService.sendMessage(this.form.value)
       this.router.navigateByUrl('/order');
     }
