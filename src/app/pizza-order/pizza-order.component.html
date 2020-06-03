@@ -6,7 +6,7 @@
     <ul class="row pizzaOrder" *ngFor="let msg of messages; let i = index;">
         <li class="col-sm-11">
             <div class="manageHeader">
-                <h3>Order: {{i}}</h3>
+                <h3>Order: {{i + 1}}</h3>
                 <button type="button" class="btn btn-warning btn-sm" (click)="removeOrder(msg.id)">Remove</button>
                 <button type="button" class="btn btn-dark btn-sm" (click)="editOrder(msg.id)">Edit</button>
             </div>
