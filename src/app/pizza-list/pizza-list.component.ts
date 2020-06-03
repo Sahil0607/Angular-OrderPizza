@@ -34,8 +34,8 @@ export class PizzaListComponent implements OnInit {
     this.route.params.subscribe( params => this.id = params.id );
     this.form = this.fb.group({
       shopLocation: ['', Validators.required],
-      vegToppings: this.fb.array([], Validators.required),
-      nonVegToppings: this.fb.array([], Validators.required),
+      vegToppings: this.fb.array([]),
+      nonVegToppings: this.fb.array([]),
       pizzaTypeId: ['', Validators.required],
       pizzaType: ['', Validators.required],
       pizzaName: ['', Validators.required],
@@ -44,17 +44,21 @@ export class PizzaListComponent implements OnInit {
       totalPrice: [null],
     });
 
-    this.addVegToppings();
-    this.addNonVegToppings();
      this.pizzaOption = this.pizzaListService.getPizzaOption();
      this.toppings = this.pizzaTopingsService.getPizzaToppings();
 
      if (this.id) {
       this.pizzaOrderFirebaseService.getPizzaOrder(this.id).then(val => {
-        this.editForm = {...val}
-        console.log(this.editForm);
+        this.editForm = {...val};
+        this.form.patchValue(val);
+
+        if (val['vegToppings'].length) {
+          val['vegToppings'].forEach(vegTopping => this.addVegToppings(vegTopping));
+        }
+        if (val['nonVegToppings'].length) {
+          val['nonVegToppings'].forEach(nonVegTopping => this.addNonVegToppings(nonVegTopping));
+        }
       });
-      this.form.patchValue(this.editForm);
      }
      
   }
@@ -87,8 +91,8 @@ export class PizzaListComponent implements OnInit {
     return this.toppings.filter(topping => topping.pizzaType === 'Veg');
   }
 
-  addVegToppings(): void{
-    (<FormArray>this.form.get('vegToppings')).push(new FormControl(''))
+  addVegToppings(vegTopping?): void {
+    (<FormArray>this.form.get('vegToppings')).push(new FormControl(vegTopping ? vegTopping : ''))
   } 
 
   removeVegTopping(index) {
@@ -99,8 +103,8 @@ export class PizzaListComponent implements OnInit {
     return this.toppings.filter(topping => topping.pizzaType === 'Non-Veg');
   }
 
-  addNonVegToppings(): void{
-    (<FormArray>this.form.get('nonVegToppings')).push(new FormControl(''))
+  addNonVegToppings(nonVegTopping?): void{
+    (<FormArray>this.form.get('nonVegToppings')).push(new FormControl(nonVegTopping ? nonVegTopping : ''))
   }
 
   removeNonVegTopping(index) {
@@ -111,15 +115,18 @@ export class PizzaListComponent implements OnInit {
     this.toastr.success('Submitted Succesfully', 'Pizza Register');
   }
 
+  calculateToppingPrice() {
+    const vegTopping = this.toppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(a => a.price);
+    const vegToppingPrice = vegTopping.length ? vegTopping.reduce((a,b) => a + b) : 0;
+    const nonVegTopping = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(a => a.price);
+    const nonVegToppingPrice = nonVegTopping.length ? nonVegTopping.reduce((a,b) => a + b) : 0;
+    const totalPrice = this.form.value.price + vegToppingPrice + nonVegToppingPrice;
+    this.form.controls.totalPrice.setValue(totalPrice);
+  }
+
   onSubmit() {
     if (this.form.value) {
-      const vegTopping = this.toppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(a => a.price);
-      const vegToppingPrice = vegTopping.reduce((a,b) => a + b);
-      const nonVegTopping = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(a => a.price);
-      const nonVegToppingPrice = nonVegTopping.reduce((a,b) => a + b);
-      const totalPrice = this.form.value.price + vegToppingPrice + nonVegToppingPrice;
-      this.form.controls.totalPrice.setValue(totalPrice);
-
+      this.calculateToppingPrice();
       this.pizzaOrderFirebaseService.createPizzaOrder(this.form.value);
       this.showSuccess();
       this.router.navigateByUrl('/order');
