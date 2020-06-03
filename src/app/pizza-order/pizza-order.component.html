@@ -1,14 +1,14 @@
 <div class="heading">
     <h3>Pizza Order List</h3>
-    <button *ngIf="messages.length" type="button" class="btn btn-danger" (click)="removeAllOrders()">Remove All Orders</button>
+    <!-- <button *ngIf="messages.length" type="button" class="btn btn-danger" (click)="removeAllOrders()">Remove All Orders</button> -->
 </div>
 <div *ngIf="messages.length">
     <ul class="row pizzaOrder" *ngFor="let msg of messages; let i = index;">
         <li class="col-sm-11">
             <div class="manageHeader">
                 <h3>Order: {{i}}</h3>
-                <button type="button" class="btn btn-warning btn-sm" (click)="removeOrder(msg.key)">Remove</button>
-                <button type="button" class="btn btn-dark btn-sm" (click)="updateOrder(msg.key)">Update</button>
+                <button type="button" class="btn btn-warning btn-sm" (click)="removeOrder(msg.id)">Remove</button>
+                <button type="button" class="btn btn-dark btn-sm" (click)="editOrder(msg.id)">Edit</button>
             </div>
             <hr>
             <div class="row">

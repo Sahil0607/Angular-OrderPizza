@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,7 +18,7 @@ import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
     AppComponent,
     HeaderComponent,
     PizzaListComponent,
-    PizzaOrderComponent
+    PizzaOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,9 @@ import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
     ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
- 	  AngularFirestoreModule,
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
