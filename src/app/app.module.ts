@@ -12,6 +12,9 @@ import { HeaderComponent } from './header/header.component';
 import { PizzaListComponent } from './pizza-list/pizza-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
+import { AuthComponent } from './auth/auth.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,8 @@ import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
     HeaderComponent,
     PizzaListComponent,
     PizzaOrderComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,7 @@ import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
     AngularFirestoreModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
