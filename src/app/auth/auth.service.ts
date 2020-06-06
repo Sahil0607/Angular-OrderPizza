@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
 import { AuthResponseData } from './auth.model';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user = new Subject<User>();
+  // Subject Dont send initial value, dont expects initial value 
+  // BehaviorSub send initial value, always expected initial argument 
+  user = new BehaviorSubject<User>(null);   // First user is null. After login user has value
 
   constructor(private http: HttpClient) { }
 

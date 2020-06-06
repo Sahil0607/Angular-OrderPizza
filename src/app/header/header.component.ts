@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   header = 'PizzaShop';
   isAuthenticated = false;
-  private userSub: Subscription;
+  private userSub: Subscription;   // If user then logind, Not then logout
 
   constructor(private authService: AuthService) { }
 

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import { PizzaOrder } from '../pizza-order';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from '../auth/auth.service';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ export class PizzaOrderFirebaseService {
   pizzaOrderRef: AngularFireList<PizzaOrder> = null;
   private dbPath = '/PizzaOrder';
 
-  constructor(private db: AngularFireDatabase, private firestore: AngularFirestore) {
+  constructor(private db: AngularFireDatabase, private firestore: AngularFirestore, 
+    private authService: AuthService) {
     this.pizzaOrderRef = db.list(this.dbPath);
    }
 
@@ -27,6 +30,9 @@ export class PizzaOrderFirebaseService {
   }
 
   getPizzaOrder(id){
+    this.authService.user.pipe(take(1)).subscribe(user => {      // Take will give us one value or one user
+      
+    });  
     // return this.pizzaOrderRef = this.db.list(this.dbPath, ref => ref.orderByChild('key').equalTo(key));
   
     // console.log(this.firestore.collection('PizzaOrders/'+ id).snapshotChanges());

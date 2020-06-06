@@ -9,7 +9,7 @@ const appRoute : Routes = [
   {path: 'order', component: PizzaOrderComponent},
   {path: 'create/:id', component: PizzaListComponent }, 
   {path: 'auth', component: AuthComponent },
-  {path: '**', redirectTo: '/create', pathMatch: 'full'},
+  {path: '**', redirectTo: '/auth', pathMatch: 'full'},
 ];
 
 @NgModule({
