@@ -1,44 +1,133 @@
-<div class="heading">
-    <h3>Pizza Order List</h3>
-    <!-- <button *ngIf="messages.length" type="button" class="btn btn-danger" (click)="removeAllOrders()">Remove All Orders</button> -->
-</div>
-<div *ngIf="messages.length">
-    <ul class="row pizzaOrder" *ngFor="let msg of messages; let i = index;">
-        <li class="col-sm-11">
-            <div class="manageHeader">
-                <h3>Order: {{i + 1}}</h3>
-                <button type="button" class="btn btn-warning btn-sm" (click)="removeOrder(msg.id)">Remove</button>
-                <button type="button" class="btn btn-dark btn-sm" (click)="editOrder(msg.id)">Edit</button>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3">
-                    <p><b>Location:</b> {{msg.shopLocation}}</p>
-                    <p><b>PizzaName:</b> {{msg.pizzaName}}</p>
+<div>
+    <div *ngIf="isLoading" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div class="row justify-content-md-center" *ngIf="messages.length">
+        <div class="col col-sm-9">
+            <div class= "row justify-content-between">
+                <div class="col-sm-4">
+                    <h3>Pizza Order List</h3>
                 </div>
-                <div class="col-sm-3">
-                    <p><b>PizzaType:</b> {{msg.pizzaType}}</p>
-                    <p><b>PizzaPrice:</b> {{msg.price | currency}}</p>
-                </div>
-                <div class="col-sm-3">
-                    <div class="list-header">
-                        <p><b>Veg Topping: </b></p>
-                        <ul *ngFor="let vegTpng of msg.vegToppings">
-                            <li>{{vegTpng}}</li>
-                        </ul>
-                    </div>
-                    <div class="list-header">
-                        <p><b>Non-Veg Topping: </b></p>
-                        <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
-                            <li>{{nonVegTpng}}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <p><b>Total:</b> {{msg.totalPrice | currency}}</p>
+                <div class="col-sm-2 mt-2">
+                    <button *ngIf="messages.length" class="btn btn-danger" data-toggle="modal" data-target="#removeAllModal">
+                        Remove All Orders
+                    </button>
                 </div>
             </div>
-        </li>
-    </ul>
+            <div>
+                <ul class="pizzaOrder" *ngFor="let msg of messages; let i = index;">
+                    <li>
+                        <div class="row justify-content-between">
+                            <div class="col-sm-2 pt-2 ml-3">
+                                <h3>Order: #{{i + 1}}</h3>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-warning mr-2 mt-2" data-toggle="modal" data-target="#removeModal">
+                                    Remove
+                                </button>
+                                <button type="button" class="btn btn-dark mt-2" data-toggle="modal" data-target="#editModal">
+                                    Edit
+                                </button>
+                            </div>
+                            <!-- Remove Record Modal -->
+                            <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="removeModalLabel">Remove Order</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to delete this record?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" (click)="removeOrder(msg.id)" class="btn btn-danger" data-dismiss="modal">
+                                            Remove Order
+                                        </button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <!-- Edit Record Modal -->
+                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Order</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to edit this record?
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button (click)="editOrder(msg.id)" type="button" class="btn btn-warning" data-dismiss="modal">
+                                        Edit Order
+                                    </button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="ml-3"><b>Location:</b> {{msg.shopLocation}}</p>
+                                <p class="ml-3"><b>PizzaName:</b> {{msg.pizzaName}}</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="list-header">
+                                    <p><b>Veg Topping: </b></p>
+                                    <ul *ngFor="let vegTpng of msg.vegToppings">
+                                        <li>{{vegTpng}}</li>
+                                    </ul>
+                                </div>
+                                <div class="list-header">
+                                    <p><b>Non-Veg Topping: </b></p>
+                                    <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
+                                        <li>{{nonVegTpng}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <p><b>PizzaType:</b> {{msg.pizzaType}}</p>
+                                <p><b>PizzaPrice:</b> {{msg.price | currency}}</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p><b>Total:</b> {{msg.totalPrice | currency}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
+
+
+<!-- Remove All Record Modal -->
+<div class="modal fade" id="removeAllModal" tabindex="-1" role="dialog" aria-labelledby="removeAllModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="removeAllModalLabel">Remove Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Are you sure to delete All the record?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="removeAllOrders()" data-dismiss="modal" class="btn btn-danger">Remove All Order</button>
+        </div>
+      </div>
+    </div>
+</div>

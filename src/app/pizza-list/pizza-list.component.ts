@@ -4,7 +4,7 @@ import { PizzaListService } from '../service/pizza-list.service';
 import { PizzaTopingsService } from '../service/pizza-topings.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from '../service/message.service';
-import { PizzaOrderFirebaseService } from '../service/pizza-order-firebase.service';
+import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-firebase.service';
 import { ToastrService } from 'ngx-toastr';
 import { PizzaOrder } from '../pizza-order';
 
@@ -27,7 +27,7 @@ export class PizzaListComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private pizzaListService: PizzaListService, 
     private pizzaTopingsService: PizzaTopingsService, private router: Router,
-     private messageService: MessageService, private pizzaOrderFirebaseService: PizzaOrderFirebaseService,
+     private messageService: MessageService, private pizzaOrderRealDBFirebaseService: PizzaOrderRealDBFirebaseService,
      private route: ActivatedRoute, private toastr: ToastrService) {}
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class PizzaListComponent implements OnInit {
      this.toppings = this.pizzaTopingsService.getPizzaToppings();
 
      if (this.id) {
-      this.pizzaOrderFirebaseService.getPizzaOrder(this.id).then(val => {
+      this.pizzaOrderRealDBFirebaseService.getPizzaOrder(this.id).subscribe(val => {
         this.editForm = {...val};
         this.form.patchValue(val);
 
@@ -124,13 +124,31 @@ export class PizzaListComponent implements OnInit {
     this.form.controls.totalPrice.setValue(totalPrice);
   }
 
+  navigateOrder() {
+    this.router.navigateByUrl('/order');
+  }
+
   onSubmit() {
     if (this.form.value) {
       this.calculateToppingPrice();
-      this.pizzaOrderFirebaseService.createPizzaOrder(this.form.value);
-      this.showSuccess();
-      this.router.navigateByUrl('/order');
 
+      if (!this.id) {
+        this.pizzaOrderRealDBFirebaseService.createPizzaOrder(this.form.value).subscribe(res => {
+          if (res) {
+            this.showSuccess();
+            this.navigateOrder();
+          }
+        });
+      } else {
+        this.pizzaOrderRealDBFirebaseService.updatePizzaOrder(this.id, this.form.value).subscribe(res => {
+          if (res) {
+            console.log(res);
+            this.showSuccess();
+           this.navigateOrder();
+          }
+        });
+      }
+      
        // Local Data Observable
       // this.messageService.sendMessage(this.form.value)
     }
