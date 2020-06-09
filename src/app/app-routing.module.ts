@@ -7,8 +7,8 @@ import { AuthGuard } from './auth/auth.guard';
 
 const appRoute : Routes = [
   {path: 'create', component: PizzaListComponent, canActivate :[AuthGuard]},
+  {path: 'create/:id', component: PizzaListComponent, canActivate :[AuthGuard]},
   {path: 'order', component: PizzaOrderComponent, canActivate :[AuthGuard]},
-  {path: 'create/:id', component: PizzaListComponent, canActivate :[AuthGuard]}, 
   {path: 'auth', component: AuthComponent },
   {path: '**', redirectTo: '/auth', pathMatch: 'full'},
 ];
