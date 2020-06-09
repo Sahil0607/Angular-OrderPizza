@@ -13,8 +13,9 @@ import { PizzaListComponent } from './pizza-list/pizza-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
 import { AuthComponent } from './auth/auth.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     ToastrModule.forRoot(),
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

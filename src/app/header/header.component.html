@@ -19,8 +19,8 @@
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/logout" *ngIf="isAuthenticated">Logout</a>
+      <li class="nav-item" style="cursor: pointer;">
+        <a class="nav-link" routerLinkActive="active" (click)="onLogout()" *ngIf="isAuthenticated">Logout</a>
       </li>
     </ul>
   </div>

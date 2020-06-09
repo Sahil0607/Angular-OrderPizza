@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { PizzaOrder } from '../pizza-order';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PizzaOrderRealDBFirebaseService {
 
-  constructor(private http: HttpClient, private db: AngularFireDatabase) { }
+  constructor(private http: HttpClient, private db: AngularFireDatabase, private authService: AuthService) { }
 
-  createPizzaOrder(order: PizzaOrder){
+  createPizzaOrder(order: PizzaOrder){  
     return this.http.post('https://order-pizza-b438c.firebaseio.com/PizzaOrder.json', order);
   }
 
