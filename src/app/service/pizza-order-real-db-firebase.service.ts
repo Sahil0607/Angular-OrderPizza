@@ -28,9 +28,9 @@ export class PizzaOrderRealDBFirebaseService {
   }
 
   deletePizzaOrder(id: string){
-    // return this.http.delete('https://order-pizza-b438c.firebaseio.com/PizzaOrder/' + id + '.json');
+    return this.http.delete('https://order-pizza-b438c.firebaseio.com/PizzaOrder/' + id + '.json');
     
-    return this.db.object('/PizzaOrder/' + id).remove();
+    // return this.db.object('/PizzaOrder/' + id).remove();
   }
 
   deleteAllPizzaOrder(){

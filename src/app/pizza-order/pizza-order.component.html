@@ -22,15 +22,15 @@
                                 <h3>Order: #{{i + 1}}</h3>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" class="btn btn-warning mr-2 mt-2" data-toggle="modal" data-target="#removeModal">
+                                <button type="button" class="btn btn-warning mr-2 mt-2" (click)="removeOrder(msg.id)" data-toggle="modal" data-target="#removeModal">
                                     Remove
                                 </button>
-                                <button type="button" class="btn btn-dark mt-2" data-toggle="modal" data-target="#editModal">
+                                <button type="button" class="btn btn-dark mt-2" (click)="editOrder(msg.id)" data-toggle="modal" data-target="#editModal">
                                     Edit
                                 </button>
                             </div>
                             <!-- Remove Record Modal -->
-                            <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+                            <!-- <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -44,35 +44,35 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" (click)="removeOrder(msg.id)" class="btn btn-danger" data-dismiss="modal">
+                                        <button type="button"  class="btn btn-danger" data-dismiss="modal">
                                             Remove Order
                                         </button>
                                     </div>
                                 </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- Edit Record Modal -->
-                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <!-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Edit Order</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure to edit this record?
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button (click)="editOrder(msg.id)" type="button" class="btn btn-warning" data-dismiss="modal">
-                                        Edit Order
-                                    </button>
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Edit Order</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to edit this record?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button (click)="editOrder(msg.id)" type="button" class="btn btn-warning" data-dismiss="modal">
+                                                Edit Order
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
                         <hr>
                         <div class="row">

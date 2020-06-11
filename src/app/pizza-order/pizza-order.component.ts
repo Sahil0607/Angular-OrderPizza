@@ -56,16 +56,22 @@ export class PizzaOrderComponent implements OnInit {
     });
   }
 
-  removeOrder(key: string) {
-    this.pizzaOrderRealDBFirebaseService.deletePizzaOrder(key)  // .subscribe(data => console.log(data));
-    this.getPizzaOrders();
-    this.toastr.warning('Deleted Successfully', 'Pizza Reg.');
+  async removeOrder(key: string) {
+    if(confirm('Are you sure you want to delete order?')) {
+      await this.pizzaOrderRealDBFirebaseService.deletePizzaOrder(key).subscribe(() => {
+        let removeIndex = this.messages.map(item => item.id).indexOf(key);
+        this.messages.splice(removeIndex, 1);
+        this.toastr.warning('Deleted Successfully', 'Pizza Reg.');
+      });
+    }
   }
 
-  editOrder(id: string) {
+  editOrder(id) {
     console.log(this.messages);
     console.log(id);
-    this.router.navigate(['/create', id]);
+    if(confirm('Are you sure you want to edit order?')) {
+      this.router.navigate(['/create', id]);
+    }
   }
 
 }
