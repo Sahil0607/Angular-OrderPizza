@@ -60,7 +60,6 @@ export class PizzaListComponent implements OnInit {
         }
       });
      }
-     
   }
 
   selectLocation() {
@@ -68,12 +67,34 @@ export class PizzaListComponent implements OnInit {
   }
 
   listSelected(item?) {
+    this.removeAllTopping();
     if (item) {
       this.form.controls.pizzaTypeId.setValue(item.id);
       this.form.controls.pizzaType.setValue(item.pizzaType);
       this.form.controls.pizzaName.setValue(item.name);
       this.form.controls.pizzaURL.setValue(item.Url);
       this.form.controls.price.setValue(item.price);
+    }
+    
+    if (this.form.controls.pizzaName.value) {
+      switch (this.form.controls.pizzaName.value) {
+        case 'Cheese Pizza':
+           this.addVegToppings('Cheese');
+          break;
+        case 'Veggie Pizza':
+          this.addVegToppings('Cheese');
+          this.addVegToppings('Onion');
+          this.addVegToppings('Pineple');
+          break;
+        case 'Pepperoni Pizza':
+          this.addVegToppings('Cheese');
+          this.addNonVegToppings('Pepperoni');
+          break;
+        case 'Meat Pizza':
+          this.addVegToppings('Cheese');
+          this.addNonVegToppings('Meat');
+          break;
+      }
     }
   }
 
@@ -97,6 +118,11 @@ export class PizzaListComponent implements OnInit {
 
   removeVegTopping(index) {
     (<FormArray>this.form.get('vegToppings')).removeAt(index);
+  }
+
+  removeAllTopping() {
+    (<FormArray>this.form.get('vegToppings')).clear();
+    (<FormArray>this.form.get('nonVegToppings')).clear();
   }
 
   loadNonVegTopping() {

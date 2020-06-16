@@ -29,50 +29,6 @@
                                     Edit
                                 </button>
                             </div>
-                            <!-- Remove Record Modal -->
-                            <!-- <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="removeModalLabel">Remove Order</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure to delete this record?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button"  class="btn btn-danger" data-dismiss="modal">
-                                            Remove Order
-                                        </button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div> -->
-                            <!-- Edit Record Modal -->
-                            <!-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel">Edit Order</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure to edit this record?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button (click)="editOrder(msg.id)" type="button" class="btn btn-warning" data-dismiss="modal">
-                                                Edit Order
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                         <hr>
                         <div class="row">
@@ -82,13 +38,13 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="list-header">
-                                    <p><b>Veg Topping: </b></p>
+                                    <p><b>Veg Topping: {{msg.vegToppings ? '' : '-'}}</b></p>
                                     <ul *ngFor="let vegTpng of msg.vegToppings">
                                         <li>{{vegTpng}}</li>
                                     </ul>
                                 </div>
                                 <div class="list-header">
-                                    <p><b>Non-Veg Topping: </b></p>
+                                    <p><b>Non-Veg Topping: {{msg.nonVegToppings ? '' : '-'}}</b></p>
                                     <ul *ngFor="let nonVegTpng of msg.nonVegToppings">
                                         <li>{{nonVegTpng}}</li>
                                     </ul>

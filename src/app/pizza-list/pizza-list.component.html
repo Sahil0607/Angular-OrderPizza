@@ -24,8 +24,8 @@
     </div>
       <div class="col-sm-3 selectedPizza" *ngIf="form.controls.pizzaTypeId.value">
         <h3>Pizza Detail</h3>
-        <p>PizzaType:  {{form.value.pizzaType}}</p>
-        <p>PizzaType: {{form.value.pizzaName}}</p>
+        <p>Pizza Type:  {{form.value.pizzaType}}</p>
+        <p>Pizza Name: {{form.value.pizzaName}}</p>
         <p>Price: {{form.value.price | currency}}</p>
       </div> 
       <hr *ngIf="form.controls.shopLocation.value">
