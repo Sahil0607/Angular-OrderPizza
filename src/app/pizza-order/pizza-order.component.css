@@ -4,7 +4,7 @@
 }
 .pizzaOrder li {
     display: block;
-    background-image: linear-gradient(to bottom right, coral, lightcoral);;
+    background-image: linear-gradient(to bottom right, #ffafbd, #ffc3a0);;
     color: black;
     border: none;
     border-radius: 10px;
@@ -24,5 +24,6 @@
     background-color: transparent;
 }
 hr {
-    border: 1px solid silver;
+    margin-top: -4px;
+    border: 1px solid DarkGray;
 }

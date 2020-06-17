@@ -17,15 +17,18 @@
             <div>
                 <ul class="pizzaOrder" *ngFor="let msg of messages; let i = index;">
                     <li>
-                        <div class="row justify-content-between">
-                            <div class="col-sm-2 pt-2 ml-3">
-                                <h3>Order: #{{i + 1}}</h3>
+                        <div class="row">
+                            <div class="col-sm-4 pt-2">
+                                <h4 class="pl-2">Order: {{i + 1}}</h4>
                             </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-warning mr-2 mt-2" (click)="removeOrder(msg.id)" data-toggle="modal" data-target="#removeModal">
+                            <div class="col-sm-3 pt-3 offset-md-3">
+                                <p>{{msg.orderDate | date:'medium'}}</p>
+                            </div>
+                            <div class="col-sm-2 pt-2">
+                                <button type="button" class="btn btn-warning mr-2 " (click)="removeOrder(msg.id)" data-toggle="modal" data-target="#removeModal">
                                     Remove
                                 </button>
-                                <button type="button" class="btn btn-dark mt-2" (click)="editOrder(msg.id)" data-toggle="modal" data-target="#editModal">
+                                <button type="button" class="btn btn-dark" (click)="editOrder(msg.id)" data-toggle="modal" data-target="#editModal">
                                     Edit
                                 </button>
                             </div>

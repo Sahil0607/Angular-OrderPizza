@@ -42,6 +42,7 @@ export class PizzaListComponent implements OnInit {
       pizzaURL: ['', Validators.required],
       price: [null, Validators.required],
       totalPrice: [null],
+      orderDate: [new Date()],
     });
 
      this.pizzaOption = this.pizzaListService.getPizzaOption();
