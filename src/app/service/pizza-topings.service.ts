@@ -21,7 +21,7 @@ export class PizzaTopingsService {
       { id: 11, name: 'Sausage', pizzaType: 'Non-Veg', selected: false, price: 3 },
       { id: 12, name: 'Chicken', pizzaType: 'Non-Veg', selected: false, price: 4 },
       { id: 13, name: 'Broccoli', pizzaType: 'Veg', selected: false, price: 1 },
-      { id: 14, name: 'Jalapeno', pizzaType: 'Non-Veg', selected: false, price: 2 },
+      { id: 14, name: 'Jalapeno', pizzaType: 'Veg', selected: false, price: 2 },
       { id: 15, name: 'Mushroom', pizzaType: 'Veg', selected: false, price: 3 },
       { id: 16, name: 'Paneer', pizzaType: 'Veg', selected: false, price: 4 }
     ]
