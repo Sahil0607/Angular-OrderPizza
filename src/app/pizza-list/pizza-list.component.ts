@@ -7,6 +7,7 @@ import { MessageService } from '../service/message.service';
 import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-firebase.service';
 import { ToastrService } from 'ngx-toastr';
 import { PizzaOrder } from '../pizza-order';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-pizza-list',
@@ -28,11 +29,12 @@ export class PizzaListComponent implements OnInit {
   constructor(private fb: FormBuilder, private pizzaListService: PizzaListService, 
     private pizzaTopingsService: PizzaTopingsService, private router: Router,
      private messageService: MessageService, private pizzaOrderRealDBFirebaseService: PizzaOrderRealDBFirebaseService,
-     private route: ActivatedRoute, private toastr: ToastrService) {}
+     private route: ActivatedRoute, private toastr: ToastrService, private authService: AuthService) {}
 
   ngOnInit() {
     this.route.params.subscribe( params => this.id = params.id );
     this.form = this.fb.group({
+      userId: [''],
       shopLocation: ['', Validators.required],
       vegToppings: this.fb.array([]),
       nonVegToppings: this.fb.array([]),
@@ -43,6 +45,12 @@ export class PizzaListComponent implements OnInit {
       price: [null, Validators.required],
       totalPrice: [null],
       orderDate: [new Date()],
+    });
+
+    this.authService.user.subscribe(user => {
+          if (user) {
+            this.form.controls.userId.setValue(user.id);
+          }
     });
 
      this.pizzaOption = this.pizzaListService.getPizzaOption();
@@ -160,6 +168,7 @@ export class PizzaListComponent implements OnInit {
       this.calculateToppingPrice();
 
       if (!this.id) {
+        
         this.pizzaOrderRealDBFirebaseService.createPizzaOrder(this.form.value).subscribe(res => {
           if (res) {
             this.showSuccess();

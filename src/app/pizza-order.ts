@@ -9,5 +9,6 @@ export class PizzaOrder {
     shopLocation: string;
     totalPrice: number;
     vegToppings: object;
+    userId: String
     // active = true;
 }

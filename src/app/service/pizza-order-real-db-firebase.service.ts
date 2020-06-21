@@ -24,7 +24,7 @@ export class PizzaOrderRealDBFirebaseService {
   }
 
   getPizzaOrderList(){
-    return this.http.get<PizzaOrder[]>('https://order-pizza-b438c.firebaseio.com/PizzaOrder.json');
+    return this.http.get<PizzaOrder[]>('https://order-pizza-b438c.firebaseio.com/PizzaOrder.json?');
   }
 
   deletePizzaOrder(id: string){

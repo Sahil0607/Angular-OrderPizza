@@ -6,6 +6,7 @@ import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-
 import { Router } from '@angular/router';
 import { PizzaOrder } from '../pizza-order';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-pizza-order',
@@ -18,14 +19,19 @@ export class PizzaOrderComponent implements OnInit {
   isLoading = false;
 
   constructor(private messageService: MessageService, private pizzaOrderRealDBFirebaseService: PizzaOrderRealDBFirebaseService,
-    private router: Router, private toastr: ToastrService) {}
+    private router: Router, private toastr: ToastrService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.getPizzaOrders();
+    this.authService.user.subscribe(user => {
+      if (user) {
+        this.getPizzaOrders(user.id);
+      }
+    });
+    
   }
 
-  getPizzaOrders() {
+  getPizzaOrders(userId) {
     // Firebase database
     this.pizzaOrderRealDBFirebaseService.getPizzaOrderList().subscribe(orders => {
       if (orders) {
@@ -34,11 +40,13 @@ export class PizzaOrderComponent implements OnInit {
         let finalOrder = [];
 
         orderValue.forEach((order, index) => {
-          let val = {
-            id: orderKeys[index],
-            ...order
+          if (order.userId === userId) {
+            let val = {
+              id: orderKeys[index],
+              ...order
+            }
+            finalOrder.push(val);
           }
-          finalOrder.push(val);
         });
         this.messages = finalOrder;
         this.isLoading = false;
