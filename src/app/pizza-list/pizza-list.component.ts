@@ -178,7 +178,6 @@ export class PizzaListComponent implements OnInit {
       } else {
         this.pizzaOrderRealDBFirebaseService.updatePizzaOrder(this.id, this.form.value).subscribe(res => {
           if (res) {
-            console.log(res);
             this.showSuccess();
            this.navigateOrder();
           }

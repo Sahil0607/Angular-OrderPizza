@@ -75,8 +75,6 @@ export class PizzaOrderComponent implements OnInit {
   }
 
   editOrder(id) {
-    console.log(this.messages);
-    console.log(id);
     if(confirm('Are you sure you want to edit order?')) {
       this.router.navigate(['/create', id]);
     }
