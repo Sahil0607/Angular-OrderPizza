@@ -61,10 +61,10 @@ export class PizzaListComponent implements OnInit {
         this.editForm = {...val};
         this.form.patchValue(val);
 
-        if (val['vegToppings'].length) {
+        if (val['vegToppings']) {
           val['vegToppings'].forEach(vegTopping => this.addVegToppings(vegTopping));
         }
-        if (val['nonVegToppings'].length) {
+        if (val['nonVegToppings']) {
           val['nonVegToppings'].forEach(nonVegTopping => this.addNonVegToppings(nonVegTopping));
         }
       });
@@ -117,7 +117,7 @@ export class PizzaListComponent implements OnInit {
   // }
 
   loadVegTopping() {
-    // this.toppings.filter(topping => topping.pizzaType === 'Veg' && !this.form.controls.vegToppings.value.includes(topping.name));
+    // return this.toppings.filter(topping => topping.pizzaType === 'Veg' && !this.form.value.vegToppings.includes(topping.name));
     return this.toppings.filter(topping => topping.pizzaType === 'Veg');
   }
 
