@@ -122,7 +122,9 @@ export class PizzaListComponent implements OnInit {
   }
 
   addVegToppings(vegTopping?): void {
-    (<FormArray>this.form.get('vegToppings')).push(new FormControl(vegTopping ? vegTopping : ''))
+    // Add css validator red border
+    let topping = new FormControl(vegTopping ? vegTopping : '', Validators.required);
+    (<FormArray>this.form.get('vegToppings')).push(topping);
   } 
 
   removeVegTopping(index) {
@@ -139,7 +141,8 @@ export class PizzaListComponent implements OnInit {
   }
 
   addNonVegToppings(nonVegTopping?): void{
-    (<FormArray>this.form.get('nonVegToppings')).push(new FormControl(nonVegTopping ? nonVegTopping : ''))
+    let topping = new FormControl(nonVegTopping ? nonVegTopping : '', Validators.required);
+    (<FormArray>this.form.get('nonVegToppings')).push(topping);
   }
 
   removeNonVegTopping(index) {

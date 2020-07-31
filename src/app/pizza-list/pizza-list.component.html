@@ -3,10 +3,11 @@
 
     <div class="form-group location">
       <label for="location">Shoap Location: </label>
-      <select class="form-control" formControlName="shopLocation" >
+      <select class="form-control" formControlName="shopLocation">
         <option value="">Select Location</option>
         <option *ngFor="let item of shoapLocation" [value]="item.name">{{item.name}}</option>
       </select>
+      <div class="form-text text-muted" *ngIf="!form.get('shopLocation').valid && form.get('shopLocation').touched">Please Select a valid Location</div>
     </div>
     <hr>
 
@@ -34,7 +35,7 @@
     <div class="row" *ngIf="form.controls.shopLocation.value">
       <div class="col-sm-6">
         <div class="form-group">
-          <button type="button" class="btn btn-success" (click)="addVegToppings()">
+          <button type="button" class="btn btn-success" (click)="addVegToppings()" [disabled]="form.get('vegToppings').invalid">
             Add Veg Ingredient
           </button>
         </div>
@@ -45,7 +46,7 @@
               <label for="{{i}}">Add Ingredient: </label>
               <select class="form-control" [formControlName]="i">
                 <option value="">Add Veg Topping</option>
-                <option *ngFor="let item of loadVegTopping()" [value]="item.name">{{item.name}}</option>
+                <option *ngFor="let item of loadVegTopping()" [ngValue]="item.name">{{item.name}}</option>
               </select>
             </div>
             <div class="col-sm-4">
@@ -56,7 +57,7 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group">
-          <button type="button" class="btn btn-success" (click)="addNonVegToppings()">
+          <button type="button" class="btn btn-success" (click)="addNonVegToppings()" [disabled]="form.get('nonVegToppings').invalid">
             Add Non-Veg Ingredient
           </button>
         </div>
