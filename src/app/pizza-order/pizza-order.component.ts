@@ -32,29 +32,26 @@ export class PizzaOrderComponent implements OnInit {
   }
 
   getPizzaOrders(userId) {
-    // Firebase database
-    this.pizzaOrderRealDBFirebaseService.getPizzaOrderList().subscribe(orders => {
-      if (orders) {
-        let orderKeys = Object.keys(orders);
-        let orderValue = Object.values(orders);
-        let finalOrder = [];
+    this.pizzaOrderRealDBFirebaseService.getPizzaOrderList()
+    // We will rec data in {'wsacddvd5415cd': {data}}. So we have to format the data.
+    // Pipe and map is from rxjs. It is use for transform the data.
+    // pipe is load before the subscribe. So we return data from map then we can subscribe. 
+    .pipe(map(responseData => {
+      const getOrders = [];
 
-        orderValue.forEach((order, index) => {
-          if (order.userId === userId) {
-            let val = {
-              id: orderKeys[index],
-              ...order
-            }
-            finalOrder.push(val);
-          }
-        });
-        this.messages = finalOrder;
-        this.isLoading = false;
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          getOrders.push({ ...responseData[key], id: key });
+        }
       }
-      else {
-        this.messages = [];
-        this.isLoading = false;
+      return getOrders; 
+    }))
+    .subscribe(response => {
+      console.log(response);
+      if (response) {
+        this.messages = response;
       }
+      this.isLoading = false;
     });
   }
 
