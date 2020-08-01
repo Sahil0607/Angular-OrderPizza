@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
-import { AuthResponseData } from './auth.model';
+import { AuthResponseData } from '../model/auth.model';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
-import { User } from './user.model';
+import { User } from '../model/user.model';
 import { Router } from '@angular/router';
 
 @Injectable({

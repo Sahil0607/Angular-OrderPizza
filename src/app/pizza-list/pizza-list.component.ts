@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from '../service/message.service';
 import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-firebase.service';
 import { ToastrService } from 'ngx-toastr';
-import { PizzaOrder } from '../pizza-order';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
