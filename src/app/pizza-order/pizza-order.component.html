@@ -1,9 +1,13 @@
 <div>
-    <div *ngIf="isLoading" style="text-align: center;">
+    <div *ngIf="isLoading && !error" style="text-align: center;">
         <app-loading-spinner></app-loading-spinner>
     </div>
     <div *ngIf="!orders.length" class="row justify-content-md-center mt-3">
         <h2>No Orders Available</h2>
+    </div>
+    <div class="alert alert-danger" *ngIf="error">
+        <h2>An Error Occured</h2>
+        <p>{{error}}</p>
     </div>
     <div class="row justify-content-md-center" *ngIf="orders.length">
         <div class="col col-sm-9">

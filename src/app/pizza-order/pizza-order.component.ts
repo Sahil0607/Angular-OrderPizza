@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../service/message.service';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-firebase.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +16,7 @@ export class PizzaOrderComponent implements OnInit {
   subscription: Subscription;
   orders: Order[] = [];
   isLoading = false;
+  error = null;
 
   constructor(private messageService: MessageService, private pizzaOrderRealDBFirebaseService: PizzaOrderRealDBFirebaseService,
     private router: Router, private toastr: ToastrService, private authService: AuthService) {}
@@ -31,24 +31,13 @@ export class PizzaOrderComponent implements OnInit {
   }
 
   getPizzaOrders(userId) {
-    // We will rec data in {'wsacddvd5415cd': {data}}. So we have to format the data.
-    // Pipe and map is from rxjs. It is use for transform the data.
-    // pipe is load before the subscribe. So we return data from map then we can subscribe.
-    this.pizzaOrderRealDBFirebaseService.getPizzaOrderList() 
-    .pipe(map(responseData => {
-      const getOrders: Order[] = [];
-      for (const key in responseData) {
-        if (responseData.hasOwnProperty(key)) {
-          getOrders.push({ ...responseData[key], id: key });  // ... use for copy nested data 
-        }
-      }
-      return getOrders; 
-    }))
-    .subscribe(response => {
+    this.pizzaOrderRealDBFirebaseService.getPizzaOrderList().subscribe(response => {
       if (response) {
-        this.orders = response;
+        this.orders = response.filter(res => res.userId === userId);
       }
       this.isLoading = false;
+    }, error => {
+      this.error = error.message;
     });
   }
 
