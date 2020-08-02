@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
       return 
     }
 
-    let authObs: Observable<AuthResponseData>
+    let authObs: Observable<AuthResponseData>;
 
     this.isLoading = true;
     if (this.isLoginMode) {

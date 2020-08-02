@@ -85,6 +85,7 @@ export class AuthService {
         token,
         expirationDate
       );
+      console.log(user);
       this.user.next(user);
       this.autoLogout(expiresIn * 1000);
       // when we reload we lost token so save token in localstorage. so we will not lost

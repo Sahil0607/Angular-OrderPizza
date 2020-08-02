@@ -19,7 +19,8 @@ export class AuthInterceptorService implements HttpInterceptor {
 
       // Add Auth token for outgoing request
       const modifiedReq = req.clone({
-        // Authentication we have to add token for backed. Otherwise req. will fail
+        // Authentication we have to add token for backend. Otherwise req. will fail
+        // Adding token as request parameter for firebase. Anyother case add it in header
         params: new HttpParams().set('auth', user.token)
       });
       return next.handle(modifiedReq);
@@ -27,3 +28,9 @@ export class AuthInterceptorService implements HttpInterceptor {
     );
   }
 }
+
+// Anyother cases(Not firebase) we add token in header Ex: 
+// const authReq = req.clone({
+//   headers: req.headers.set('Authorization', /* here you fetch your jwt */this.getToken())
+//     .append('Access-Control-Allow-Origin', '*')
+// }); 
