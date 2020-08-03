@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="container">
+  <div class="container" [@orderInAnimation]>
 
     <div class="form-group location">
       <label for="location">Shoap Location: </label>
@@ -11,18 +11,18 @@
     </div>
     <hr>
 
-    <div class="pizzaInfo row" *ngIf="form.controls.shopLocation.value">
+    <div class="pizzaInfo row" *ngIf="form.controls.shopLocation.value" [@orderInAnimation]>
       <div class="col-sm-9">
-      <ul class="row">
-        <li class="col-sm-6" *ngFor="let item of selectLocation()" (click)="listSelected(item)">  
-          <h3>{{item.name}}</h3>
-          <img [src]="item.Url">
-          <p>{{item.city}}</p>
-          <p>Price: <b>{{item.price | currency}}</b></p>
-          <hr *ngIf="form.controls.shopLocation.value">
-        </li>
-      </ul>
-    </div>
+        <ul class="row">
+          <li class="col-sm-6" *ngFor="let item of selectLocation()" (click)="listSelected(item)">  
+            <h3>{{item.name}}</h3>
+            <img [src]="item.Url">
+            <p>{{item.city}}</p>
+            <p>Price: <b>{{item.price | currency}}</b></p>
+            <hr *ngIf="form.controls.shopLocation.value">
+          </li>
+        </ul>
+      </div>
       <div class="col-sm-3 selectedPizza" *ngIf="form.controls.pizzaTypeId.value">
         <h3>Pizza Detail</h3>
         <p>Pizza Type:  {{form.value.pizzaType}}</p>
@@ -30,7 +30,7 @@
         <p>Price: {{form.value.price | currency}}</p>
       </div> 
       <hr *ngIf="form.controls.shopLocation.value">
-    </div> 
+  </div> 
 
     <div class="row" *ngIf="form.controls.shopLocation.value">
       <div class="col-sm-6">
@@ -39,7 +39,7 @@
             Add Veg Ingredient
           </button>
         </div>
-        <div formArrayName="vegToppings" *ngFor="let vegTopping of form.get('vegToppings').controls; let i = index;">
+        <div formArrayName="vegToppings" *ngFor="let vegTopping of form.get('vegToppings').controls; let i = index;" [@orderInAnimation]>
           <hr *ngIf="i>0">
           <div class="row">
             <div class="form-group col-sm-8">
@@ -61,7 +61,7 @@
             Add Non-Veg Ingredient
           </button>
         </div>
-        <div formArrayName="nonVegToppings" *ngFor="let nonVegTopping of form.get('nonVegToppings').controls; let i = index;">
+        <div formArrayName="nonVegToppings" *ngFor="let nonVegTopping of form.get('nonVegToppings').controls; let i = index;" [@orderInAnimation]>
           <hr *ngIf="i>0">
           <div class="row">
             <div class="form-group col-sm-8">

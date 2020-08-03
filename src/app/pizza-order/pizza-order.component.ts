@@ -6,12 +6,52 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { Order } from '../model/order.model';
+import { trigger, transition, style, state, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-pizza-order',
   templateUrl: './pizza-order.component.html',
-  styleUrls: ['./pizza-order.component.css']
+  styleUrls: ['./pizza-order.component.css'],
+  animations: [
+    trigger('orderInAnimation', [
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0px)'
+      })),
+      transition('void => *', [     // Style for entering. void to any
+        animate(1000, keyframes([
+          style({
+            opacity: 0,
+            transform: 'translateX(-100px)',
+            offset: 0
+          }),
+          style({
+            opacity: 0.5,
+            transform: 'translateX(-67px)',
+            offset: 0.3
+          }),
+          style({
+            opacity: 1,
+            transform: 'translateX(-34px)',
+            offset: 0.8
+          }),
+          style({
+            opacity: 1,
+            transform: 'translateX(0px)',
+            offset: 1
+          }),
+        ]))
+      ]),
+      transition('* => void', [
+        animate(300, style({
+          transform: 'translateX(100px)',
+          opacity: 0,
+        }))
+      ])
+    ])
+  ],
 })
+
 export class PizzaOrderComponent implements OnInit {
   subscription: Subscription;
   orders: Order[] = [];
