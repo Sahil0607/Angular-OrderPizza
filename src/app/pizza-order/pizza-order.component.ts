@@ -43,7 +43,7 @@ import { trigger, transition, style, state, animate, keyframes } from '@angular/
         ]))
       ]),
       transition('* => void', [
-        animate(300, style({
+        animate(500, style({
           transform: 'translateX(100px)',
           opacity: 0,
         }))
