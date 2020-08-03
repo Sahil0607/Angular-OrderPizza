@@ -7,50 +7,13 @@ import { MessageService } from '../service/message.service';
 import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-firebase.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
-import { trigger, state, style, transition, keyframes, animate } from '@angular/animations';
+import { slideIn } from '../animation/animation';
 
 @Component({
   selector: 'app-pizza-list',
   templateUrl: './pizza-list.component.html',
   styleUrls: ['./pizza-list.component.css'],
-  animations: [
-    trigger('orderInAnimation', [
-      state('in', style({
-        opacity: 1,
-        transform: 'translateX(0px)'
-      })),
-      transition('void => *', [     // Style for entering. void to any
-        animate(1000, keyframes([
-          style({
-            opacity: 0,
-            transform: 'translateX(-100px)',
-            offset: 0
-          }),
-          style({
-            opacity: 0.5,
-            transform: 'translateX(-67px)',
-            offset: 0.3
-          }),
-          style({
-            opacity: 1,
-            transform: 'translateX(-34px)',
-            offset: 0.8
-          }),
-          style({
-            opacity: 1,
-            transform: 'translateX(0px)',
-            offset: 1
-          }),
-        ]))
-      ]),
-      transition('* => void', [
-        animate(300, style({
-          transform: 'translateX(100px)',
-          opacity: 0,
-        }))
-      ])
-    ])
-  ],
+  animations: [ slideIn ],
 })
 
 export class PizzaListComponent implements OnInit {
