@@ -55,7 +55,8 @@ export class PizzaOrderComponent implements OnInit {
       await this.pizzaOrderRealDBFirebaseService.deletePizzaOrder(key).subscribe(() => {
         let removeIndex = this.orders.map(item => item.id).indexOf(key);
         this.orders.splice(removeIndex, 1);
-        this.toastr.warning('Deleted Successfully', 'Pizza Reg.');
+        this.toastr.error('Deleted Successfully', 'Pizza Reg.');
+        // this.toastr.warning('Deleted Successfully', 'Pizza Reg.');
       });
     }
   }
