@@ -11,6 +11,7 @@ const appRoute : Routes = [
   {path: 'order', component: PizzaOrderComponent, canActivate :[AuthGuard]},
   {path: 'auth', component: AuthComponent },
   {path: '**', redirectTo: '/auth', pathMatch: 'full'},
+  // We can also add child route and CanActivateChild in child route
 ];
 
 @NgModule({
