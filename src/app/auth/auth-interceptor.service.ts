@@ -14,7 +14,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       // exhaustMap will wait to execute first observable then it will execute
       // take will take only 1 output then unsubscribe
       if (!user) {
-        return next.handle(req);   // Not add token for signin and signup
+        return next.handle(req);   // Not add token if user not available (for signin and signup)
       }
 
       // Add Auth token for outgoing request
