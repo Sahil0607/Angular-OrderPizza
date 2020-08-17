@@ -11,8 +11,7 @@ export class PizzaOrderCloudFirebaseService {
   pizzaOrderRef: AngularFireList<Order> = null;
   private dbPath = '/PizzaOrder';
 
-  constructor(private db: AngularFireDatabase, private firestore: AngularFirestore, 
-    private authService: AuthService) {
+  constructor(private db: AngularFireDatabase, private firestore: AngularFirestore) {
     this.pizzaOrderRef = db.list(this.dbPath);
    }
 

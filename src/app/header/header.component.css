@@ -1,0 +1,8 @@
+.navbar-brand {
+    border-bottom: 2px solid silver;
+    padding-bottom: -15%;
+}
+
+.nav-item a:active {
+    border-bottom: 2px solid silver;
+}
