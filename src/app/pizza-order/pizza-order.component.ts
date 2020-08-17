@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from '../service/message.service';
 import { Subscription } from 'rxjs';
 import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-firebase.service';
 import { Router } from '@angular/router';
@@ -21,7 +20,7 @@ export class PizzaOrderComponent implements OnInit {
   isLoading = false;
   error = null;
 
-  constructor(private messageService: MessageService, private pizzaOrderRealDBFirebaseService: PizzaOrderRealDBFirebaseService,
+  constructor(private pizzaOrderRealDBFirebaseService: PizzaOrderRealDBFirebaseService,
     private router: Router, private toastr: ToastrService, private authService: AuthService) {}
 
   ngOnInit(): void {

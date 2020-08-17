@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
-import { PizzaOrder } from '../pizza-order';
+import { Order } from '../../model/order.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PizzaOrderCloudFirebaseService {
-  pizzaOrderRef: AngularFireList<PizzaOrder> = null;
+  pizzaOrderRef: AngularFireList<Order> = null;
   private dbPath = '/PizzaOrder';
 
   constructor(private db: AngularFireDatabase, private firestore: AngularFirestore, 
@@ -16,7 +16,7 @@ export class PizzaOrderCloudFirebaseService {
     this.pizzaOrderRef = db.list(this.dbPath);
    }
 
-  createPizzaOrder(order: PizzaOrder){
+  createPizzaOrder(order: Order){
     return this.firestore.collection('PizzaOrders').add(order);
   }
 
