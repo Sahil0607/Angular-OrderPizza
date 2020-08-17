@@ -45,7 +45,7 @@ export class PizzaOrderComponent implements OnInit {
   }
 
   removeAllOrders() {
-    this.pizzaOrderRealDBFirebaseService.deleteAllPizzaOrder().subscribe(() => {
+    this.pizzaOrderRealDBFirebaseService.deletePizzaOrders().subscribe(() => {
       this.orders = [];
     });
   }

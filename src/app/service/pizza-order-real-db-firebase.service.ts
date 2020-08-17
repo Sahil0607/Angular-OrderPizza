@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Order } from '../model/order.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { AuthService } from '../auth/auth.service';
 import { map } from 'rxjs/operators';
+import { PizzaListService } from './pizza-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PizzaOrderRealDBFirebaseService {
 
-  constructor(private http: HttpClient, private db: AngularFireDatabase, private authService: AuthService) { }
+  constructor(private http: HttpClient, private db: AngularFireDatabase,
+    private pizzaList: PizzaListService,) {}
 
   createPizzaOrder(order: Order){  
     return this.http.post('https://order-pizza-b438c.firebaseio.com/PizzaOrder.json', order);
@@ -46,7 +47,7 @@ export class PizzaOrderRealDBFirebaseService {
     // return this.db.object('/PizzaOrder/' + id).remove();
   }
 
-  deleteAllPizzaOrder(){
+  deletePizzaOrders(){
     return this.http.delete('https://order-pizza-b438c.firebaseio.com/PizzaOrder.json');
   }
 }

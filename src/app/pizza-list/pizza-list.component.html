@@ -9,6 +9,8 @@
       </select>
       <div class="form-text text-muted" *ngIf="!form.get('shopLocation').valid && form.get('shopLocation').touched">Please Select a valid Location</div>
     </div>
+    <!-- <button type="button" class="btn btn-success" (click)="onCreateTopping()">Create Toppings</button> -->
+    <!-- <button type="button" class="btn btn-success" (click)="onCreatePizzaTypes()">Create Pizza Types</button> -->
     <hr>
 
     <div class="pizzaInfo row" *ngIf="form.controls.shopLocation.value" [@orderInAnimation]>

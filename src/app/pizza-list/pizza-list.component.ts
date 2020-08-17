@@ -7,6 +7,8 @@ import { PizzaOrderRealDBFirebaseService } from '../service/pizza-order-real-db-
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { slideIn } from '../animation/animation';
+import { Topping } from '../model/topping.model';
+import { PizzaType } from '../model/pizzaType.model';
 
 @Component({
   selector: 'app-pizza-list',
@@ -18,8 +20,8 @@ import { slideIn } from '../animation/animation';
 export class PizzaListComponent implements OnInit {
   form;
   id: string;
-  pizzaOption = [];
-  toppings = [];
+  pizzaOption: PizzaType[] = [];
+  toppings: Topping[] = [];
   shoapLocation = [
     { id: 1, name: 'San Francisco' },
     { id: 2, name: 'New York' },
@@ -54,8 +56,14 @@ export class PizzaListComponent implements OnInit {
           }
     });
 
-     this.pizzaOption = this.pizzaListService.getPizzaOption();
-     this.toppings = this.pizzaTopingsService.getPizzaToppings();
+    // this.pizzaOption = this.pizzaListService.getPizzaOption();
+    // this.toppings = this.pizzaTopingsService.getPizzaToppings();
+    this.pizzaListService.getPizzaTypes().subscribe(types => {
+      this.pizzaOption = types;
+    });
+    this.pizzaTopingsService.getPizzaToppings().subscribe(tpngs => {
+      this.toppings = tpngs;
+    });
 
      if (this.id) {
       this.pizzaOrderRealDBFirebaseService.getPizzaOrder(this.id).subscribe(val => {
@@ -70,6 +78,16 @@ export class PizzaListComponent implements OnInit {
         }
       });
      }
+  }
+
+  onCreateTopping() {
+    // For testing purpose
+    this.pizzaTopingsService.createPizzaToppings();
+  }
+
+  onCreatePizzaTypes() {
+    // For testing purpose
+    this.pizzaListService.createPizzaTypes();
   }
 
   selectLocation() {
