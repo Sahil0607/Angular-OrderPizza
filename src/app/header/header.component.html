@@ -3,10 +3,15 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/create" *ngIf="isAuthenticated">
-          Create 
+        <a class="nav-link" routerLinkActive="active" routerLink="/menu" *ngIf="isAuthenticated">
+          Menu 
         </a>
       </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/custom-order" *ngIf="isAuthenticated">
+          Custom Order 
+        </a>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" routerLink="/order" *ngIf="isAuthenticated">
           Order

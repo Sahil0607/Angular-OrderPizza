@@ -2,28 +2,27 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import { Order } from '../../model/order.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthService } from '../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PizzaOrderCloudFirebaseService {
-  pizzaOrderRef: AngularFireList<Order> = null;
+export class OrderCloudFirebaseService {
+  OrderRef: AngularFireList<Order> = null;
   private dbPath = '/PizzaOrder';
 
   constructor(private db: AngularFireDatabase, private firestore: AngularFirestore) {
-    this.pizzaOrderRef = db.list(this.dbPath);
+    this.OrderRef = db.list(this.dbPath);
    }
 
-  createPizzaOrder(order: Order){
+  createOrder(order: Order){
     return this.firestore.collection('PizzaOrders').add(order);
   }
 
-  updatePizzaOrder(key: string, value: any){
-    return this.pizzaOrderRef.update(key, value);
+  updateOrder(key: string, value: any){
+    return this.OrderRef.update(key, value);
   }
 
-  getPizzaOrder(id){
+  getOrder(id){
     return this.firestore.collection('PizzaOrders').doc(id).ref.get().then(function(doc) {
       if (doc.exists) {
         return doc.data();
@@ -35,15 +34,15 @@ export class PizzaOrderCloudFirebaseService {
     });;
   }
 
-  getPizzaOrderList(){
+  getOrderList(){
     return this.firestore.collection('PizzaOrders').snapshotChanges();  // return observable
   }
 
-  deletePizzaOrder(id: string): Promise<void>{
+  deleteOrder(id: string): Promise<void>{
     return this.firestore.doc('PizzaOrders/' + id).delete();
   }
 
-  deleteAllPizzaOrder(): Promise<void>{
-    return this.pizzaOrderRef.remove();
+  deleteAllOrder(): Promise<void>{
+    return this.OrderRef.remove();
   }
 }

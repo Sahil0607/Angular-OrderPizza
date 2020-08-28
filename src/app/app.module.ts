@@ -9,22 +9,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { PizzaListComponent } from './pizza-list/pizza-list.component';
+import { CustomOrderComponent } from './custom-order/custom-order.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
+import { OrderComponent } from './order/order.component';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { MenuComponent } from './menu/menu.component';
+import { MenuListComponent } from './menu/menu-list/menu-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    PizzaListComponent,
-    PizzaOrderComponent,
+    CustomOrderComponent,
+    OrderComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    MenuComponent,
+    MenuListComponent,
   ],
   imports: [
     BrowserModule,

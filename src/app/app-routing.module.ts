@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PizzaListComponent } from './pizza-list/pizza-list.component';
-import { PizzaOrderComponent } from './pizza-order/pizza-order.component';
+import { CustomOrderComponent } from './custom-order/custom-order.component';
+import { OrderComponent } from './order/order.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
+import { MenuComponent } from './menu/menu.component';
+import { MenuListComponent } from './menu/menu-list/menu-list.component';
 
 const appRoute : Routes = [
-  {path: 'create', component: PizzaListComponent, canActivate :[AuthGuard]},
-  {path: 'create/:id', component: PizzaListComponent, canActivate :[AuthGuard]},
-  {path: 'order', component: PizzaOrderComponent, canActivate :[AuthGuard]},
+  {path: 'menu', component: MenuComponent, canActivate :[AuthGuard]},
+  {path: 'menu-item/:item', component: MenuListComponent, canActivate :[AuthGuard]},
+  {path: 'custom-order/:item/:location', component: CustomOrderComponent, canActivate :[AuthGuard]},
+  {path: 'update-order/:id', component: CustomOrderComponent, canActivate :[AuthGuard]},
+  {path: 'order', component: OrderComponent, canActivate :[AuthGuard]},
   {path: 'auth', component: AuthComponent },
   {path: '**', redirectTo: '/auth', pathMatch: 'full'},
   // We can also add child route and CanActivateChild in child route

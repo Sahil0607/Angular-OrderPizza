@@ -1,7 +1,7 @@
 export interface Topping {
     id: string,
     name: string,
-    pizzaType: string,
+    itemType: string,
     selected: boolean,
     price: number
 }

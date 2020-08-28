@@ -1,38 +1,26 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="container" [@orderInAnimation]>
-
-    <div class="form-group location">
-      <label for="location">Shoap Location: </label>
-      <select class="form-control" formControlName="shopLocation">
-        <option value="">Select Location</option>
-        <option *ngFor="let item of shoapLocation" [value]="item.name">{{item.name}}</option>
-      </select>
-      <div class="form-text text-muted" *ngIf="!form.get('shopLocation').valid && form.get('shopLocation').touched">Please Select a valid Location</div>
-    </div>
-    <!-- <button type="button" class="btn btn-success" (click)="onCreateTopping()">Create Toppings</button> -->
-    <!-- <button type="button" class="btn btn-success" (click)="onCreatePizzaTypes()">Create Pizza Types</button> -->
-    <hr>
-
-    <div class="pizzaInfo row" *ngIf="form.controls.shopLocation.value" [@orderInAnimation]>
+    <div class="itemList row" *ngIf="itemOption.length" [@orderInAnimation]>
       <div class="col-sm-9">
-        <ul class="row">
-          <li class="col-sm-6" *ngFor="let item of selectLocation()" (click)="listSelected(item)">  
-            <h3>{{item.name}}</h3>
-            <img [src]="item.Url">
-            <p>{{item.city}}</p>
-            <p>Price: <b>{{item.price | currency}}</b></p>
-            <hr *ngIf="form.controls.shopLocation.value">
-          </li>
-        </ul>
+          <ul class="row">
+              <li class="col-sm-6" *ngFor="let itemObj of selectItem()"
+                [class.selected]="itemObj === selecteditemList" (click)="listSelected(itemObj)">  
+                  <h3>{{itemObj.itemInfo.name}}</h3>
+                  <img [src]="itemObj.itemInfo.url" />
+                  <p>{{form.controls.shopLocation.value}}</p>
+                  <p>Price: <b>{{itemObj.itemInfo.price | currency}}</b></p>
+                  <hr *ngIf="form.controls.shopLocation.value">
+              </li>
+          </ul>
       </div>
-      <div class="col-sm-3 selectedPizza" *ngIf="form.controls.pizzaTypeId.value">
-        <h3>Pizza Detail</h3>
-        <p>Pizza Type:  {{form.value.pizzaType}}</p>
-        <p>Pizza Name: {{form.value.pizzaName}}</p>
-        <p>Price: {{form.value.price | currency}}</p>
+      <div class="col-sm-3 itemListInfo" *ngIf="form.controls.itemName.value">
+          <h3>Pizza Detail</h3>
+          <p>Pizza Type:  {{form.value.itemType}}</p>
+          <p>Pizza Name: {{form.value.itemName}}</p>
+          <p>Price: {{form.value.totalPrice | currency}}</p>
       </div> 
       <hr *ngIf="form.controls.shopLocation.value">
-  </div> 
+    </div> 
 
     <div class="row" *ngIf="form.controls.shopLocation.value">
       <div class="col-sm-6">
@@ -79,7 +67,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
     <hr *ngIf="form.controls.shopLocation.value">
     <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{!id ? 'Submit' : 'Update Order'}}</button>
     <button class="btn btn-secondary ml-3" (click)="navigateOrder()" *ngIf="id">Cancel</button>

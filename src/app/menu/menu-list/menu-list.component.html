@@ -1,0 +1,67 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="container" [@orderInAnimation]>
+        <div class="form-group">
+            <label for="location">Shoap Location: </label>
+            <select class="form-control" formControlName="shopLocation">
+                <option value="">Select Location</option>
+                <option *ngFor="let item of shopLocation" [value]="item">{{item}}</option>
+            </select>
+            <div class="form-text text-muted" *ngIf="!form.get('shopLocation').valid && form.get('shopLocation').touched">
+                Please Select a valid Location
+            </div>
+        </div>
+        <!-- <button type="button" class="btn btn-success" (click)="onCreateItemTypes()">Upload Pizza Types</button> -->
+        <!-- <button type="button" class="btn btn-success" (click)="onCreateItemTopping()">Upload Toppings</button> -->
+        
+        <div class="itemList row" *ngIf="form.controls.shopLocation.value" [@orderInAnimation]>
+            <div class="col-sm-9">
+                <ul class="row">
+                    <li class="col-sm-6" *ngFor="let itemObj of selectItem()"
+                    [class.selected]="itemObj === selecteditemList" (click)="listSelected(itemObj)">  
+                        <h3>{{itemObj.itemInfo.name}}</h3>
+                        <img [src]="itemObj.itemInfo.url" />
+                        <p>{{form.controls.shopLocation.value}}</p>
+                        <p>Price: <b>{{itemObj.itemInfo.price | currency}}</b></p>
+                        <hr *ngIf="form.controls.shopLocation.value">
+                    </li>
+                    <li class="col-sm-6" data-toggle="modal" data-target="#customOrderModal">  
+                        <h3>Create Own {{item}}</h3>
+                        <img src='./../../../assets/item_images/pizza_image/custom_pizza.jpeg' />
+                        <p>{{form.controls.shopLocation.value}}</p>
+                        <hr *ngIf="form.controls.shopLocation.value">
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-3 itemListInfo" *ngIf="form.controls.itemName.value">
+                <h3>Pizza Detail</h3>
+                <p>Pizza Type:  {{form.value.itemType}}</p>
+                <p>Pizza Name: {{form.value.itemName}}</p>
+                <p>Price: {{form.value.totalPrice | currency}}</p>
+            </div> 
+            <hr *ngIf="form.controls.shopLocation.value">
+        </div> 
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+        <!-- <button class="btn btn-secondary ml-3" (click)="navigateOrder()" *ngIf="id">Cancel</button>  -->
+    </div>
+</form>
+
+<!-- Custom Order Modal -->
+<div class="modal fade" id="customOrderModal" tabindex="-1" role="dialog" aria-labelledby="customOrderLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customOrderModalLabel">Custom Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Are you sure to create Custom Order?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="listSelected('customItem')" data-dismiss="modal" class="btn btn-danger">Custom Order</button>
+        </div>
+      </div>
+    </div>
+</div>

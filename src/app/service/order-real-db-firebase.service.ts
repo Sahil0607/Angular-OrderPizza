@@ -3,29 +3,27 @@ import { Order } from '../model/order.model';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
-import { PizzaListService } from './pizza-list.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PizzaOrderRealDBFirebaseService {
+export class OrderRealDBFirebaseService {
 
-  constructor(private http: HttpClient, private db: AngularFireDatabase,
-    private pizzaList: PizzaListService,) {}
+  constructor(private http: HttpClient, private db: AngularFireDatabase,) {}
 
-  createPizzaOrder(order: Order){  
+  createOrder(order: Order){  
     return this.http.post('https://order-pizza-b438c.firebaseio.com/PizzaOrder.json', order);
   }
 
-  updatePizzaOrder(id, order: Order){
+  updateOrder(id, order: Order){
     return this.http.patch('https://order-pizza-b438c.firebaseio.com/PizzaOrder/' + id + '.json', order);
   }
 
-  getPizzaOrder(id: string){
+  getOrder(id: string){
     return this.http.get('https://order-pizza-b438c.firebaseio.com/PizzaOrder/' + id + '.json');
   }
 
-  getPizzaOrderList(){
+  getOrderList(){
     // We will rec data in {'wsacddvd5415cd': {data}}. So we have to format the data.
     // Pipe and map is from rxjs. It is use for transform the data.
     // pipe is load before the subscribe. So we return data from map then we can subscribe.
@@ -41,13 +39,13 @@ export class PizzaOrderRealDBFirebaseService {
     }));
   }
 
-  deletePizzaOrder(id: string){
+  deleteOrder(id: string){
     return this.http.delete('https://order-pizza-b438c.firebaseio.com/PizzaOrder/' + id + '.json');
     
     // return this.db.object('/PizzaOrder/' + id).remove();
   }
 
-  deletePizzaOrders(){
+  deleteOrders(){
     return this.http.delete('https://order-pizza-b438c.firebaseio.com/PizzaOrder.json');
   }
 }

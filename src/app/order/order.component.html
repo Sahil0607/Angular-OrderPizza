@@ -7,7 +7,7 @@
             <div class="alert alert-success" role="alert">
                 <h2>No Orders Available</h2>
                 <p>Please create a new order</p>
-                <a routerLink="/create"><button class="btn btn-success pull-right">Create Order</button></a>
+                <a routerLink="/menu"><button class="btn btn-success pull-right">Create Order</button></a>
             </div> 
         </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="col">
             <div class= "row mt-3">
                 <div class="col-sm-9">
-                    <h3>Pizza Order List</h3>
+                    <h3>Food Order List</h3>
                 </div>
                 <div class="col-sm-3">
                     <button *ngIf="orders.length" class="btn btn-danger float-right" data-toggle="modal" data-target="#removeAllModal">
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div>
-                <ul class="pizzaOrder">
+                <ul class="order">
                     <li *ngFor="let order of orders; let i = index;" [@orderInAnimation]>
                         <div class="row">
                             <div class="col-sm-3 pt-2">
@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="ml-3"><b>Location:</b> {{order.shopLocation}}</p>
-                                <p class="ml-3"><b>PizzaName:</b> {{order.pizzaName}}</p>
+                                <p class="ml-3"><b>ItemName:</b> {{order.itemName}}</p>
                             </div>
                             <div class="col-sm-4">
                                 <div class="list-header">
@@ -67,8 +67,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <p><b>PizzaType:</b> {{order.pizzaType}}</p>
-                                <p><b>PizzaPrice:</b> {{order.price | currency}}</p>
+                                <p><b>ItemType:</b> {{order.itemType}}</p>
+                                <p><b>ItemPrice:</b> {{order.price | currency}}</p>
                             </div>
                             <div class="col-sm-2">
                                 <p><b>Total:</b> {{order.totalPrice | currency}}</p>

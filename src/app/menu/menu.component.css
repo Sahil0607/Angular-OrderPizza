@@ -1,0 +1,27 @@
+.menuList {
+    margin-top: 2%;
+    padding: 0;
+}
+.menuList li{
+    display: block;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    background-image: linear-gradient(to bottom right, #ffafbd, #ffc3a0);
+    height: 80px;
+    border: none;
+}
+.menuList li:hover{
+    background-image: linear-gradient(to bottom right, #ffc3a0,#ffafbd);
+    cursor: pointer;
+}
+.menuImage{
+    width: 100%;
+    height: 80px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.menuTitle {
+    text-align: center;
+    color: navy;
+    padding-top: 25px;
+}
