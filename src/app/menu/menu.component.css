@@ -1,27 +1,30 @@
-.menuList {
-    margin-top: 2%;
-    padding: 0;
+.heading {
+    color: navy;
 }
-.menuList li{
+.menuList {
+    padding: 0;
     display: block;
-    margin-bottom: 2%;
-    border-radius: 10px;
+    margin: 2%;
+    border-radius: 15px;
     background-image: linear-gradient(to bottom right, #ffafbd, #ffc3a0);
-    height: 80px;
+    height: 130px;
     border: none;
 }
-.menuList li:hover{
-    background-image: linear-gradient(to bottom right, #ffc3a0,#ffafbd);
+.menuList:hover{
+    background-image: linear-gradient(to bottom right, #ff414e, #ff8928);
     cursor: pointer;
 }
 .menuImage{
     width: 100%;
-    height: 80px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    height: 130px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 .menuTitle {
-    text-align: center;
-    color: navy;
-    padding-top: 25px;
+    text-align: justify;
+    color: black;
+    padding-top: 45px;
+}
+hr {
+    border: 1px solid silver;
 }

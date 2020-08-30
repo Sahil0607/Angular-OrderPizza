@@ -7,8 +7,6 @@
                 [class.selected]="itemObj === selecteditemList" (click)="listSelected(itemObj)">  
                   <h3>{{itemObj.itemInfo.name}}</h3>
                   <img [src]="itemObj.itemInfo.url" />
-                  <p>{{form.controls.shopLocation.value}}</p>
-                  <p>Price: <b>{{itemObj.itemInfo.price | currency}}</b></p>
                   <hr *ngIf="form.controls.shopLocation.value">
               </li>
           </ul>
@@ -17,6 +15,7 @@
           <h3>Pizza Detail</h3>
           <p>Pizza Type:  {{form.value.itemType}}</p>
           <p>Pizza Name: {{form.value.itemName}}</p>
+          <p>Location: {{form.value.shopLocation}}</p>
           <p>Price: {{form.value.totalPrice | currency}}</p>
       </div> 
       <hr *ngIf="form.controls.shopLocation.value">

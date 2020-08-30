@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-sm-3">
                     <button *ngIf="orders.length" class="btn btn-danger float-right" data-toggle="modal" data-target="#removeAllModal">
-                        Remove All
+                        Remove All 🗑️
                     </button>
                 </div>
             </div>
@@ -38,10 +38,10 @@
                                 <p>{{order.orderDate | date:'medium'}}</p>
                             </div>
                             <div class="col-sm-5 pt-2">
-                                <button type="button" class="btn btn-warning mr-2 float-right" (click)="removeOrder(order.id)">
-                                    Remove
+                                <button type="button" class="btn btn-warning mr-2 float-right" (click)="removeSelectedOrder(order.id)" data-toggle="modal" data-target="#removeModal">
+                                    Remove 🗑️
                                 </button>
-                                <button type="button" class="btn btn-dark mr-2 float-right" (click)="editOrder(order.id)">
+                                <button type="button" class="btn btn-dark mr-2 float-right" (click)="editSelectedOrder(order.id)" data-toggle="modal" data-target="#editModal" >
                                     Edit
                                 </button>
                             </div>
@@ -86,7 +86,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="removeAllModalLabel">Remove Order</h5>
+          <h5 class="modal-title" id="removeAllModalLabel">Remove Orders</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -97,6 +97,48 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" (click)="removeAllOrders()" data-dismiss="modal" class="btn btn-danger">Remove All Order</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Remove Record Modal -->
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="removeAllModalLabel">Remove Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Are you sure to delete the record?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="removeOrder()" data-dismiss="modal" class="btn btn-danger">Remove Order</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Edit Record Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editAllModalLabel">Edit Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Are you sure to delete the record?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="editOrder()" data-dismiss="modal" class="btn btn-danger">Edit Order</button>
         </div>
       </div>
     </div>

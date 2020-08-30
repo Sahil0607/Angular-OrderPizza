@@ -9,7 +9,6 @@ import { AuthService } from '../auth/auth.service';
 import { slideIn } from '../animation/animation';
 import { Topping } from '../model/topping.model';
 import { MenuList } from '../model/menu-list.model';
-import { Order } from '../model/order.model';
 
 @Component({
   selector: 'app-custom-order',
@@ -87,7 +86,6 @@ export class CustomOrderComponent implements OnInit {
         //     url: this.editForm.itemUrl,
         //   }
         // }
-        console.log(val);
 
         if (val['vegToppings']) {
           val['vegToppings'].forEach(vegTopping => this.addVegToppings(vegTopping));
@@ -106,7 +104,6 @@ export class CustomOrderComponent implements OnInit {
 
   listSelected(item) {
     this.selecteditemList = item;
-    console.log(item);
     this.removeAllTopping();
     if (item) {
       // this.form.controls.pizzaTypeId.setValue(item.id);
