@@ -20,17 +20,21 @@ export class CheckoutComponent implements OnInit {
   error = null;
   isSelectedRemoveOrder: string;
   isSelectedEditOrder: string;
+  subtotal: number = 0;
+  priceWithTax: number = 0;
+  tax: number = 0;
 
   constructor(private authService: AuthService, private orderRealDBFirebaseService: OrderRealDBFirebaseService,
     private router: Router, private toastr: ToastrService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.isLoading = true;
     this.authService.user.subscribe(user => {
       if (user) {
         this.getOrders(user.id);
       }
     });
+    this.calculateTotalAndTax();
   }
 
   getOrders(userId) {
@@ -66,4 +70,12 @@ export class CheckoutComponent implements OnInit {
     this.router.navigate(['/update-order', this.isSelectedEditOrder]);
   }
 
+  calculateTotalAndTax() {
+    console.log('Subtotal',this.orders);
+    if (this.orders && this.orders.length) {
+      this.subtotal = this.orders.map(order=> order.totalPrice).reduce((a,b) => a + b);
+      this.tax = (this.subtotal * 15) / 100;
+      this.priceWithTax = this.subtotal + this.tax;
+    }
+  }
 }

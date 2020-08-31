@@ -15,17 +15,17 @@
         <h2>An Error Occured</h2>
         <p>{{error}}</p>
     </div>
-    <div class="heading">
+    <div class="heading" *ngIf="orders.length">
         <h3>My Order</h3>
     </div>
-    <div *ngIf="orders.length">
-        <ul class="order">
+    <div class="order" *ngIf="orders.length">
+        <ul>
             <li *ngFor="let order of orders; let i = index;" [@orderInAnimation]>
                 <div class="row">
-                    <div class="col-sm-2 pt-2">
+                    <div class="col-sm-2">
                         <img class="orderImage" [src]="order.itemUrl" />
                     </div>
-                    <div class="col-sm-8 pt-2">
+                    <div class="col-sm-5">
                         <div class="row">
                             <h5>{{order.itemName}}</h5>
                         </div>
@@ -45,22 +45,35 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="row">
-                            <button type="button" class="btn btn-outline-danger mr-2 btn-sm" (click)="removeSelectedOrder(order.id)" data-toggle="modal" data-target="#removeModal">
-                                Remove 🗑️
-                            </button>
-                            <button type="button" class="btn btn-outline-warning mr-2 btn-sm" (click)="editSelectedOrder(order.id)" data-toggle="modal" data-target="#editModal" >
-                                Edit
-                            </button>
-                        </div>
                     </div>
-                    <div class="col-sm-2 pt-2">
+                    <div class="col-sm-3">
+                        <p>{{order.orderDate | date:'medium'}}</p>
+                        <button type="button" class="btn btn-outline-danger mr-2 btn-sm" (click)="removeSelectedOrder(order.id)" data-toggle="modal" data-target="#removeModal">
+                            Remove 🗑️
+                        </button>
+                        <button type="button" class="btn btn-outline-warning mr-2 btn-sm" (click)="editSelectedOrder(order.id)" data-toggle="modal" data-target="#editModal" >
+                            Edit
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
                         <h5 class="pl-2">{{order.totalPrice | currency}}</h5>
                     </div>
                 </div>
                 <hr>
             </li>
         </ul>
+        <div class="row justify-content-end">
+            <div class="col-sm-2">
+                <p><b>Subtotal: </b></p>
+                <p><b>Tax: </b></p>
+                <p><b>Total: </b></p>
+            </div>
+            <div class="col-sm-2">
+                <p>{{subtotal | currency}}</p>
+                <p>{{tax | currency}}</p>
+                <p>{{priceWithTax | currency}}</p>
+            </div>
+        </div>
     </div>
 </div>
 

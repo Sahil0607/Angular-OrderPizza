@@ -1,6 +1,7 @@
 .orderImage{
-    height: 125px;
-    width: 125px;
+    height: 100px;
+    width: 100px;
+    border-radius: 20px;
 }
 hr {
     border: 1px solid silver;
@@ -11,14 +12,13 @@ hr {
 }
 .order {
     margin-top: 2%;
-    padding-top: 2%;
+    padding-top: 1%;
     border: 2px solid lightgray;
-    border-radius: 15px;
+    border-radius: 30px;
+    clear: both;
 }
 .order li {
     display: block;
-    padding: 0;
-    margin: 0;
 }
 .topping ul li {
     float: left;
@@ -26,6 +26,8 @@ hr {
 }
 .topping{
     clear: both;
+    margin: 0;
+    padding: 0;
 }
 .topping p{
     float: left;
