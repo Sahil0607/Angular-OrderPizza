@@ -1,10 +1,10 @@
 .form-control.ng-touched.ng-invalid{
     border:2px solid red;
 }
-
 .itemList img{
     width: 75%;
     height: 200px;
+    border-radius: 15px;
 }
 .itemList ul li{
     text-align: center;

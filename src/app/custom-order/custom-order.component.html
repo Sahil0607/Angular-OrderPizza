@@ -5,16 +5,16 @@
           <ul class="row">
               <li class="col-sm-6" *ngFor="let itemObj of selectItem()"
                 [class.selected]="itemObj === selecteditemList" (click)="listSelected(itemObj)">  
-                  <h3>{{itemObj.itemInfo.name}}</h3>
+                  <h5>{{itemObj.itemInfo.name}}</h5>
                   <img [src]="itemObj.itemInfo.url" />
                   <hr *ngIf="form.controls.shopLocation.value">
               </li>
           </ul>
       </div>
       <div class="col-sm-3 itemListInfo" *ngIf="form.controls.itemName.value">
-          <h3>Pizza Detail</h3>
-          <p>Pizza Type:  {{form.value.itemType}}</p>
-          <p>Pizza Name: {{form.value.itemName}}</p>
+          <h5>Item Detail</h5>
+          <p>Item Type:  {{form.value.itemType}}</p>
+          <p>Item Name: {{form.value.itemName}}</p>
           <p>Location: {{form.value.shopLocation}}</p>
           <p>Price: {{form.value.totalPrice | currency}}</p>
       </div> 

@@ -109,7 +109,7 @@ export class MenuListService {
           name: 'Specialty Chicken – Crispy Bacon & Tomato',    
           type: 'Non-Veg', 
           toppings: ['Chicken', 'Tomato', 'Bacon'], 
-          price: 5, 
+          price: 4, 
           url: './../../assets/item_images/chicken_image/crispy_bacon_tomato_chicken.jpeg'
         }
       },
@@ -119,7 +119,7 @@ export class MenuListService {
           name: 'Specialty Chicken – Spicy Jalapeno - Pineapple',    
           type: 'Non-Veg', 
           toppings: ['Chicken', 'Jalapeno', 'Pineapple'], 
-          price: 7, 
+          price: 4, 
           url: './../../assets/item_images/chicken_image/spicy_jalapeno_pineapple_chicken.jpeg'
         }
       },
@@ -129,7 +129,7 @@ export class MenuListService {
           name: 'Hot Buffalo Wings',    
           type: 'Non-Veg', 
           toppings: ['Chicken'], 
-          price: 6, 
+          price: 4, 
           url: './../../assets/item_images/chicken_image/hot_buffalo_wings_chicken.jpeg'
         }
       },

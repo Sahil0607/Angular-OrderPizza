@@ -62,7 +62,6 @@ export class OrderComponent implements OnInit {
       this.toastr.error('Deleted Successfully', 'Order Reg.');
       // this.toastr.warning('Deleted Successfully', 'Order Reg.');
     });
-    this.isSelectedRemoveOrder = '';
   }
 
   editSelectedOrder(key: string) {

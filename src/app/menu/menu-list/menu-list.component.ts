@@ -107,12 +107,12 @@ export class MenuListComponent implements OnInit {
   }
 
   addVegToppings(vegTopping?): void {
-    let topping = new FormControl(vegTopping ? vegTopping : '', Validators.required);
+    let topping = new FormControl(vegTopping ? vegTopping : '');
     (<FormArray>this.form.get('vegToppings')).push(topping);
   } 
 
   addNonVegToppings(nonVegTopping?): void{
-    let topping = new FormControl(nonVegTopping ? nonVegTopping : '', Validators.required);
+    let topping = new FormControl(nonVegTopping ? nonVegTopping : '');
     (<FormArray>this.form.get('nonVegToppings')).push(topping);
   }
 

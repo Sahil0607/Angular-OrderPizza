@@ -55,14 +55,14 @@
                             <div class="col-sm-4">
                                 <div class="list-header">
                                     <p><b>Veg Topping: {{order.vegToppings ? '' : '-'}}</b></p>
-                                    <ul *ngFor="let vegTpng of order.vegToppings">
-                                        <li>{{vegTpng}}</li>
+                                    <ul>
+                                        <li *ngFor="let vegTpng of order.vegToppings">{{vegTpng}}</li>
                                     </ul>
                                 </div>
                                 <div class="list-header">
                                     <p><b>Non-Veg Topping: {{order.nonVegToppings ? '' : '-'}}</b></p>
-                                    <ul *ngFor="let nonVegTpng of order.nonVegToppings">
-                                        <li>{{nonVegTpng}}</li>
+                                    <ul>
+                                        <li *ngFor="let nonVegTpng of order.nonVegToppings">{{nonVegTpng}}</li>
                                     </ul>
                                 </div>
                             </div>
