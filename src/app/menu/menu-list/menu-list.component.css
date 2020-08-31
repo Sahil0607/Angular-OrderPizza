@@ -3,9 +3,8 @@
 }
 
 .itemList img{
-    width: 100%;
-    height: 225px;
-    
+    width: 75%;
+    height: 200px;
 }
 .itemList ul li{
     text-align: center;

@@ -14,7 +14,7 @@ constructor(private http: HttpClient,) {}
       { item: 'Pizza', Url:'./../../assets/menu_image/menu_pizza.jpeg'},
       { item: 'Chicken', Url:'./../../assets/menu_image/menu_chicken.jpeg'},
       { item: 'Pasta', Url:'./../../assets/menu_image/menu_pasta.jpeg'},
-      { item: 'Bread & Slice', Url:'./../../assets/menu_image/menu_bread&slice.jpeg'},
+      { item: 'Sides', Url:'./../../assets/menu_image/menu_sides.jpeg'},
       { item: 'Desserts', Url:'./../../assets/menu_image/menu_dessert.jpeg'},
       { item: 'Drinks', Url:'./../../assets/menu_image/menu_drink.jpeg'}
     ]

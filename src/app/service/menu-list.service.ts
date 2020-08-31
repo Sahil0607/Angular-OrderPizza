@@ -76,11 +76,11 @@ export class MenuListService {
       {
         item: 'Pasta',
         itemInfo: {
-          name: 'Cheese Pasta',   
-          type: 'Veg', 
-          toppings: ['Cheese'], 
-          price: 6, 
-          url: './../../assets/item_images/pizza_image/cheese_pizza.jpeg'
+          name: 'Chicken Alfredo',   
+          type: 'Non-Veg', 
+          toppings: ['Cheese', 'Chicken'], 
+          price: 5, 
+          url: './../../assets/item_images/pasta_image/chicken_alfredo_pasta.jpeg'
         },
       },
       {
@@ -88,29 +88,159 @@ export class MenuListService {
         itemInfo: {
           name: 'Veggie Pasta',    
           type: 'Veg', 
-          toppings: ['Cheese'], 
-          price: 7, 
-          url: './../../assets/item_images/pizza_image/veggie_pizza.jpeg'
+          toppings: ['Cheese','Onion'], 
+          price: 4, 
+          url: './../../assets/item_images/pasta_image/veggie_pasta.jpeg'
         },
       },
       {
         item: 'Pasta',
         itemInfo: {
-          name: 'Pepperoni Pasta',    
+          name: 'Italian Sausage Marinaraa',    
           type: 'Non-Veg', 
-          toppings: ['Cheese'], 
+          toppings: ['Cheese', 'Sausage'], 
           price: 8, 
-          url: './../../assets/item_images/pizza_image/pepperoni_pizza.jpeg'
+          url: './../../assets/item_images/pasta_image/italian_sausage_marinaraa_pasta.jpeg'
         },
       },
       {
-        item: 'Pasta',
+        item: 'Chicken',
         itemInfo:  {
-          name: 'Meat Pasta',    
+          name: 'Specialty Chicken – Crispy Bacon & Tomato',    
           type: 'Non-Veg', 
-          toppings: ['Cheese'], 
-          price: 8, 
-          url: './../../assets/item_images/pizza_image/meat_pizza.jpeg'
+          toppings: ['Chicken', 'Tomato', 'Bacon'], 
+          price: 5, 
+          url: './../../assets/item_images/chicken_image/crispy_bacon_tomato_chicken.jpeg'
+        }
+      },
+      {
+        item: 'Chicken',
+        itemInfo:  {
+          name: 'Specialty Chicken – Spicy Jalapeno - Pineapple',    
+          type: 'Non-Veg', 
+          toppings: ['Chicken', 'Jalapeno', 'Pineapple'], 
+          price: 7, 
+          url: './../../assets/item_images/chicken_image/spicy_jalapeno_pineapple_chicken.jpeg'
+        }
+      },
+      {
+        item: 'Chicken',
+        itemInfo:  {
+          name: 'Hot Buffalo Wings',    
+          type: 'Non-Veg', 
+          toppings: ['Chicken'], 
+          price: 6, 
+          url: './../../assets/item_images/chicken_image/hot_buffalo_wings_chicken.jpeg'
+        }
+      },
+      {
+        item: 'Chicken',
+        itemInfo:  {
+          name: 'Boneless Chicken',    
+          type: 'Non-Veg', 
+          toppings: ['Chicken'], 
+          price: 5, 
+          url: './../../assets/item_images/chicken_image/boneless_chicken_chicken.jpeg'
+        }
+      },
+      {
+        item: 'Sides',
+        itemInfo:  {
+          name: 'Stuffed Garlic Knots',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 6, 
+          url: './../../assets/item_images/sides_image/stuffed_garlic_knots_sides.jpeg'
+        }
+      },
+      {
+        item: 'Sides',
+        itemInfo:  {
+          name: 'Breadsticks',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 3, 
+          url: './../../assets/item_images/sides_image/breadsticks_sides.jpeg'
+        }
+      },
+      {
+        item: 'Sides',
+        itemInfo:  {
+          name: 'Cheese Breadsticks',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 5, 
+          url: './../../assets/item_images/sides_image/cheese_breadsticks_sides.jpeg'
+        }
+      },
+      {
+        item: 'Desserts',
+        itemInfo:  {
+          name: 'Chocolate Brownie',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 6, 
+          url: './../../assets/item_images/desserts_image/chocolate_brownie_desserts.jpeg'
+        }
+      },
+      {
+        item: 'Desserts',
+        itemInfo:  {
+          name: 'Chocolate Chip Cookie',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 5, 
+          url: './../../assets/item_images/desserts_image/chocolate_chip_cookie.jpeg'
+        }
+      },
+      {
+        item: 'Desserts',
+        itemInfo:  {
+          name: 'Cinnabon Rolls',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 4, 
+          url: './../../assets/item_images/desserts_image/cinnabon_rolls_desserts.jpeg'
+        }
+      },
+      {
+        item: 'Drinks',
+        itemInfo:  {
+          name: 'Coke',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 2, 
+          url: './../../assets/item_images/drinks_image/coke_drinks.jpeg'
+        }
+      },
+      {
+        item: 'Drinks',
+        itemInfo:  {
+          name: 'Sprite',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 2, 
+          url: './../../assets/item_images/drinks_image/sprite_drinks.jpeg'
+        }
+      },
+      {
+        item: 'Drinks',
+        itemInfo:  {
+          name: 'Sunkist',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 2, 
+          url: './../../assets/item_images/drinks_image/sunkist_drinks.jpeg'
+        }
+      },
+      {
+        item: 'Drinks',
+        itemInfo:  {
+          name: 'Pepsi',    
+          type: 'Veg', 
+          toppings: [''], 
+          price: 2, 
+          url: './../../assets/item_images/drinks_image/pepsi_drinks.jpeg'
         }
       },
     ];
