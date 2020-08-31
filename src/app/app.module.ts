@@ -18,6 +18,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { MenuComponent } from './menu/menu.component';
 import { MenuListComponent } from './menu/menu-list/menu-list.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MenuListComponent } from './menu/menu-list/menu-list.component';
     LoadingSpinnerComponent,
     MenuComponent,
     MenuListComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

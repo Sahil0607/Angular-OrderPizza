@@ -13,6 +13,10 @@
 .menuList:hover{
     background-image: linear-gradient(to bottom right, #ff414e, #ff8928);
     cursor: pointer;
+    color: white;
+}
+.menuList:hover h5{
+    color: white;
 }
 .menuImage{
     width: 100%;

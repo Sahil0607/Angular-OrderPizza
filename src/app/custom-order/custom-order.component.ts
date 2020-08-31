@@ -46,6 +46,7 @@ export class CustomOrderComponent implements OnInit {
       nonVegToppings: this.fb.array([]),
       totalPrice: [null],
       orderDate: [new Date()],
+      completed: [false]
     });
 
     this.authService.user.subscribe(user => {

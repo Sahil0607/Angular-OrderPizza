@@ -1,0 +1,107 @@
+<div class="container">
+    <div *ngIf="isLoading && !error" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <div *ngIf="!orders.length" class="row mt-3">
+        <div class="col">
+            <div class="alert alert-success" role="alert">
+                <h2>No Orders Available</h2>
+                <p>Please create a new order</p>
+                <a routerLink="/menu"><button class="btn btn-success pull-right">Create Order</button></a>
+            </div> 
+        </div>
+    </div>
+    <div class="alert alert-danger" *ngIf="error">
+        <h2>An Error Occured</h2>
+        <p>{{error}}</p>
+    </div>
+    <div class="heading">
+        <h3>My Order</h3>
+    </div>
+    <div *ngIf="orders.length">
+        <ul class="order">
+            <li *ngFor="let order of orders; let i = index;" [@orderInAnimation]>
+                <div class="row">
+                    <div class="col-sm-2 pt-2">
+                        <img class="orderImage" [src]="order.itemUrl" />
+                    </div>
+                    <div class="col-sm-8 pt-2">
+                        <div class="row">
+                            <h5>{{order.itemName}}</h5>
+                        </div>
+                        <div class="row topping" *ngIf="order.vegToppings && order.vegToppings.length">
+                            <p><b>Veg Topping: </b></p>
+                            <ul>
+                                <li *ngFor="let vegTpng of order.vegToppings">
+                                    {{vegTpng}}{{i===vegTpng.length ? '': ','}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row topping" *ngIf="order.nonVegToppings && order.nonVegToppings.length">
+                            <p><b>Non-Veg Topping: </b></p>
+                            <ul>
+                                <li *ngFor="let nonVegTpng of order.nonVegToppings; index as i">
+                                    {{nonVegTpng}}{{i===nonVegTpng.length ? '': ','}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-outline-danger mr-2 btn-sm" (click)="removeSelectedOrder(order.id)" data-toggle="modal" data-target="#removeModal">
+                                Remove 🗑️
+                            </button>
+                            <button type="button" class="btn btn-outline-warning mr-2 btn-sm" (click)="editSelectedOrder(order.id)" data-toggle="modal" data-target="#editModal" >
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 pt-2">
+                        <h5 class="pl-2">{{order.totalPrice | currency}}</h5>
+                    </div>
+                </div>
+                <hr>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Remove Record Modal -->
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="removeAllModalLabel">Remove Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Are you sure to delete the record?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="removeOrder()" data-dismiss="modal" class="btn btn-danger">Remove Order</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Edit Record Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editAllModalLabel">Edit Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Are you sure to delete the record?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="editOrder()" data-dismiss="modal" class="btn btn-danger">Edit Order</button>
+        </div>
+      </div>
+    </div>
+</div>

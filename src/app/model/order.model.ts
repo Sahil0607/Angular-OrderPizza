@@ -10,4 +10,5 @@ export interface Order {
     nonVegToppings: string[];
     totalPrice: number,
     orderDate: Date,
+    completed: boolean,
 }

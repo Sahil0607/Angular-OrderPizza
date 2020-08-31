@@ -43,6 +43,7 @@ export class MenuListComponent implements OnInit {
       nonVegToppings: this.fb.array([]),
       totalPrice: [null],
       orderDate: [new Date()],
+      completed: [false],
     });
 
     this.authService.user.subscribe(user => {
@@ -94,15 +95,16 @@ export class MenuListComponent implements OnInit {
       this.form.controls.price.setValue(item.itemInfo.price);
       // this.form.controls.itemTypeId.setValue(item.id); // Add id and adjust data
 
-      item.itemInfo.toppings.forEach(topping => {
-        if (this.allToppings.filter(tpng => tpng.name === topping && tpng.itemType === 'Veg')[0]) {
-          this.addVegToppings(topping);
-        } else {
-          this.addNonVegToppings(topping);
-        }
-      });
-  
-      this.calculateToppingPrice();
+      if (item.itemInfo.toppings && item.itemInfo.toppings.length) {
+        item.itemInfo.toppings.forEach(topping => {
+          if (this.allToppings.filter(tpng => tpng.name === topping && tpng.itemType === 'Veg')[0]) {
+            this.addVegToppings(topping);
+          } else {
+            this.addNonVegToppings(topping);
+          }
+        });
+        this.calculateToppingPrice();
+      }
     }
   }
 

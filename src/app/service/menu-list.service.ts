@@ -148,7 +148,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Stuffed Garlic Knots',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 6, 
           url: './../../assets/item_images/sides_image/stuffed_garlic_knots_sides.jpeg'
         }
@@ -158,7 +158,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Breadsticks',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 3, 
           url: './../../assets/item_images/sides_image/breadsticks_sides.jpeg'
         }
@@ -168,7 +168,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Cheese Breadsticks',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 5, 
           url: './../../assets/item_images/sides_image/cheese_breadsticks_sides.jpeg'
         }
@@ -178,7 +178,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Chocolate Brownie',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 6, 
           url: './../../assets/item_images/desserts_image/chocolate_brownie_desserts.jpeg'
         }
@@ -188,7 +188,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Chocolate Chip Cookie',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 5, 
           url: './../../assets/item_images/desserts_image/chocolate_chip_cookie.jpeg'
         }
@@ -198,7 +198,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Cinnabon Rolls',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 4, 
           url: './../../assets/item_images/desserts_image/cinnabon_rolls_desserts.jpeg'
         }
@@ -208,7 +208,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Coke',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 2, 
           url: './../../assets/item_images/drinks_image/coke_drinks.jpeg'
         }
@@ -218,7 +218,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Sprite',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 2, 
           url: './../../assets/item_images/drinks_image/sprite_drinks.jpeg'
         }
@@ -228,7 +228,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Sunkist',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 2, 
           url: './../../assets/item_images/drinks_image/sunkist_drinks.jpeg'
         }
@@ -238,7 +238,7 @@ export class MenuListService {
         itemInfo:  {
           name: 'Pepsi',    
           type: 'Veg', 
-          toppings: [''], 
+          toppings: [], 
           price: 2, 
           url: './../../assets/item_images/drinks_image/pepsi_drinks.jpeg'
         }
