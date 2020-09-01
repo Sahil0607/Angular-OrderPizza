@@ -8,25 +8,33 @@
 }
 .order {
     margin-top: -10px;
+    display: block;
+}
+.total{
+    margin-top: -10px;
 }
 hr {
     margin-top: -6px;
-    border: 1px solid DarkGray;
+    border: 1px solid #B8B8B8;
+}
+.hrCollapse {
+    margin-top: -6px;
+    border: 1px solid Gainsboro;
 }
 .collapseCheckout {
     display: block;
     color: black;
 }
-
-/* .list-header {
+.topping ul li {
+    float: left;
+    padding-right: 2px;
+}
+.topping{
     clear: both;
+    margin: 0;
+    padding: 0;
 }
-.list-header p{
+.topping p{
     float: left;
 }
-.list-header ul li {
-    float: left;
-    margin-top: 1px;
-    margin-left: 10px;
-    background-color: transparent;
-} */
+

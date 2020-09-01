@@ -46,16 +46,16 @@
                         <hr>
                         <div>
                             <ul>
-                                <li *ngFor="let order of checkout.orders; let i = index;">
-                                    <div class="row order">
+                                <li class="order" *ngFor="let order of checkout.orders; let i = index;">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <p><b>Item:</b> {{order.item}}</p>
+                                        </div>
                                         <div class="col-sm-4">
                                             <p><b>Name:</b> {{order.itemName}}</p>
                                         </div>
                                         <div class="col-sm-3">
                                             <p><b>Type:</b> {{order.itemType}}</p>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <p><b>Paid:</b> {{order.completed ? 'Yes' : 'No'}}</p>
                                         </div>
                                         <div class="col-sm-3">
                                             <p><b>Price:</b> {{order.totalPrice | currency}}</p>
@@ -65,7 +65,7 @@
                             </ul>
                         </div>
                         <hr>
-                        <div class="row order justify-content-end">
+                        <div class="row total justify-content-end">
                             <div class="col-sm-3">
                                 <p><b>SubTotal:</b> {{checkout.subtotal | currency}}</p>
                             </div>
@@ -76,7 +76,7 @@
                                  <p><b>Total:</b> {{checkout.total | currency}}</p>
                             </div>
                             <div class="col-sm-1">
-                                <button class="btn btn-outline-success btn-sm" data-toggle="collapse" data-target="#demo">
+                                <button class="btn btn-success btn-sm" data-toggle="collapse" data-target="#demo">
                                     More
                                 </button>
                            </div>
@@ -89,16 +89,24 @@
                                             <div class="col-sm-4">
                                                 <p><b>Name:</b> {{order.itemName}}</p>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <p><b>Type:</b> {{order.itemType}}</p>
+                                            <div class="col-sm-4 topping">
+                                                <p><b>Veg Toppings:</b></p>
+                                                <ul>
+                                                    <li *ngFor="let vegTpng of order.vegToppings">
+                                                        {{vegTpng ? vegTpng : '-'}}{{i===vegTpng.length ? '': ','}}
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <div class="col-sm-2">
-                                                <p><b>Paid:</b> {{order.completed ? 'Yes' : 'No'}}</p>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <p><b>Price:</b> {{order.totalPrice | currency}}</p>
+                                            <div class="col-sm-4 topping">
+                                                <p><b>Non-Veg Toppings:</b></p>
+                                                <ul>
+                                                    <li *ngFor="let nonVegToppings of order.nonVegToppings">
+                                                        {{nonVegToppings}}{{i===nonVegToppings.length ? '': ','}}
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
+                                        <hr class="hrCollapse">
                                     </li>
                                 </ul>
                             </div>
