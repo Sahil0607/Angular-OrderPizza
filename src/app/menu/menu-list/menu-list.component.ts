@@ -6,7 +6,7 @@ import { MenuListService } from 'src/app/service/menu-list.service';
 import { ToppingService } from 'src/app/service/topping.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Topping } from 'src/app/model/topping.model';
-import { OrderRealDBFirebaseService } from 'src/app/service/order-real-db-firebase.service';
+import { OrderService } from 'src/app/service/order.service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuList } from 'src/app/model/menu-list.model';
 
@@ -26,7 +26,7 @@ export class MenuListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder,private menuListService: MenuListService, 
     private toppingService: ToppingService, private authService: AuthService, private router: Router,
-    private orderRealDBFirebaseService: OrderRealDBFirebaseService, private toastr: ToastrService,) { }
+    private orderService: OrderService, private toastr: ToastrService,) { }
 
   ngOnInit() {
     this.route.params.subscribe( params => this.item = params.item );
@@ -144,12 +144,12 @@ export class MenuListComponent implements OnInit {
   }
 
   navigateOrder() {
-    this.router.navigateByUrl('/order');
+    this.router.navigateByUrl('/checkout');
   }
 
   onSubmit() {
     if (this.form.value) {
-      this.orderRealDBFirebaseService.createOrder(this.form.value).subscribe(res => {
+      this.orderService.createOrder(this.form.value).subscribe(res => {
         if (res) {
           this.showSuccess();
           this.navigateOrder();

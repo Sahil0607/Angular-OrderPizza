@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { OrderRealDBFirebaseService } from '../service/order-real-db-firebase.service';
+import { OrderService } from '../service/order.service';
+import { AuthService } from '../auth/auth.service';
+import { CheckoutService } from '../service/checkout.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../auth/auth.service';
-import { Order } from '../model/order.model';
 import { slideIn } from '../animation/animation';
+import { Checkout } from '../model/checkout.model';
 
 @Component({
   selector: 'app-order',
@@ -16,28 +17,28 @@ import { slideIn } from '../animation/animation';
 
 export class OrderComponent implements OnInit {
   subscription: Subscription;
-  orders: Order[] = [];
+  checkouts: Checkout[] = [];
   isLoading = false;
   error = null;
   isSelectedRemoveOrder: string;
-  isSelectedEditOrder: string;
 
-  constructor(private orderRealDBFirebaseService: OrderRealDBFirebaseService,
+  constructor(private orderService: OrderService, private checkoutService: CheckoutService,
     private router: Router, private toastr: ToastrService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
     this.authService.user.subscribe(user => {
       if (user) {
-        this.getOrders(user.id);
+        this.getCheckouts(user.id);
       }
     });
   }
 
-  getOrders(userId) {
-    this.orderRealDBFirebaseService.getOrderList().subscribe(response => {
+  getCheckouts(userId) {
+    this.checkoutService.getCheckouts().subscribe(response => {
+      console.log(response);
       if (response) {
-        this.orders = response.filter(res => res.userId === userId);
+        this.checkouts = response.filter(res => res.userId === userId);
       }
       this.isLoading = false;
     }, error => {
@@ -46,8 +47,8 @@ export class OrderComponent implements OnInit {
   }
 
   removeAllOrders() {
-    this.orderRealDBFirebaseService.deleteOrders().subscribe(() => {
-      this.orders = [];
+    this.checkoutService.deleteCheckouts().subscribe(() => {
+      this.checkouts = [];
     });
   }
 
@@ -56,20 +57,12 @@ export class OrderComponent implements OnInit {
   }
 
   async removeOrder() {
-    await this.orderRealDBFirebaseService.deleteOrder(this.isSelectedRemoveOrder).subscribe(() => {
-      let removeIndex = this.orders.map(item => item.id).indexOf(this.isSelectedRemoveOrder);
-      this.orders.splice(removeIndex, 1);
+    await this.checkoutService.deleteCheckout(this.isSelectedRemoveOrder).subscribe(() => {
+      let removeIndex = this.checkouts.map(item => item.id).indexOf(this.isSelectedRemoveOrder);
+      this.checkouts.splice(removeIndex, 1);
       this.toastr.error('Deleted Successfully', 'Order Reg.');
       // this.toastr.warning('Deleted Successfully', 'Order Reg.');
     });
-  }
-
-  editSelectedOrder(key: string) {
-    this.isSelectedEditOrder = key;
-  }
-
-  editOrder() {
-    this.router.navigate(['/update-order', this.isSelectedEditOrder]);
   }
 
 }

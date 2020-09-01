@@ -1,13 +1,13 @@
-export interface MenuList {
-    id?: string,
-    item: string,
-    itemInfo: ItemInfo,
+export class MenuList {
+    public id?: string;
+    public item: string;
+    public itemInfo: ItemInfo;
 }
 
-interface ItemInfo {
-    name: string,
-    type: string,
-    toppings: string[],
-    price: number,
-    url: string
+class ItemInfo {
+    public name: string;
+    public type: string;
+    public toppings: string[];
+    public price: number;
+    public url: string;
 }

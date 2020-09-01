@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormArray, Validators } from '@angular/forms'
 import { MenuListService } from '../service/menu-list.service';
 import { ToppingService } from '../service/topping.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { OrderRealDBFirebaseService } from '../service/order-real-db-firebase.service';
+import { OrderService } from '../service/order.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { slideIn } from '../animation/animation';
@@ -29,7 +29,7 @@ export class CustomOrderComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private menuListService: MenuListService, 
     private toppingService: ToppingService, private router: Router,
-    private orderRealDBFirebaseService: OrderRealDBFirebaseService,
+    private orderService: OrderService,
     private route: ActivatedRoute, private toastr: ToastrService, private authService: AuthService) {}
 
   ngOnInit() {
@@ -74,7 +74,7 @@ export class CustomOrderComponent implements OnInit {
     });
     
      if (this.id) {
-      this.orderRealDBFirebaseService.getOrder(this.id).subscribe(val => {
+      this.orderService.getOrder(this.id).subscribe(val => {
         this.editForm = {...val};
         this.form.patchValue(val);
         // this.selecteditemList = {
@@ -182,7 +182,7 @@ export class CustomOrderComponent implements OnInit {
   } 
 
   navigateOrder() {
-    this.router.navigateByUrl('/order');
+    this.router.navigateByUrl('/checkout');
   }
 
   onSubmit() {
@@ -190,14 +190,14 @@ export class CustomOrderComponent implements OnInit {
       this.calculateToppingPrice();
       
       if (!this.id) {
-        this.orderRealDBFirebaseService.createOrder(this.form.value).subscribe(res => {
+        this.orderService.createOrder(this.form.value).subscribe(res => {
           if (res) {
             this.showSuccess();
             this.navigateOrder();
           }
         });
       } else {
-        this.orderRealDBFirebaseService.updateOrder(this.id, this.form.value).subscribe(res => {
+        this.orderService.updateOrder(this.id, this.form.value).subscribe(res => {
           if (res) {
             this.showSuccess();
            this.navigateOrder();

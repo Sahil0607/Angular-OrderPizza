@@ -68,8 +68,8 @@
       </div>
     </div> 
     <hr *ngIf="form.controls.shopLocation.value">
-    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{!id ? 'Submit' : 'Update Order'}}</button>
-    <button class="btn btn-secondary ml-3" (click)="navigateOrder()" *ngIf="id">Cancel</button>
+    <button type="submit" class="btn btn-outline-primary" [disabled]="!form.valid">{{!id ? 'Add to Cart 🛒' : 'Update Order'}}</button>
+    <button class="btn btn-outline-secondary ml-3" (click)="navigateOrder()" *ngIf="id">Cancel</button>
   </div>
 </form>
 <br><br>

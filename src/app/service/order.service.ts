@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderRealDBFirebaseService {
+export class OrderService {
 
   constructor(private http: HttpClient, private db: AngularFireDatabase,) {}
 
@@ -23,7 +23,7 @@ export class OrderRealDBFirebaseService {
     return this.http.get('https://order-pizza-b438c.firebaseio.com/Orders/' + id + '.json');
   }
 
-  getOrderList(){
+  getOrders(){
     // We will rec data in {'wsacddvd5415cd': {data}}. So we have to format the data.
     // Pipe and map is from rxjs. It is use for transform the data.
     // pipe is load before the subscribe. So we return data from map then we can subscribe.

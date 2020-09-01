@@ -1,5 +1,5 @@
-export interface Menu {
-    id?: string;
-    item: String;
-    Url: String;
+export class Menu {
+    public id?: string;
+    public item: String;
+    public Url: String;
 }
