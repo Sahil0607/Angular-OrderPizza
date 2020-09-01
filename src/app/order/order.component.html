@@ -2,10 +2,10 @@
     <div *ngIf="isLoading && !error" style="text-align: center;">
         <app-loading-spinner></app-loading-spinner>
     </div>
-    <div *ngIf="!orders.length" class="row mt-3">
+    <div *ngIf="!checkouts.length" class="row mt-3">
         <div class="col">
             <div class="alert alert-success" role="alert">
-                <h2>No Orders Available</h2>
+                <h2>No Checkouts Available</h2>
                 <p>Please create a new order</p>
                 <a routerLink="/menu"><button class="btn btn-success pull-right">Create Order</button></a>
             </div> 
@@ -15,63 +15,92 @@
         <h2>An Error Occured</h2>
         <p>{{error}}</p>
     </div>
-    <div class="row" *ngIf="orders.length">
+    <div class="row" *ngIf="checkouts.length">
         <div class="col">
             <div class= "row mt-3">
                 <div class="col-sm-9">
                     <h3>Food Order List</h3>
                 </div>
                 <div class="col-sm-3">
-                    <button *ngIf="orders.length" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#removeAllModal">
+                    <button *ngIf="checkouts.length" class="btn btn-outline-danger float-right" data-toggle="modal" data-target="#removeAllModal">
                         Remove All 🗑️
                     </button>
                 </div>
             </div>
-            <div *ngIf="orders.length">
-                <ul class="order">
-                    <li *ngFor="let order of orders; let i = index;" [@orderInAnimation]>
+            <div *ngIf="checkouts.length">
+                <ul>
+                    <li class="checkout" *ngFor="let checkout of checkouts; let i = index;" [@orderInAnimation]>
                         <div class="row">
-                            <div class="col-sm-2 pt-2">
-                                <h4 class="pl-2">Order: {{i + 1}}</h4>
+                            <div class="col-sm-4 pt-2">
+                                <h5 class="pl-2 pt-2">Checkout: {{i + 1}}</h5>
                             </div>
                             <div class="col-sm-4 pt-3">
-                                <p>{{order.orderDate | date:'medium'}}</p>
-                            </div>
-                            <div class="col-sm-2 pt-3">
-                                <p>{{order.completed ? 'Completed' : 'Not-Completed'}}</p>
+                                <p>{{checkout.date | date:'medium'}}</p>
                             </div>
                             <div class="col-sm-4 pt-2">
-                                <button type="button" class="btn btn-danger mr-2 float-right" (click)="removeSelectedOrder(order.id)" data-toggle="modal" data-target="#removeModal">
+                                <button type="button" class="btn btn-danger btn-sm mr-2 float-right" (click)="removeSelectedOrder(checkout.id)" data-toggle="modal" data-target="#removeModal">
                                     Remove 🗑️
                                 </button>
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div>
+                            <ul>
+                                <li *ngFor="let order of checkout.orders; let i = index;">
+                                    <div class="row order">
+                                        <div class="col-sm-4">
+                                            <p><b>Name:</b> {{order.itemName}}</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p><b>Type:</b> {{order.itemType}}</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p><b>Paid:</b> {{order.completed ? 'Yes' : 'No'}}</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p><b>Price:</b> {{order.totalPrice | currency}}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                        <div class="row order justify-content-end">
                             <div class="col-sm-3">
-                                <p class="ml-3"><b>Location:</b> {{order.shopLocation}}</p>
-                                <p class="ml-3"><b>ItemName:</b> {{order.itemName}}</p>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="list-header">
-                                    <p><b>Veg Topping: {{order.vegToppings ? '' : '-'}}</b></p>
-                                    <ul>
-                                        <li *ngFor="let vegTpng of order.vegToppings">{{vegTpng}}</li>
-                                    </ul>
-                                </div>
-                                <div class="list-header">
-                                    <p><b>Non-Veg Topping: {{order.nonVegToppings ? '' : '-'}}</b></p>
-                                    <ul>
-                                        <li *ngFor="let nonVegTpng of order.nonVegToppings">{{nonVegTpng}}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <p><b>ItemType:</b> {{order.itemType}}</p>
-                                <p><b>ItemPrice:</b> {{order.price | currency}}</p>
+                                <p><b>SubTotal:</b> {{checkout.subtotal | currency}}</p>
                             </div>
                             <div class="col-sm-2">
-                                <p><b>Total:</b> {{order.totalPrice | currency}}</p>
+                                <p><b>Tax:</b> {{checkout.tax | currency}}</p>
+                            </div>
+                            <div class="col-sm-3">
+                                 <p><b>Total:</b> {{checkout.total | currency}}</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <button class="btn btn-outline-success btn-sm" data-toggle="collapse" data-target="#demo">
+                                    More
+                                </button>
+                           </div>
+                        </div>
+                        <div id="demo" class="collapse">
+                            <div class="card card-body">
+                                <ul>
+                                    <li class="collapseCheckout" *ngFor="let order of checkout.orders; let i = index;">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <p><b>Name:</b> {{order.itemName}}</p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p><b>Type:</b> {{order.itemType}}</p>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <p><b>Paid:</b> {{order.completed ? 'Yes' : 'No'}}</p>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <p><b>Price:</b> {{order.totalPrice | currency}}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </li>
@@ -122,3 +151,4 @@
       </div>
     </div>
 </div>
+

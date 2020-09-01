@@ -1,8 +1,4 @@
-.order {
-    margin: 0;
-    padding: 0;
-}
-.order li {
+.checkout{
     display: block;
     background-image: linear-gradient(to bottom right, #ffafbd, #ffc3a0);
     color: black;
@@ -10,8 +6,19 @@
     border-radius: 10px;
     margin-top: 10px;
 }
+.order {
+    margin-top: -10px;
+}
+hr {
+    margin-top: -6px;
+    border: 1px solid DarkGray;
+}
+.collapseCheckout {
+    display: block;
+    color: black;
+}
 
-.list-header {
+/* .list-header {
     clear: both;
 }
 .list-header p{
@@ -22,8 +29,4 @@
     margin-top: 1px;
     margin-left: 10px;
     background-color: transparent;
-}
-hr {
-    margin-top: -4px;
-    border: 1px solid DarkGray;
-}
+} */
