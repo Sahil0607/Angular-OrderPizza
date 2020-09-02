@@ -20,15 +20,26 @@ hr {
 .order li {
     display: block;
 }
-.topping ul li {
+
+.topping ul {
+    float: left;
+    margin-left: -30px;
+}
+.topping ul li{
+    float: left;
+}
+
+/* .topping ul li {
     float: left;
     padding-right: 2px;
+    display: block;
 }
 .topping{
+    float: left;
     clear: both;
     margin: 0;
     padding: 0;
 }
 .topping p{
     float: left;
-}
+} */

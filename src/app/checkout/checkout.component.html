@@ -35,16 +35,16 @@
                         <div class="row topping" *ngIf="order.vegToppings && order.vegToppings.length">
                             <p><b>Veg Topping: </b></p>
                             <ul>
-                                <li *ngFor="let vegTpng of order.vegToppings">
-                                    {{vegTpng}}{{i===vegTpng.length ? '': ','}}
+                                <li *ngFor="let vegTpng of order.vegToppings;let l=index">
+                                    {{vegTpng}}{{l===order.vegToppings.length-1 ? '': ', '}}
                                 </li>
                             </ul>
                         </div>
                         <div class="row topping" *ngIf="order.nonVegToppings && order.nonVegToppings.length">
                             <p><b>Non-Veg Topping: </b></p>
                             <ul>
-                                <li *ngFor="let nonVegTpng of order.nonVegToppings; index as i">
-                                    {{nonVegTpng}}{{i===nonVegTpng.length ? '': ','}}
+                                <li *ngFor="let nonVegTpng of order.nonVegToppings;let l=index">
+                                    {{nonVegTpng}}{{l===order.nonVegToppings.length-1 ? '': ', '}}
                                 </li>
                             </ul>
                         </div>

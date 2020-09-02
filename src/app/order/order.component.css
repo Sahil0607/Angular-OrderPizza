@@ -28,6 +28,7 @@ hr {
 .topping ul li {
     float: left;
     padding-right: 2px;
+    display: block;
 }
 .topping{
     clear: both;

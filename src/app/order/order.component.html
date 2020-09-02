@@ -46,10 +46,10 @@
                         <hr>
                         <div>
                             <ul>
-                                <li class="order" *ngFor="let order of checkout.orders; let i = index;">
+                                <li class="order" *ngFor="let order of checkout.orders; let j = index;">
                                     <div class="row">
                                         <div class="col-sm-2">
-                                            <p><b>Item:</b> {{order.item}}</p>
+                                            <p><b>{{j+1}}. Item:</b> {{order.item}}</p>
                                         </div>
                                         <div class="col-sm-4">
                                             <p><b>Name:</b> {{order.itemName}}</p>
@@ -84,29 +84,29 @@
                         <div id="demo" class="collapse">
                             <div class="card card-body">
                                 <ul>
-                                    <li class="collapseCheckout" *ngFor="let order of checkout.orders; let i = index;">
+                                    <li class="collapseCheckout" *ngFor="let order of checkout.orders; let k = index;">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <p><b>Name:</b> {{order.itemName}}</p>
+                                                <p><b>{{k+1}}. Name:</b> {{order.itemName}}</p>
                                             </div>
                                             <div class="col-sm-4 topping">
-                                                <p><b>Veg Toppings:</b></p>
+                                                <p><b>Veg Toppings: </b>{{order.vegToppings ? ' ' : '-'}}</p>
                                                 <ul>
-                                                    <li *ngFor="let vegTpng of order.vegToppings">
-                                                        {{vegTpng ? vegTpng : '-'}}{{i===vegTpng.length ? '': ','}}
+                                                    <li *ngFor="let vegTpng of order.vegToppings; let l = index">
+                                                        {{vegTpng}}{{l===order.vegToppings.length-1 ? '': ','}}
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="col-sm-4 topping">
-                                                <p><b>Non-Veg Toppings:</b></p>
-                                                <ul>
-                                                    <li *ngFor="let nonVegToppings of order.nonVegToppings">
-                                                        {{nonVegToppings}}{{i===nonVegToppings.length ? '': ','}}
+                                                <p><b>Non-Veg Toppings: </b>{{order.nonVegToppings ? ' ' : '-'}}</p>
+                                                <ul *ngIf="order.nonVegToppings;">
+                                                    <li *ngFor="let nonVegTpg of order.nonVegToppings; let l = index">
+                                                        {{nonVegTpg}}{{l===order.nonVegToppings.length-1 ? '': ','}}
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <hr class="hrCollapse">
+                                        <hr class="hrCollapse" *ngIf="checkout.orders.length>1">
                                     </li>
                                 </ul>
                             </div>
