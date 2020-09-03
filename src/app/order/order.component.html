@@ -92,16 +92,16 @@
                                             <div class="col-sm-4 topping">
                                                 <p><b>Veg Toppings: </b>{{order.vegToppings ? ' ' : '-'}}</p>
                                                 <ul>
-                                                    <li *ngFor="let vegTpng of order.vegToppings; let l = index">
-                                                        {{vegTpng}}{{l===order.vegToppings.length-1 ? '': ','}}
+                                                    <li *ngFor="let vegTpng of getOrderVegTopping(order); let l = index">
+                                                        {{vegTpng.name}}{{l===order.vegToppings.length-1 ? '': ','}}
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="col-sm-4 topping">
                                                 <p><b>Non-Veg Toppings: </b>{{order.nonVegToppings ? ' ' : '-'}}</p>
                                                 <ul *ngIf="order.nonVegToppings;">
-                                                    <li *ngFor="let nonVegTpg of order.nonVegToppings; let l = index">
-                                                        {{nonVegTpg}}{{l===order.nonVegToppings.length-1 ? '': ','}}
+                                                    <li *ngFor="let nonVegTpg of getOrderNonVegTopping(order); let l = index">
+                                                        {{nonVegTpg.name}}{{l===order.nonVegToppings.length-1 ? '': ','}}
                                                     </li>
                                                 </ul>
                                             </div>

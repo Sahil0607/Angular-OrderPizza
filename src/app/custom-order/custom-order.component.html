@@ -21,7 +21,7 @@
       <hr *ngIf="form.controls.shopLocation.value">
     </div> 
 
-    <div class="row" *ngIf="form.controls.shopLocation.value">
+    <div class="row" *ngIf="form.controls.shopLocation.value && form.controls.item.value === 'Pizza'">
       <div class="col-sm-6">
         <div class="form-group">
           <button type="button" class="btn btn-success" (click)="addVegToppings()" [disabled]="form.get('vegToppings').invalid">
@@ -35,7 +35,7 @@
               <label for="{{i}}">Add Ingredient: </label>
               <select class="form-control" [formControlName]="i">
                 <option value="">Add Veg Topping</option>
-                <option *ngFor="let item of loadVegTopping()" [ngValue]="item.name">{{item.name}}</option>
+                <option *ngFor="let item of loadVegTopping()" [ngValue]="item.id">{{item.name}}</option>
               </select>
             </div>
             <div class="col-sm-4">
@@ -57,7 +57,7 @@
               <label for="{{i}}">Add Ingredient: </label>
               <select class="form-control" [formControlName]="i">
                 <option value="">Add Non-Veg Topping</option>
-                <option *ngFor="let item of loadNonVegTopping()" [value]="item.name">{{item.name}}</option>
+                <option *ngFor="let item of loadNonVegTopping()" [ngValue]="item.id">{{item.name}}</option>
               </select>
             </div>
             <div class="col-sm-4">

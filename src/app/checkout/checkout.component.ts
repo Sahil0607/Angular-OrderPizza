@@ -4,11 +4,13 @@ import { Subscription } from 'rxjs';
 import { Order } from '../model/order.model';
 import { AuthService } from '../auth/auth.service';
 import { OrderService } from '../service/order.service';
+import { ToppingService } from '../service/topping.service';
 import { CheckoutService } from '../service/checkout.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Checkout } from '../model/checkout.model';
 import { User } from '../model/user.model';
+import { Topping } from '../model/topping.model';
 
 @Component({
   selector: 'app-checkout',
@@ -22,14 +24,16 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   error = null;
   isSelectedRemoveOrder: string;
-  isSelectedEditOrder: string;
+  isSelectedEditOrder: Order;
   subtotal: number = 0;
   priceWithTax: number = 0;
   tax: number = 0;
   user: User;
+  toppings: Topping[] = [];
 
   constructor(private authService: AuthService, private orderService: OrderService,
-    private router: Router, private toastr: ToastrService, private checkoutService: CheckoutService) { }
+    private router: Router, private toastr: ToastrService, private checkoutService: CheckoutService,
+    private toppingService: ToppingService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -38,6 +42,9 @@ export class CheckoutComponent implements OnInit {
       if (resUser) {
         this.getOrders(resUser.id);
       }
+    });
+    this.toppingService.getToppings().subscribe(response => {
+      this.toppings = response;
     });
   }
 
@@ -53,6 +60,30 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  getOrderVegTopping(order: Order) {
+    if (order.vegToppings && order.vegToppings.length) {
+      let newToppings = [];
+      order.vegToppings.forEach(orderVegTpng => {
+        if(this.toppings.filter(tpng => tpng.id === orderVegTpng)[0]) {
+          newToppings.push(this.toppings.filter(tpng => tpng.id === orderVegTpng)[0]);
+        }
+      });
+      return newToppings;
+    }
+  }
+
+  getOrderNonVegTopping(order: Order) {
+    if (order.nonVegToppings && order.nonVegToppings.length) {
+      let newToppings = [];
+      order.nonVegToppings.forEach(orderNonVegTpng => {
+        if(this.toppings.filter(tpng => tpng.id === orderNonVegTpng)[0]) {
+          newToppings.push(this.toppings.filter(tpng => tpng.id === orderNonVegTpng)[0]);
+        }
+      });
+      return newToppings;
+    }
+  }
+
   removeSelectedOrder(key: string) {
     this.isSelectedRemoveOrder = key;
   }
@@ -66,12 +97,12 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  editSelectedOrder(key: string) {
-    this.isSelectedEditOrder = key;
+  editSelectedOrder(order: Order) {
+    this.isSelectedEditOrder = order;
   }
 
   editOrder() {
-    this.router.navigate(['/update-order', this.isSelectedEditOrder]);
+    this.router.navigate(['/update-order', this.isSelectedEditOrder.id]);
   }
 
   calculateTotalAndTax() {
@@ -97,6 +128,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   onCheckout() {
+    console.log(this.orders);
     this.orders.forEach(order => order.completed = true);
     const checkout: Checkout = {
       date: new Date(),

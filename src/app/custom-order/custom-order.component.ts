@@ -23,7 +23,7 @@ export class CustomOrderComponent implements OnInit {
   id: string;
   itemOption: MenuList[] = [];
   shopLocation:String;
-  allToppings: Topping[] = [];
+  toppings: Topping[] = [];
   editForm;
   selecteditemList: MenuList;
 
@@ -70,23 +70,13 @@ export class CustomOrderComponent implements OnInit {
       this.itemOption = types;
     });
     this.toppingService.getToppings().subscribe(tpngs => {
-      this.allToppings = tpngs;
+      this.toppings = tpngs;
     });
     
      if (this.id) {
       this.orderService.getOrder(this.id).subscribe(val => {
         this.editForm = {...val};
         this.form.patchValue(val);
-        // this.selecteditemList = {
-        //   item: this.editForm.item,
-        //   itemInfo: {
-        //     name: this.editForm.itemName,
-        //     price:this.editForm.price,
-        //     toppings: ['Cheese'],
-        //     type: this.editForm.itemType,
-        //     url: this.editForm.itemUrl,
-        //   }
-        // }
 
         if (val['vegToppings']) {
           val['vegToppings'].forEach(vegTopping => this.addVegToppings(vegTopping));
@@ -104,6 +94,7 @@ export class CustomOrderComponent implements OnInit {
   }
 
   listSelected(item) {
+    console.log(item);
     this.selecteditemList = item;
     this.removeAllTopping();
     if (item) {
@@ -115,10 +106,14 @@ export class CustomOrderComponent implements OnInit {
     }
 
     item.itemInfo.toppings.forEach(topping => {
-      if (this.allToppings.filter(tpng => tpng.name === topping && tpng.itemType === 'Veg')[0]) {
-        this.addVegToppings(topping);
+      if (this.toppings.filter(tpng => tpng.name === topping && tpng.itemType === 'Veg')[0]) {
+        if (this.toppings.filter(tpng => tpng.name === topping)[0]) {
+          this.addVegToppings(this.toppings.filter(tpng => tpng.name === topping)[0].id);
+        }
       } else {
-        this.addNonVegToppings(topping);
+        if (this.toppings.filter(tpng => tpng.name === topping)[0]) {
+          this.addNonVegToppings(this.toppings.filter(tpng => tpng.name === topping)[0].id);
+        }
       }
     });
     this.calculateToppingPrice();
@@ -129,26 +124,24 @@ export class CustomOrderComponent implements OnInit {
     let nonVegToppingsPrice = 0;
 
     if (this.form.value.vegToppings.length) {
-      const vegToppingsPriceList = this.allToppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(b=> b.price);
+      const vegToppingsPriceList = this.toppings.filter(a => this.form.value.vegToppings.includes(a.id)).map(b=> b.price);
       vegToppingsPrice = vegToppingsPriceList.length ? vegToppingsPriceList.reduce((a,b) => a + b) : 0;
     }
     if (this.form.value.nonVegToppings.length) {
-      const nonVegToppingsPriceList = this.allToppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(b => b.price);
+      const nonVegToppingsPriceList = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.id)).map(b => b.price);
       nonVegToppingsPrice = nonVegToppingsPriceList.length ? nonVegToppingsPriceList.reduce((a,b) => a + b) : 0;
     }
     const totalPrice = vegToppingsPrice + nonVegToppingsPrice + this.form.controls.price.value;
     this.form.controls.totalPrice.setValue(totalPrice);
   }
 
- 
-
   loadVegTopping() {
     // return this.toppings.filter(topping => topping.itemType === 'Veg' && !this.form.value.vegToppings.includes(topping.name));
-    return this.allToppings.filter(topping => topping.itemType === 'Veg');
+    return this.toppings.filter(topping => topping.itemType === 'Veg');
   }
 
-  addVegToppings(vegTopping?): void {
-    let topping = new FormControl(vegTopping ? vegTopping : '', Validators.required);
+  addVegToppings(vegTpngId?): void {
+    let topping = new FormControl(vegTpngId ? vegTpngId : '', Validators.required);
     (<FormArray>this.form.get('vegToppings')).push(topping);
   } 
 
@@ -164,11 +157,11 @@ export class CustomOrderComponent implements OnInit {
   }
 
   loadNonVegTopping() {
-    return this.allToppings.filter(topping => topping.itemType === 'Non-Veg');
+    return this.toppings.filter(topping => topping.itemType === 'Non-Veg');
   }
 
-  addNonVegToppings(nonVegTopping?): void{
-    let topping = new FormControl(nonVegTopping ? nonVegTopping : '', Validators.required);
+  addNonVegToppings(nonVegTpngId?): void{
+    let topping = new FormControl(nonVegTpngId ? nonVegTpngId : '', Validators.required);
     (<FormArray>this.form.get('nonVegToppings')).push(topping);
   }
 
@@ -242,9 +235,9 @@ export class CustomOrderComponent implements OnInit {
     // }
 
     // calculateToppingPrice() {
-      // const vegTopping = this.allToppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(a => a.price);
+      // const vegTopping = this.toppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(a => a.price);
       // const vegToppingPrice = vegTopping.length ? vegTopping.reduce((a,b) => a + b) : 0;
-      // const nonVegTopping = this.allToppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(a => a.price);
+      // const nonVegTopping = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(a => a.price);
       // const nonVegToppingPrice = nonVegTopping.length ? nonVegTopping.reduce((a,b) => a + b) : 0;
       // const totalPrice = this.form.value.price + vegToppingPrice + nonVegToppingPrice;
       // this.form.controls.totalPrice.setValue(totalPrice);

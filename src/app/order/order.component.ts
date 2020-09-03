@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { slideIn } from '../animation/animation';
 import { Checkout } from '../model/checkout.model';
+import { ToppingService } from '../service/topping.service';
+import { Topping } from '../model/topping.model';
+import { Order } from '../model/order.model';
 
 @Component({
   selector: 'app-order',
@@ -21,9 +24,11 @@ export class OrderComponent implements OnInit {
   isLoading = false;
   error = null;
   isSelectedRemoveOrder: string;
+  toppings: Topping[] = [];
 
   constructor(private orderService: OrderService, private checkoutService: CheckoutService,
-    private router: Router, private toastr: ToastrService, private authService: AuthService) {}
+    private router: Router, private toastr: ToastrService, private authService: AuthService,
+    private toppingService: ToppingService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -32,11 +37,13 @@ export class OrderComponent implements OnInit {
         this.getCheckouts(user.id);
       }
     });
+    this.toppingService.getToppings().subscribe(response => {
+      this.toppings = response;
+    });
   }
 
   getCheckouts(userId) {
     this.checkoutService.getCheckouts().subscribe(response => {
-      console.log(response);
       if (response) {
         this.checkouts = response.filter(res => res.userId === userId);
       }
@@ -65,6 +72,29 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  getOrderVegTopping(order: Order) {
+    if (order.vegToppings && order.vegToppings.length) {
+      let newToppings = [];
+      order.vegToppings.forEach(vegTpng => {
+        if (this.toppings.filter(tpng => tpng.id === vegTpng)[0]) {
+          newToppings.push(this.toppings.filter(tpng => tpng.id === vegTpng)[0]);
+        }
+      });
+      return newToppings;
+    }
+  }
+
+  getOrderNonVegTopping(order: Order) {
+    if (order.nonVegToppings && order.nonVegToppings.length) {
+      let newToppings = [];
+      order.nonVegToppings.forEach(nonVegTpng => {
+        if (this.toppings.filter(tpng => tpng.id === nonVegTpng)[0]) {
+          newToppings.push(this.toppings.filter(tpng => tpng.id === nonVegTpng)[0]);
+        }
+      });
+      return newToppings;
+    }
+  }
 }
 
 

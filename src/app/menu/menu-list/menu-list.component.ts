@@ -21,7 +21,7 @@ export class MenuListComponent implements OnInit {
   form;
   itemOption: MenuList[];
   shopLocation:String[] = ['Chicago', 'Dallas', 'San Fransisco', 'New York'];
-  allToppings: Topping[] = [];
+  toppings: Topping[] = [];
   selecteditemList: MenuList;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder,private menuListService: MenuListService, 
@@ -53,7 +53,7 @@ export class MenuListComponent implements OnInit {
     });
 
     this.toppingService.getToppings().subscribe(tpngs => {
-      this.allToppings = tpngs;
+      this.toppings = tpngs;
     });
     if(this.item) {
       this.form.controls.item.value = this.item;
@@ -97,10 +97,14 @@ export class MenuListComponent implements OnInit {
 
       if (item.itemInfo.toppings && item.itemInfo.toppings.length) {
         item.itemInfo.toppings.forEach(topping => {
-          if (this.allToppings.filter(tpng => tpng.name === topping && tpng.itemType === 'Veg')[0]) {
-            this.addVegToppings(topping);
+          if (this.toppings.filter(tpng => tpng.name === topping && tpng.itemType === 'Veg')[0]) {
+            if (this.toppings.filter(tpng => tpng.name === topping)[0]) {
+              this.addVegToppings(this.toppings.filter(tpng => tpng.name === topping)[0].id);
+            }
           } else {
-            this.addNonVegToppings(topping);
+            if (this.toppings.filter(tpng => tpng.name === topping)[0]) {
+              this.addNonVegToppings(this.toppings.filter(tpng => tpng.name === topping)[0].id);
+            }
           }
         });
         this.calculateToppingPrice();
@@ -108,13 +112,13 @@ export class MenuListComponent implements OnInit {
     }
   }
 
-  addVegToppings(vegTopping?): void {
-    let topping = new FormControl(vegTopping ? vegTopping : '');
+  addVegToppings(vegTpngId?): void {
+    let topping = new FormControl(vegTpngId ? vegTpngId : '');
     (<FormArray>this.form.get('vegToppings')).push(topping);
   } 
 
-  addNonVegToppings(nonVegTopping?): void{
-    let topping = new FormControl(nonVegTopping ? nonVegTopping : '');
+  addNonVegToppings(nonVegTpngId?): void{
+    let topping = new FormControl(nonVegTpngId ? nonVegTpngId : '');
     (<FormArray>this.form.get('nonVegToppings')).push(topping);
   }
 
@@ -128,11 +132,11 @@ export class MenuListComponent implements OnInit {
     let nonVegToppingsPrice = 0;
 
     if (this.form.value.vegToppings.length) {
-      const vegToppingsPriceList = this.allToppings.filter(a => this.form.value.vegToppings.includes(a.name)).map(b=> b.price);
+      const vegToppingsPriceList = this.toppings.filter(a => this.form.value.vegToppings.includes(a.id)).map(b=> b.price);
       vegToppingsPrice = vegToppingsPriceList.length ? vegToppingsPriceList.reduce((a,b) => a + b) : 0;
     }
     if (this.form.value.nonVegToppings.length) {
-      const nonVegToppingsPriceList = this.allToppings.filter(a => this.form.value.nonVegToppings.includes(a.name)).map(b => b.price);
+      const nonVegToppingsPriceList = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.id)).map(b => b.price);
       nonVegToppingsPrice = nonVegToppingsPriceList.length ? nonVegToppingsPriceList.reduce((a,b) => a + b) : 0;
     }
     const totalPrice = vegToppingsPrice + nonVegToppingsPrice + this.form.controls.price.value;
