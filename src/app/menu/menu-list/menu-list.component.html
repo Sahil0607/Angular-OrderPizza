@@ -1,25 +1,12 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="container" [@orderInAnimation]>
-        <div class="row mb-3">
-            <div class="form-group" class="col-sm-6">
-                <label for="location">Shoap Location: </label>
-                <select class="form-control" formControlName="shopLocation">
-                    <option value="">Select Location</option>
-                    <option *ngFor="let item of shopLocation" [value]="item">{{item}}</option>
-                </select>
-                <div class="form-text text-muted" *ngIf="!form.get('shopLocation').valid && form.get('shopLocation').touched">
-                    Please Select a valid Location
-                </div>
-            </div>
-        </div>
-        
         <!-- <button type="button" class="btn btn-success" (click)="onCreateItemTypes()">Upload Item Types</button> -->
         <!-- <button type="button" class="btn btn-success" (click)="onCreateItemTopping()">Upload Toppings</button> -->
         
-        <div class="itemList row" *ngIf="form.controls.shopLocation.value" [@orderInAnimation]>
+        <div class="itemList row" *ngIf="itemOption" [@orderInAnimation]>
             <div class="col-sm-9">
                 <ul class="row">
-                    <li class="col-sm-6" *ngFor="let itemObj of selectItem()"
+                    <li class="col-sm-6" *ngFor="let itemObj of getItems()"
                     [class.selected]="itemObj === selecteditemList" (click)="listSelected(itemObj)">  
                         <h5>{{itemObj.itemInfo.name}}</h5>
                         <img [src]="itemObj.itemInfo.url" />

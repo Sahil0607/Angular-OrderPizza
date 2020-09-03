@@ -1,43 +1,57 @@
-<div class="container">
-    <div *ngIf="isLoading && !error" style="text-align: center;">
-        <app-loading-spinner></app-loading-spinner>
-    </div>
-    <div *ngIf="!menu.length" class="row mt-3">
-        <div class="col">
-            <div class="alert alert-success" role="alert">
-                <h2>Menu Not Available</h2>
-                <p>Please try again later</p>
-                <a routerLink="/auth"><button class="btn btn-success pull-right">Login</button></a>
-            </div> 
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="container">
+        <div *ngIf="isLoading && !error" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
         </div>
-    </div>
-    <!-- <button type="button" class="btn btn-success" (click)="onCreateMenu()">Upload Menu</button> -->
-    <div class="alert alert-danger" *ngIf="error">
-        <h2>An Error Occured</h2>
-        <p>{{error}}</p>
-    </div>
-    <div class="row justify-content-center" *ngIf="menu.length">
-        <div class="col-sm-9">
-            <div class= "row mt-3">
-                <div class="col">
-                    <h3 class="heading text-center">Menu List</h3>
-                </div>
+        <div *ngIf="!menu.length" class="row mt-3">
+            <div class="col">
+                <div class="alert alert-success" role="alert">
+                    <h2>Menu Not Available</h2>
+                    <p>Please try again later</p>
+                    <a routerLink="/auth"><button class="btn btn-success pull-right">Login</button></a>
+                </div> 
             </div>
-            <hr>
-            <div>
-                <ul class="row">
-                    <li class="col-sm-5 menuList" *ngFor="let menuItem of menu; let i = index;" (click)="onSelectMenu(menuItem)" [@orderInAnimation]>
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <img class="menuImage" [src]="menuItem.Url" />
-                            </div>
-                            <div class="col-sm-5">
-                                <h5 class="menuTitle">{{ menuItem.item }}</h5>
+        </div>
+        <!-- <button type="button" class="btn btn-success" (click)="onCreateMenu()">Upload Menu</button> -->
+        <div class="alert alert-danger" *ngIf="error">
+            <h2>An Error Occured</h2>
+            <p>{{error}}</p>
+        </div>
+        <div class="row justify-content-center" *ngIf="menu.length">
+            <div class="col-sm-9">
+                <div class= "row mt-3">
+                    <div class="col">
+                        <h3 class="heading text-center">Menu List</h3>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <div class="row mb-3">
+                        <div class="form-group" class="col-sm-6">
+                            <label for="location">Shoap Location: </label>
+                            <select class="form-control" formControlName="shopLocation">
+                                <option value="">Select Location</option>
+                                <option *ngFor="let item of shopLocation" [value]="item">{{item}}</option>
+                            </select>
+                            <div class="form-text text-muted" *ngIf="!form.get('shopLocation').valid && form.get('shopLocation').touched">
+                                Please Select a valid Location
                             </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <ul class="row">
+                        <li class="col-sm-5 menuList" *ngFor="let menuItem of menu; let i = index;" (click)="onSelectMenu(menuItem)" [@orderInAnimation]>
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <img class="menuImage" [src]="menuItem.Url" />
+                                </div>
+                                <div class="col-sm-5">
+                                    <h5 class="menuTitle">{{ menuItem.item }}</h5>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

@@ -10,7 +10,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 
 const appRoute : Routes = [
   {path: 'menu', component: MenuComponent, canActivate :[AuthGuard]},
-  {path: 'menu-item/:item', component: MenuListComponent, canActivate :[AuthGuard]},
+  {path: 'menu-item/:item/:location', component: MenuListComponent, canActivate :[AuthGuard]},
   {path: 'custom-order/:item/:location', component: CustomOrderComponent, canActivate :[AuthGuard]},
   {path: 'update-order/:id', component: CustomOrderComponent, canActivate :[AuthGuard]},
   {path: 'checkout', component: CheckoutComponent, canActivate :[AuthGuard]},

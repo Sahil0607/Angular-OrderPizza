@@ -20,7 +20,6 @@ export class MenuListComponent implements OnInit {
   item: String;
   form;
   itemOption: MenuList[];
-  shopLocation:String[] = ['Chicago', 'Dallas', 'San Fransisco', 'New York'];
   toppings: Topping[] = [];
   selecteditemList: MenuList;
 
@@ -29,7 +28,6 @@ export class MenuListComponent implements OnInit {
     private orderService: OrderService, private toastr: ToastrService,) { }
 
   ngOnInit() {
-    this.route.params.subscribe( params => this.item = params.item );
     this.form = this.fb.group({
       userId: [''],
       item: ['', Validators.required],
@@ -46,6 +44,14 @@ export class MenuListComponent implements OnInit {
       completed: [false],
     });
 
+    this.route.params.subscribe( params => {
+      if(params.location) {
+        this.form.controls.shopLocation.setValue(params.location);
+      };
+      this.item = params.item;
+      this.form.controls.item.setValue(this.item);
+    });
+
     this.authService.user.subscribe(user => {
       if (user) {
         this.form.controls.userId.setValue(user.id);
@@ -55,10 +61,8 @@ export class MenuListComponent implements OnInit {
     this.toppingService.getToppings().subscribe(tpngs => {
       this.toppings = tpngs;
     });
-    if(this.item) {
-      this.form.controls.item.value = this.item;
-      this.fatchMenuList();
-    }
+
+    this.fatchMenuList();
   }
 
   fatchMenuList() {
@@ -67,7 +71,7 @@ export class MenuListComponent implements OnInit {
     });
   }
 
-  selectItem() {
+  getItems() {
     this.calculateToppingPrice();
     return this.itemOption.filter(itemObj => itemObj.item === this.form.controls.item.value);
   }
