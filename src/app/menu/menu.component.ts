@@ -18,9 +18,9 @@ export class MenuComponent implements OnInit {
   isLoading = false;
   error = null;
   form;
-  shopLocation:String[] = ['Chicago', 'Dallas', 'San Fransisco', 'New York'];
-  
-  constructor(private menuService: MenuService, private router: Router, private fb: FormBuilder,) { }
+  shopLocation: string[] = ['Chicago', 'Dallas', 'San Fransisco', 'New York'];
+
+  constructor(private menuService: MenuService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
     });
 
     this.menuService.getMenu().subscribe(menuitem => {
-      if(menuitem) {
+      if (menuitem) {
         this.menu = menuitem;
       }
       this.isLoading = false;

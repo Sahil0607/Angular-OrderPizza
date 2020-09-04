@@ -1,5 +1,5 @@
 export class Menu {
     public id?: string;
-    public item: String;
-    public Url: String;
+    public item: string;
+    public Url: string;
 }

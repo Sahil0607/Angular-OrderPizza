@@ -25,15 +25,15 @@ export class CheckoutComponent implements OnInit {
   error = null;
   isSelectedRemoveOrder: string;
   isSelectedEditOrder: Order;
-  subtotal: number = 0;
-  priceWithTax: number = 0;
-  tax: number = 0;
+  subtotal = 0;
+  priceWithTax = 0;
+  tax = 0;
   user: User;
   toppings: Topping[] = [];
 
-  constructor(private authService: AuthService, private orderService: OrderService,
-    private router: Router, private toastr: ToastrService, private checkoutService: CheckoutService,
-    private toppingService: ToppingService) { }
+  constructor(private authService: AuthService, private orderService: OrderService, private router: Router,
+     private toastr: ToastrService, private checkoutService: CheckoutService,
+     private toppingService: ToppingService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -62,9 +62,9 @@ export class CheckoutComponent implements OnInit {
 
   getOrderVegTopping(order: Order) {
     if (order.vegToppings && order.vegToppings.length) {
-      let newToppings = [];
+      const newToppings = [];
       order.vegToppings.forEach(orderVegTpng => {
-        if(this.toppings.filter(tpng => tpng.id === orderVegTpng)[0]) {
+        if (this.toppings.filter(tpng => tpng.id === orderVegTpng)[0]) {
           newToppings.push(this.toppings.filter(tpng => tpng.id === orderVegTpng)[0]);
         }
       });
@@ -74,9 +74,9 @@ export class CheckoutComponent implements OnInit {
 
   getOrderNonVegTopping(order: Order) {
     if (order.nonVegToppings && order.nonVegToppings.length) {
-      let newToppings = [];
+      const newToppings = [];
       order.nonVegToppings.forEach(orderNonVegTpng => {
-        if(this.toppings.filter(tpng => tpng.id === orderNonVegTpng)[0]) {
+        if (this.toppings.filter(tpng => tpng.id === orderNonVegTpng)[0]) {
           newToppings.push(this.toppings.filter(tpng => tpng.id === orderNonVegTpng)[0]);
         }
       });
@@ -90,7 +90,7 @@ export class CheckoutComponent implements OnInit {
 
   async removeOrder() {
     await this.orderService.deleteOrder(this.isSelectedRemoveOrder).subscribe(() => {
-      let removeIndex = this.orders.map(item => item.id).indexOf(this.isSelectedRemoveOrder);
+      const removeIndex = this.orders.map(item => item.id).indexOf(this.isSelectedRemoveOrder);
       this.orders.splice(removeIndex, 1);
       this.toastr.error('Deleted Successfully', 'Order Reg.');
       // this.toastr.warning('Deleted Successfully', 'Order Reg.');
@@ -107,7 +107,7 @@ export class CheckoutComponent implements OnInit {
 
   calculateTotalAndTax() {
     if (this.orders && this.orders.length) {
-      this.subtotal = this.orders.map(order=> order.totalPrice).reduce((a,b) => a + b);
+      this.subtotal = this.orders.map(order => order.totalPrice).reduce((a, b) => a + b);
       this.tax = (this.subtotal * 15) / 100;
       this.priceWithTax = this.subtotal + this.tax;
     }
@@ -138,7 +138,7 @@ export class CheckoutComponent implements OnInit {
       total: this.priceWithTax,
       orders: this.orders,
     };
-    
+
     this.checkoutService.createCheckout(checkout).subscribe((res) => {
       if (res) {
         this.orders.forEach(order => {
@@ -155,9 +155,9 @@ export class CheckoutComponent implements OnInit {
             totalPrice: order.totalPrice,
             orderDate: order.orderDate,
             completed: true,
-          }
-          this.orderService.updateOrder(order.id, newOrder).subscribe(res => {
-            console.log(res)
+          };
+          this.orderService.updateOrder(order.id, newOrder).subscribe(response => {
+            console.log(response);
           });
         });
         this.showSuccess();

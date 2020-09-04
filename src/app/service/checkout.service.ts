@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class CheckoutService {
 
-  constructor(private http: HttpClient, private db: AngularFireDatabase,) {}
+  constructor(private http: HttpClient, private db: AngularFireDatabase) {}
 
 
   createCheckout(checkout: Checkout) {
@@ -29,16 +29,16 @@ export class CheckoutService {
       const getCheckouts: Checkout[] = [];
       for (const key in responseData) {
         if (responseData.hasOwnProperty(key)) {
-          getCheckouts.push({ ...responseData[key], id: key });  // ... use for copy nested data 
+          getCheckouts.push({ ...responseData[key], id: key });  // ... use for copy nested data
         }
       }
-      return getCheckouts; 
+      return getCheckouts;
     }));
   }
 
   deleteCheckout(id: string){
     return this.http.delete('https://order-pizza-b438c.firebaseio.com/Checkouts/' + id + '.json');
-    
+
     // return this.db.object('/PizzaOrder/' + id).remove();
   }
 

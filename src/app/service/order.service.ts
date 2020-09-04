@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
 })
 export class OrderService {
 
-  constructor(private http: HttpClient, private db: AngularFireDatabase,) {}
+  constructor(private http: HttpClient, private db: AngularFireDatabase) {}
 
-  createOrder(order: Order){  
+  createOrder(order: Order){
     return this.http.post('https://order-pizza-b438c.firebaseio.com/Orders.json', order);
   }
 
@@ -32,16 +32,15 @@ export class OrderService {
       const getOrders: Order[] = [];
       for (const key in responseData) {
         if (responseData.hasOwnProperty(key)) {
-          getOrders.push({ ...responseData[key], id: key });  // ... use for copy nested data 
+          getOrders.push({ ...responseData[key], id: key });  // ... use for copy nested data
         }
       }
-      return getOrders; 
+      return getOrders;
     }));
   }
 
   deleteOrder(id: string){
     return this.http.delete('https://order-pizza-b438c.firebaseio.com/Orders/' + id + '.json');
-    
     // return this.db.object('/PizzaOrder/' + id).remove();
   }
 

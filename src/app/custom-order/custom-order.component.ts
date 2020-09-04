@@ -18,19 +18,18 @@ import { MenuList } from '../model/menu-list.model';
 })
 
 export class CustomOrderComponent implements OnInit {
-  item: String;
+  item: string;
   form;
   id: string;
   itemOption: MenuList[] = [];
-  shopLocation:String;
+  shopLocation: string;
   toppings: Topping[] = [];
   editForm;
   selecteditemList: MenuList;
 
-  constructor(private fb: FormBuilder, private menuListService: MenuListService, 
-    private toppingService: ToppingService, private router: Router,
-    private orderService: OrderService,
-    private route: ActivatedRoute, private toastr: ToastrService, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private menuListService: MenuListService,
+    private toppingService: ToppingService, private router: Router, private authService: AuthService,
+    private orderService: OrderService, private route: ActivatedRoute, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -58,7 +57,7 @@ export class CustomOrderComponent implements OnInit {
     this.route.params.subscribe( params => this.id = params.id );
     this.route.params.subscribe( params => this.item = params.item );
     this.route.params.subscribe( params => this.shopLocation = params.location );
-    
+
     if (this.item && this.shopLocation) {
       this.form.controls.item.setValue(this.item);
       this.form.controls.shopLocation.setValue(this.shopLocation);
@@ -72,17 +71,18 @@ export class CustomOrderComponent implements OnInit {
     this.toppingService.getToppings().subscribe(tpngs => {
       this.toppings = tpngs;
     });
-    
-     if (this.id) {
+
+    if (this.id) {
       this.orderService.getOrder(this.id).subscribe(val => {
         this.editForm = {...val};
         this.form.patchValue(val);
 
-        if (val['vegToppings']) {
-          val['vegToppings'].forEach(vegTopping => this.addVegToppings(vegTopping));
+        console.log(this.editForm);
+        if (this.editForm.vegToppings) {
+          this.editForm.vegToppings.forEach(vegTopping => this.addVegToppings(vegTopping));
         }
-        if (val['nonVegToppings']) {
-          val['nonVegToppings'].forEach(nonVegTopping => this.addNonVegToppings(nonVegTopping));
+        if (this.editForm.nonVegToppings) {
+          this.editForm.nonVegToppings.forEach(nonVegTopping => this.addNonVegToppings(nonVegTopping));
         }
       });
      }
@@ -124,12 +124,12 @@ export class CustomOrderComponent implements OnInit {
     let nonVegToppingsPrice = 0;
 
     if (this.form.value.vegToppings.length) {
-      const vegToppingsPriceList = this.toppings.filter(a => this.form.value.vegToppings.includes(a.id)).map(b=> b.price);
-      vegToppingsPrice = vegToppingsPriceList.length ? vegToppingsPriceList.reduce((a,b) => a + b) : 0;
+      const vegToppingsPriceList = this.toppings.filter(a => this.form.value.vegToppings.includes(a.id)).map(b => b.price);
+      vegToppingsPrice = vegToppingsPriceList.length ? vegToppingsPriceList.reduce((a, b) => a + b) : 0;
     }
     if (this.form.value.nonVegToppings.length) {
       const nonVegToppingsPriceList = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.id)).map(b => b.price);
-      nonVegToppingsPrice = nonVegToppingsPriceList.length ? nonVegToppingsPriceList.reduce((a,b) => a + b) : 0;
+      nonVegToppingsPrice = nonVegToppingsPriceList.length ? nonVegToppingsPriceList.reduce((a, b) => a + b) : 0;
     }
     const totalPrice = vegToppingsPrice + nonVegToppingsPrice + this.form.controls.price.value;
     this.form.controls.totalPrice.setValue(totalPrice);
@@ -141,18 +141,22 @@ export class CustomOrderComponent implements OnInit {
   }
 
   addVegToppings(vegTpngId?): void {
-    let topping = new FormControl(vegTpngId ? vegTpngId : '', Validators.required);
-    (<FormArray>this.form.get('vegToppings')).push(topping);
-  } 
+    const topping = new FormControl(vegTpngId ? vegTpngId : '', Validators.required);
+    const vegTopping = this.form.get('vegToppings') as FormArray;
+    vegTopping.push(topping);
+  }
 
   removeVegTopping(index) {
-    (<FormArray>this.form.get('vegToppings')).removeAt(index);
+    const vegTopping = this.form.get('vegToppings') as FormArray;
+    vegTopping.removeAt(index);
     this.calculateToppingPrice();
   }
 
   removeAllTopping() {
-    (<FormArray>this.form.get('vegToppings')).clear();
-    (<FormArray>this.form.get('nonVegToppings')).clear();
+    const vegTopping = this.form.get('vegToppings') as FormArray;
+    const nonVegTopping = this.form.get('nonVegToppings') as FormArray;
+    vegTopping.clear();
+    nonVegTopping.clear();
     this.calculateToppingPrice();
   }
 
@@ -161,18 +165,20 @@ export class CustomOrderComponent implements OnInit {
   }
 
   addNonVegToppings(nonVegTpngId?): void{
-    let topping = new FormControl(nonVegTpngId ? nonVegTpngId : '', Validators.required);
-    (<FormArray>this.form.get('nonVegToppings')).push(topping);
+    const topping = new FormControl(nonVegTpngId ? nonVegTpngId : '', Validators.required);
+    const nonVegTopping = this.form.get('nonVegToppings') as FormArray;
+    nonVegTopping.push(topping);
   }
 
   removeNonVegTopping(index) {
-    (<FormArray>this.form.get('nonVegToppings')).removeAt(index);
+    const nonVegArray = this.form.get('nonVegToppings') as FormArray;
+    nonVegArray.removeAt(index);
     this.calculateToppingPrice();
   }
 
   showSuccess() {
     this.toastr.success('Submitted Succesfully', 'Order Register');
-  } 
+  }
 
   navigateOrder() {
     this.router.navigateByUrl('/checkout');
@@ -181,7 +187,7 @@ export class CustomOrderComponent implements OnInit {
   onSubmit() {
     if (this.form.value) {
       this.calculateToppingPrice();
-      
+
       if (!this.id) {
         this.orderService.createOrder(this.form.value).subscribe(res => {
           if (res) {
@@ -193,7 +199,7 @@ export class CustomOrderComponent implements OnInit {
         this.orderService.updateOrder(this.id, this.form.value).subscribe(res => {
           if (res) {
             this.showSuccess();
-           this.navigateOrder();
+            this.navigateOrder();
           }
         });
       }

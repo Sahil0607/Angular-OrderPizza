@@ -27,7 +27,7 @@ export class ToppingService {
       { name: 'Jalapeno', itemType: 'Veg', selected: false, price: 2 },
       { name: 'Mushroom', itemType: 'Veg', selected: false, price: 3 },
       { name: 'Paneer', itemType: 'Veg', selected: false, price: 4 }
-    ]
+    ];
   }
 
   getToppings() {
@@ -36,10 +36,10 @@ export class ToppingService {
       const getToppings: Topping[] = [];
       for (const key in responseData) {
         if (responseData.hasOwnProperty(key)) {
-          getToppings.push({ ...responseData[key], id: key });  // ... use for copy nested data 
+          getToppings.push({ ...responseData[key], id: key });  // ... use for copy nested data
         }
       }
-      return getToppings; 
+      return getToppings;
     }));
   }
 
@@ -48,7 +48,7 @@ export class ToppingService {
     // this.http.delete('https://order-pizza-b438c.firebaseio.com/Toppings.json');
     toppings.forEach(topping => {
       return this.http.post('https://order-pizza-b438c.firebaseio.com/Toppings.json', topping)
-      .subscribe(tpng => console.log(tpng))
+      .subscribe(tpng => console.log(tpng));
     });
   }
 }

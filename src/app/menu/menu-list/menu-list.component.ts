@@ -17,15 +17,15 @@ import { MenuList } from 'src/app/model/menu-list.model';
   animations: [ slideIn ],
 })
 export class MenuListComponent implements OnInit {
-  item: String;
+  item: string;
   form;
   itemOption: MenuList[];
   toppings: Topping[] = [];
   selecteditemList: MenuList;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder,private menuListService: MenuListService, 
-    private toppingService: ToppingService, private authService: AuthService, private router: Router,
-    private orderService: OrderService, private toastr: ToastrService,) { }
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router,
+    private menuListService: MenuListService, private toppingService: ToppingService,
+    private authService: AuthService, private orderService: OrderService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -45,9 +45,9 @@ export class MenuListComponent implements OnInit {
     });
 
     this.route.params.subscribe( params => {
-      if(params.location) {
+      if (params.location) {
         this.form.controls.shopLocation.setValue(params.location);
-      };
+      }
       this.item = params.item;
       this.form.controls.item.setValue(this.item);
     });
@@ -91,7 +91,7 @@ export class MenuListComponent implements OnInit {
     this.selecteditemList = item;
     if (item === 'customItem') {
       // this.router.navigateByUrl('/custom-order');
-      this.router.navigate(['/custom-order',this.item, this.form.value.shopLocation ]);
+      this.router.navigate(['/custom-order', this.item, this.form.value.shopLocation ]);
     } else {
       this.form.controls.itemType.setValue(item.itemInfo.type);
       this.form.controls.itemName.setValue(item.itemInfo.name);
@@ -117,18 +117,22 @@ export class MenuListComponent implements OnInit {
   }
 
   addVegToppings(vegTpngId?): void {
-    let topping = new FormControl(vegTpngId ? vegTpngId : '');
-    (<FormArray>this.form.get('vegToppings')).push(topping);
-  } 
+    const topping = new FormControl(vegTpngId ? vegTpngId : '');
+    const vegTopping = this.form.get('vegToppings') as FormArray;
+    vegTopping.push(topping);
+  }
 
   addNonVegToppings(nonVegTpngId?): void{
-    let topping = new FormControl(nonVegTpngId ? nonVegTpngId : '');
-    (<FormArray>this.form.get('nonVegToppings')).push(topping);
+    const topping = new FormControl(nonVegTpngId ? nonVegTpngId : '');
+    const nonVegTopping = this.form.get('nonVegToppings') as FormArray;
+    nonVegTopping.push(topping);
   }
 
   removeAllTopping() {
-    (<FormArray>this.form.get('vegToppings')).clear();
-    (<FormArray>this.form.get('nonVegToppings')).clear();
+    const vegTopping = this.form.get('vegToppings') as FormArray;
+    const nonVegTopping = this.form.get('nonVegToppings') as FormArray;
+    vegTopping.clear();
+    nonVegTopping.clear();
   }
 
   calculateToppingPrice() {
@@ -136,12 +140,12 @@ export class MenuListComponent implements OnInit {
     let nonVegToppingsPrice = 0;
 
     if (this.form.value.vegToppings.length) {
-      const vegToppingsPriceList = this.toppings.filter(a => this.form.value.vegToppings.includes(a.id)).map(b=> b.price);
-      vegToppingsPrice = vegToppingsPriceList.length ? vegToppingsPriceList.reduce((a,b) => a + b) : 0;
+      const vegToppingsPriceList = this.toppings.filter(a => this.form.value.vegToppings.includes(a.id)).map(b => b.price);
+      vegToppingsPrice = vegToppingsPriceList.length ? vegToppingsPriceList.reduce((a, b) => a + b) : 0;
     }
     if (this.form.value.nonVegToppings.length) {
       const nonVegToppingsPriceList = this.toppings.filter(a => this.form.value.nonVegToppings.includes(a.id)).map(b => b.price);
-      nonVegToppingsPrice = nonVegToppingsPriceList.length ? nonVegToppingsPriceList.reduce((a,b) => a + b) : 0;
+      nonVegToppingsPrice = nonVegToppingsPriceList.length ? nonVegToppingsPriceList.reduce((a, b) => a + b) : 0;
     }
     const totalPrice = vegToppingsPrice + nonVegToppingsPrice + this.form.controls.price.value;
     this.form.controls.totalPrice.setValue(totalPrice);

@@ -7,7 +7,7 @@ import { take, exhaustMap } from 'rxjs/operators';
 export class AuthInterceptorService implements HttpInterceptor {
   // Interceptor is middleware. When send or receive req. it will pass through this service.
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return this.authService.user.pipe(take(1), exhaustMap(user => {
@@ -29,8 +29,8 @@ export class AuthInterceptorService implements HttpInterceptor {
   }
 }
 
-// Anyother cases(Not firebase) we add token in header Ex: 
+// Anyother cases(Not firebase) we add token in header Ex:
 // const authReq = req.clone({
 //   headers: req.headers.set('Authorization', /* here you fetch your jwt */this.getToken())
 //     .append('Access-Control-Allow-Origin', '*')
-// }); 
+// });

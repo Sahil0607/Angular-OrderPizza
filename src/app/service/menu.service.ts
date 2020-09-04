@@ -7,17 +7,17 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MenuService {
-constructor(private http: HttpClient,) {}
+constructor(private http: HttpClient) {}
 
   getMenuOption() {
     return [
-      { item: 'Pizza', Url:'./../../assets/menu_image/menu_pizza.jpeg'},
-      { item: 'Chicken', Url:'./../../assets/menu_image/menu_chicken.jpeg'},
-      { item: 'Pasta', Url:'./../../assets/menu_image/menu_pasta.jpeg'},
-      { item: 'Sides', Url:'./../../assets/menu_image/menu_sides.jpeg'},
-      { item: 'Desserts', Url:'./../../assets/menu_image/menu_dessert.jpeg'},
-      { item: 'Drinks', Url:'./../../assets/menu_image/menu_drink.jpeg'}
-    ]
+      { item: 'Pizza', Url: './../../assets/menu_image/menu_pizza.jpeg'},
+      { item: 'Chicken', Url: './../../assets/menu_image/menu_chicken.jpeg'},
+      { item: 'Pasta', Url: './../../assets/menu_image/menu_pasta.jpeg'},
+      { item: 'Sides', Url: './../../assets/menu_image/menu_sides.jpeg'},
+      { item: 'Desserts', Url: './../../assets/menu_image/menu_dessert.jpeg'},
+      { item: 'Drinks', Url: './../../assets/menu_image/menu_drink.jpeg'}
+    ];
   }
 
   getMenu() {
@@ -26,10 +26,10 @@ constructor(private http: HttpClient,) {}
       const menu: Menu[] = [];
       for (const key in responseData) {
         if (responseData.hasOwnProperty(key)) {
-          menu.push({ ...responseData[key], id: key });  // ... use for copy nested data 
+          menu.push({ ...responseData[key], id: key });  // ... use for copy nested data
         }
       }
-      return menu; 
+      return menu;
     }));
   }
 
@@ -38,7 +38,7 @@ constructor(private http: HttpClient,) {}
     // this.http.delete('https://order-pizza-b438c.firebaseio.com/PizzaTypes.json');
     menu.forEach(menuItem => {
       return this.http.post('https://order-pizza-b438c.firebaseio.com/Menu.json', menuItem)
-      .subscribe(type => console.log(type))
+      .subscribe(type => console.log(type));
     });
   }
 }

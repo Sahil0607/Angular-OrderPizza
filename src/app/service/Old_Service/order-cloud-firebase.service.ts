@@ -23,15 +23,15 @@ export class OrderCloudFirebaseService {
   }
 
   getOrder(id){
-    return this.firestore.collection('PizzaOrders').doc(id).ref.get().then(function(doc) {
+    return this.firestore.collection('PizzaOrders').doc(id).ref.get().then((doc) => {
       if (doc.exists) {
         return doc.data();
       } else {
-        console.log("No such document!");
+        console.log('No such document!');
       }
-    }).catch(function(error) {
-      console.log("Error getting document:", error);
-    });;
+    }).catch((error) => {
+      console.log('Error getting document:', error);
+    });
   }
 
   getOrderList(){

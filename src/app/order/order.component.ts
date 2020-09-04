@@ -26,8 +26,7 @@ export class OrderComponent implements OnInit {
   isSelectedRemoveOrder: string;
   toppings: Topping[] = [];
 
-  constructor(private orderService: OrderService, private checkoutService: CheckoutService,
-    private router: Router, private toastr: ToastrService, private authService: AuthService,
+  constructor( private checkoutService: CheckoutService, private toastr: ToastrService, private authService: AuthService,
     private toppingService: ToppingService) {}
 
   ngOnInit(): void {
@@ -65,7 +64,7 @@ export class OrderComponent implements OnInit {
 
   async removeOrder() {
     await this.checkoutService.deleteCheckout(this.isSelectedRemoveOrder).subscribe(() => {
-      let removeIndex = this.checkouts.map(item => item.id).indexOf(this.isSelectedRemoveOrder);
+      const removeIndex = this.checkouts.map(item => item.id).indexOf(this.isSelectedRemoveOrder);
       this.checkouts.splice(removeIndex, 1);
       this.toastr.error('Deleted Successfully', 'Order Reg.');
       // this.toastr.warning('Deleted Successfully', 'Order Reg.');
@@ -74,7 +73,7 @@ export class OrderComponent implements OnInit {
 
   getOrderVegTopping(order: Order) {
     if (order.vegToppings && order.vegToppings.length) {
-      let newToppings = [];
+      const newToppings = [];
       order.vegToppings.forEach(vegTpng => {
         if (this.toppings.filter(tpng => tpng.id === vegTpng)[0]) {
           newToppings.push(this.toppings.filter(tpng => tpng.id === vegTpng)[0]);
@@ -86,7 +85,7 @@ export class OrderComponent implements OnInit {
 
   getOrderNonVegTopping(order: Order) {
     if (order.nonVegToppings && order.nonVegToppings.length) {
-      let newToppings = [];
+      const newToppings = [];
       order.nonVegToppings.forEach(nonVegTpng => {
         if (this.toppings.filter(tpng => tpng.id === nonVegTpng)[0]) {
           newToppings.push(this.toppings.filter(tpng => tpng.id === nonVegTpng)[0]);
@@ -108,10 +107,9 @@ export class OrderComponent implements OnInit {
 //         id: item.payload.doc.id,
 //         ...(item.payload.doc.data() as Order),
 //       } as Order
-//     }) 
+//     })
 //   });
 
-  
 //   Observable Used
 //   this.messageService.getMessage().subscribe(msg => {
 //     if (msg !== {}) {

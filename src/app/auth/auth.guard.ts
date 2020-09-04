@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, router: RouterStateSnapshot): boolean | UrlTree |
      Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
         return this.authService.user.pipe(take(1), map(user => {
-            // convert false to undefined ot null 
+            // convert false to undefined ot null
             // convert true to value, objn string or any value
             const isAuth = !!user;   // return boolean (if user then isAuth true else false)
             if (isAuth) {

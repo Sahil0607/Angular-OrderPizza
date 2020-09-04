@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLoading = false;
-  error:string = null;
+  error: string = null;
 
   constructor(private authService: AuthService, private router: Router) { }
   ngOnInit(): void {}
@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
-      return 
+      return;
     }
 
     let authObs: Observable<AuthResponseData>;
