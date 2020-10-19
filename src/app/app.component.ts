@@ -13,3 +13,9 @@ export class AppComponent implements OnInit{
     this.authService.autoLogin();
   }
 }
+
+// Things to do
+// 0. Take menu-list out of folder
+// 1. Make each module for each component
+// 2. Add lazy load module with new way.
+// 3. Add Universal Angular
