@@ -26,8 +26,8 @@ export class OrderComponent implements OnInit {
   isSelectedRemoveOrder: string;
   toppings: Topping[] = [];
 
-  constructor( private checkoutService: CheckoutService, private toastr: ToastrService, private authService: AuthService,
-    private toppingService: ToppingService) {}
+  constructor(private checkoutService: CheckoutService, private toastr: ToastrService, private authService: AuthService,
+              private toppingService: ToppingService) {}
 
   ngOnInit(): void {
     this.isLoading = true;

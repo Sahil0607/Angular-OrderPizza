@@ -32,8 +32,8 @@ export class CheckoutComponent implements OnInit {
   toppings: Topping[] = [];
 
   constructor(private authService: AuthService, private orderService: OrderService, private router: Router,
-     private toastr: ToastrService, private checkoutService: CheckoutService,
-     private toppingService: ToppingService) { }
+              private toastr: ToastrService, private checkoutService: CheckoutService,
+              private toppingService: ToppingService) { }
 
   ngOnInit() {
     this.isLoading = true;

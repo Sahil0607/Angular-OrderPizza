@@ -24,8 +24,8 @@ export class MenuListComponent implements OnInit {
   selecteditemList: MenuList;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private router: Router,
-    private menuListService: MenuListService, private toppingService: ToppingService,
-    private authService: AuthService, private orderService: OrderService, private toastr: ToastrService) { }
+              private menuListService: MenuListService, private toppingService: ToppingService,
+              private authService: AuthService, private orderService: OrderService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.form = this.fb.group({

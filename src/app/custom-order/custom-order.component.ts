@@ -28,8 +28,8 @@ export class CustomOrderComponent implements OnInit {
   selecteditemList: MenuList;
 
   constructor(private fb: FormBuilder, private menuListService: MenuListService,
-    private toppingService: ToppingService, private router: Router, private authService: AuthService,
-    private orderService: OrderService, private route: ActivatedRoute, private toastr: ToastrService) {}
+              private toppingService: ToppingService, private router: Router, private authService: AuthService,
+              private orderService: OrderService, private route: ActivatedRoute, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -62,7 +62,6 @@ export class CustomOrderComponent implements OnInit {
       this.form.controls.item.setValue(this.item);
       this.form.controls.shopLocation.setValue(this.shopLocation);
     }
-    // Hello
 
     // this.pizzaOption = this.itemListService.getPizzaOption();
     // this.toppings = this.pizzaTopingsService.getPizzaToppings();
