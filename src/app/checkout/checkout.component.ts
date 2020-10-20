@@ -154,7 +154,7 @@ export class CheckoutComponent implements OnInit {
             nonVegToppings: order.nonVegToppings,
             totalPrice: order.totalPrice,
             orderDate: order.orderDate,
-            completed: true,
+            completed: true,    // check completed in order.completed
           };
           this.orderService.updateOrder(order.id, newOrder).subscribe(response => {
             console.log(response);
