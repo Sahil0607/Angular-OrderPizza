@@ -11,8 +11,9 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return this.authService.user.pipe(take(1), exhaustMap(user => {
-      // exhaustMap will wait to execute first observable then it will execute
       // take will take only 1 output then unsubscribe
+      // exhaustMap will wait to execute first observable then it will execute
+
       if (!user) {
         return next.handle(req);   // Not add token if user not available (for signin and signup)
       }
